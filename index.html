@@ -8,19 +8,19 @@
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#f5f7fb;color:#172033}.wrap{max-width:1100px;margin:auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:16px}.brand{display:flex;align-items:center;gap:12px}.logo{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;background:#172033;color:white;font-size:30px}h1{font-size:clamp(27px,5vw,44px);margin:0;letter-spacing:-1px}.sub{color:#64748b;margin-top:2px}button{border:0;border-radius:15px;padding:12px 18px;font-weight:800;font-size:16px;cursor:pointer;background:#172033;color:white}button.secondary{background:#e9eef5;color:#172033}.activities{display:flex;gap:10px;overflow:auto;padding:4px 0 14px}.activity{min-width:170px;border:2px solid transparent;border-radius:18px;padding:12px;background:white;color:#172033;cursor:pointer;text-align:left;box-shadow:0 3px 12px #0001;appearance:none;-webkit-appearance:none}.activity.active{border-color:#172033}.activity .ico{font-size:30px}.activity b{display:block;margin-top:4px}.activity small{color:#64748b}.card{background:white;border:1px solid #dfe6ef;border-radius:24px;padding:17px;box-shadow:0 5px 20px #0001}.hud{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.stat{font-size:13px;color:#64748b;font-weight:700}.big{font-size:29px;font-weight:900}.bar{height:24px;background:#e7edf4;border-radius:99px;overflow:hidden}.fill{height:100%;width:0;background:#59a66d;transition:width .12s}.sound{height:15px;background:#e7edf4;border-radius:99px;overflow:hidden;margin-top:7px}.soundfill{height:100%;width:0;transition:width .06s}.stage{position:relative;overflow:hidden;border-radius:22px;min-height:440px;border:1px solid #d7e0e8}.scene{position:absolute;inset:0;overflow:hidden}.scene.hidden{display:none}
 
 /* NINJA */
-.ninjaScene{background:linear-gradient(#10182f 0 55%,#173d2a 55%)}.moon{position:absolute;right:8%;top:7%;font-size:62px}.star{position:absolute;color:#fff;font-size:18px;opacity:.85}.s1{left:12%;top:14%}.s2{left:38%;top:8%}.s3{left:65%;top:20%}.tree{position:absolute;bottom:22%;font-size:65px}.t1{left:5%}.t2{left:28%}.t3{right:22%}.t4{right:4%}.path{position:absolute;left:0;right:0;bottom:17%;height:78px;background:#d7bf95}.ninjaChar{position:absolute;left:7%;bottom:20%;font-size:66px;transition:left .16s linear;z-index:2;filter:drop-shadow(0 5px 2px #0002)}.goal{position:absolute;right:7%;bottom:17%;font-size:65px;z-index:2}
+.ninjaScene{background:linear-gradient(#10182f 0 55%,#173d2a 55%)}.moon{position:absolute;right:8%;top:7%;font-size:62px}.star{position:absolute;color:#fff;font-size:18px;opacity:.85}.s1{left:12%;top:14%}.s2{left:38%;top:8%}.s3{left:65%;top:20%}.tree{position:absolute;bottom:22%;font-size:65px}.t1{left:5%}.t2{left:28%}.t3{right:22%}.t4{right:4%}.routeSvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.routeLine{fill:none;stroke:#d7bf95;stroke-width:58;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 5px 2px #0002)}.routeEdge{fill:none;stroke:#a98b5f;stroke-width:4;stroke-dasharray:10 12;opacity:.8}.ninjaChar{position:absolute;left:7%;top:72%;font-size:66px;transition:left .16s linear,top .16s linear,transform .16s linear;z-index:3;filter:drop-shadow(0 5px 2px #0002)}.goal{position:absolute;right:5%;top:10%;font-size:65px;z-index:3}
 
 /* SPAZIO */
-.spaceScene{background:radial-gradient(circle at 75% 20%,#293f92 0,#10183e 35%,#060a20 80%)}.planet{position:absolute;right:7%;top:6%;font-size:76px}.stars{position:absolute;color:#fff;font-size:22px}.ss1{left:10%;top:12%}.ss2{left:45%;top:20%}.ss3{right:22%;top:45%}.ss4{left:25%;top:65%}.rocket{position:absolute;left:13%;bottom:8%;font-size:62px;transition:bottom .16s linear,transform .16s linear;z-index:3;filter:drop-shadow(0 5px 3px #0005)}.orbit{position:absolute;right:3%;top:2%;width:160px;height:160px;border:2px dashed #ffffff55;border-radius:50%}.spaceTrail{position:absolute;left:17%;bottom:0;width:5px;height:92%;background:linear-gradient(transparent,#7bd3ff88);border-radius:99px}
+.spaceScene{background:radial-gradient(circle at 75% 20%,#293f92 0,#10183e 35%,#060a20 80%)}.planet{position:absolute;right:6%;top:7%;font-size:76px;z-index:4}.stars{position:absolute;color:#fff;font-size:22px}.ss1{left:10%;top:12%}.ss2{left:45%;top:20%}.ss3{right:22%;top:45%}.ss4{left:25%;top:65%}.rocket{position:absolute;left:11%;top:84%;font-size:62px;transition:left .16s linear,top .16s linear,transform .16s linear;z-index:5;filter:drop-shadow(0 5px 3px #0005)}.orbit{position:absolute;right:3%;top:2%;width:160px;height:160px;border:2px dashed #ffffff55;border-radius:50%}.spaceTrail{position:absolute;left:12%;top:10%;width:76%;height:82%;border:3px dashed #7bd3ff66;border-radius:50%;transform:rotate(-20deg);pointer-events:none}
 
 /* FORESTA */
-.forestScene{background:linear-gradient(#9ed8f2 0 48%,#4d8c50 48%)}.sun{position:absolute;right:9%;top:7%;font-size:64px}.hill{position:absolute;bottom:20%;width:70%;height:150px;background:#356c3b;border-radius:50% 50% 0 0}.hill.h1{left:-20%}.hill.h2{right:-25%;background:#2f6135}.forestTree{position:absolute;font-size:62px;bottom:21%}.ft1{left:4%}.ft2{left:23%}.ft3{right:24%}.ft4{right:5%}.forestPath{position:absolute;left:7%;right:7%;bottom:12%;height:105px;background:#cbb078;clip-path:polygon(0 55%,18% 20%,36% 65%,55% 28%,74% 68%,100% 35%,100% 100%,0 100%);opacity:.95}.fox{position:absolute;left:7%;bottom:20%;font-size:60px;z-index:3;transition:left .16s linear,transform .16s linear}.home{position:absolute;right:5%;bottom:19%;font-size:70px;z-index:3}.rock{position:absolute;font-size:38px;bottom:29%}.r1{left:35%}.r2{left:63%}
+.forestScene{background:linear-gradient(#9ed8f2 0 48%,#4d8c50 48%)}.sun{position:absolute;right:9%;top:7%;font-size:64px}.hill{position:absolute;bottom:20%;width:70%;height:150px;background:#356c3b;border-radius:50% 50% 0 0}.hill.h1{left:-20%}.hill.h2{right:-25%;background:#2f6135}.forestTree{position:absolute;font-size:62px;bottom:21%}.ft1{left:4%}.ft2{left:23%}.ft3{right:24%}.ft4{right:5%}.forestPath{position:absolute;inset:0;opacity:.95}.forestPath .routeLine{stroke:#cbb078}.forestPath .routeEdge{stroke:#967d4d}.fox{position:absolute;left:7%;top:70%;font-size:60px;z-index:4;transition:left .16s linear,top .16s linear,transform .16s linear}.home{position:absolute;right:5%;bottom:19%;font-size:70px;z-index:3}.rock{position:absolute;font-size:38px;bottom:29%}.r1{left:35%}.r2{left:63%}
 
 /* PIRATI */
-.pirateScene{background:linear-gradient(#70cce4 0 57%,#177ca5 57%)}.cloud{position:absolute;font-size:54px;opacity:.8}.c1{left:8%;top:10%}.c2{right:25%;top:18%}.island{position:absolute;right:3%;bottom:17%;font-size:100px;z-index:2}.treasure{position:absolute;right:7%;bottom:25%;font-size:46px;z-index:3}.wave{position:absolute;left:-5%;right:-5%;bottom:20%;height:100px;background:repeating-radial-gradient(ellipse at 50% 100%,#58c2df 0 12px,#1d91b8 13px 25px);opacity:.8}.ship{position:absolute;left:6%;bottom:24%;font-size:68px;z-index:3;transition:left .16s linear,transform .16s linear}.pirateFlag{position:absolute;left:47%;top:18%;font-size:42px}
+.pirateScene{background:linear-gradient(#70cce4 0 57%,#177ca5 57%)}.cloud{position:absolute;font-size:54px;opacity:.8}.c1{left:8%;top:10%}.c2{right:25%;top:18%}.island{position:absolute;right:3%;bottom:17%;font-size:100px;z-index:2}.treasure{position:absolute;right:7%;bottom:25%;font-size:46px;z-index:3}.wave{position:absolute;left:0;right:0;bottom:10%;height:48%;background:repeating-radial-gradient(ellipse at 50% 100%,#58c2df 0 12px,#1d91b8 13px 25px);opacity:.8}.pirateRoute{position:absolute;inset:0;z-index:1}.ship{position:absolute;left:6%;top:57%;font-size:68px;z-index:4;transition:left .16s linear,top .16s linear,transform .16s linear}.pirateFlag{position:absolute;left:47%;top:18%;font-size:42px}
 
 .bigstatus{text-align:center;font-size:25px;font-weight:900;margin:12px 0 6px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.notice{padding:13px 15px;border-radius:15px;background:#f1f5f9;color:#475569;line-height:1.45}.ok{background:#e9f8ef;color:#17633a}.warn{background:#fff7df;color:#7a5b00}.controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-@media(max-width:760px){.grid{grid-template-columns:1fr}.stage{min-height:360px}.hud{flex-wrap:wrap}.top{align-items:flex-start}.rocket{font-size:54px}.planet{font-size:62px}.ninjaChar,.fox,.ship{font-size:54px}}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.stage{min-height:360px}.hud{flex-wrap:wrap}.top{align-items:flex-start}.rocket{font-size:50px}.planet{font-size:58px}.ninjaChar,.fox,.ship{font-size:50px}}
 </style>
 </head>
 <body><main class="wrap">
@@ -44,11 +44,11 @@
 <div class="scene ninjaScene" id="scene0">
  <div class="moon">🌙</div><div class="star s1">✦</div><div class="star s2">✦</div><div class="star s3">✦</div>
  <div class="tree t1">🌲</div><div class="tree t2">🌳</div><div class="tree t3">🌲</div><div class="tree t4">🌳</div>
- <div class="path"></div><div class="goal">🏁</div><div class="ninjaChar" id="ninja">🥷</div>
+ <svg class="routeSvg" viewBox="0 0 1000 440" preserveAspectRatio="none"><path class="routeLine" d="M80 330 C150 260 190 390 270 315 S390 235 455 305 S570 385 650 285 S770 165 920 105"/><path class="routeEdge" d="M80 330 C150 260 190 390 270 315 S390 235 455 305 S570 385 650 285 S770 165 920 105"/></svg><div class="goal">🏁</div><div class="ninjaChar" id="ninja">🥷</div>
 </div>
 
 <div class="scene spaceScene hidden" id="scene1">
- <div class="planet">🪐</div><div class="orbit"></div><div class="spaceTrail"></div>
+ <div class="planet">🪐</div><div class="orbit"></div><svg class="routeSvg" viewBox="0 0 1000 440" preserveAspectRatio="none"><path class="routeEdge" d="M110 390 C220 330 170 220 330 250 S510 350 590 235 S700 95 900 95"/></svg>
  <div class="stars ss1">✦</div><div class="stars ss2">✦</div><div class="stars ss3">✦</div><div class="stars ss4">✦</div>
  <div class="rocket" id="rocket">🚀</div>
 </div>
@@ -56,13 +56,13 @@
 <div class="scene forestScene hidden" id="scene2">
  <div class="sun">☀️</div><div class="hill h1"></div><div class="hill h2"></div>
  <div class="forestTree ft1">🌳</div><div class="forestTree ft2">🌲</div><div class="forestTree ft3">🌲</div><div class="forestTree ft4">🌳</div>
- <div class="forestPath"></div><div class="rock r1">🪨</div><div class="rock r2">🪨</div>
+ <div class="forestPath"><svg class="routeSvg" viewBox="0 0 1000 440" preserveAspectRatio="none"><path class="routeLine" d="M85 335 C165 285 135 185 245 215 S350 360 445 300 S520 150 630 205 S760 350 900 285"/><path class="routeEdge" d="M85 335 C165 285 135 185 245 215 S350 360 445 300 S520 150 630 205 S760 350 900 285"/></svg></div><div class="rock r1">🪨</div><div class="rock r2">🪨</div>
  <div class="home">🏠</div><div class="fox" id="fox">🦊</div>
 </div>
 
 <div class="scene pirateScene hidden" id="scene3">
  <div class="cloud c1">☁️</div><div class="cloud c2">☁️</div><div class="pirateFlag">🏴‍☠️</div>
- <div class="wave"></div><div class="island">🏝️</div><div class="treasure">💰</div>
+ <div class="wave"></div><svg class="pirateRoute" viewBox="0 0 1000 440" preserveAspectRatio="none"><path class="routeLine" d="M65 285 C150 180 235 330 320 245 S475 145 555 245 S720 355 900 250"/><path class="routeEdge" d="M65 285 C150 180 235 330 320 245 S475 145 555 245 S720 355 900 250"/></svg><div class="island">🏝️</div><div class="treasure">💰</div>
  <div class="ship" id="ship">⛵</div>
 </div>
 </div>
@@ -91,19 +91,29 @@ let audioContext=null,analyser=null,data=null,source=null,stream=null,active=fal
 let baseline=0,calibrating=false,calibSamples=[],calibStart=0,quietThreshold=0,currentMission=0;
 
 const missionData=[
- {title:'🤫 SILENZIO — il ninja avanza!',objective:'🏁',desc:'🥷 Il gruppo è una squadra di ninja. Superate il percorso con passi controllati e silenziosi: equilibrio, slalom, cerchi e ostacoli. Quando arriva un rumore, il ninja si blocca!'},
- {title:'🚀 GRAVITÀ ZERO — porta l’astronauta al pianeta!',objective:'🪐',desc:'🚀 Siete astronauti. Fate il circuito: 5 saltelli, spostamenti laterali tra i coni, salti nei cerchi, equilibrio e passaggio nella “stazione spaziale”. In silenzio l’astronauta sale!'},
- {title:'🦊 SALVA LA VOLPE — riportala alla tana!',objective:'🏠',desc:'🦊 Attraversate la foresta: slalom, passaggio sotto un ostacolo, salti nei cerchi, cambio di direzione ed equilibrio. Aggiungete una “sfida volpe” a ogni albero magico.'},
- {title:'🏴‍☠️ CACCIA AL TESORO — attraversa il mare!',objective:'💰',desc:'🏴‍☠️ La classe è un equipaggio. Superate le prove motorie per conquistare le monete. Se arriva troppo rumore, scoppia una TEMPESTA e la nave si ferma!'}
+ {title:'🤫 SILENZIO — il ninja avanza!',objective:'🏁',desc:'🥷 Il gruppo è una squadra di ninja. Seguite il percorso a zig-zag: passi controllati e silenziosi, slalom, cerchi, equilibrio e ostacoli. Quando arriva un rumore, il ninja si blocca!'},
+ {title:'🚀 GRAVITÀ ZERO — porta l’astronauta al pianeta!',objective:'🪐',desc:'🚀 Siete astronauti. Fate il circuito: 5 saltelli, spostamenti laterali tra i coni, salti nei cerchi, equilibrio e passaggio nella “stazione spaziale”. In silenzio l’astronauta segue la traiettoria e arriva fino al pianeta!'},
+ {title:'🦊 SALVA LA VOLPE — riportala alla tana!',objective:'🏠',desc:'🦊 Attraversate la foresta seguendo il sentiero tortuoso: slalom, passaggio sotto un ostacolo, salti nei cerchi, cambi di direzione ed equilibrio. Aggiungete una “sfida volpe” a ogni albero magico.'},
+ {title:'🏴‍☠️ CACCIA AL TESORO — attraversa il mare!',objective:'💰',desc:'🏴‍☠️ La classe è un equipaggio. Superate le prove motorie seguendo le onde e i cambi di direzione per conquistare le monete. Se arriva troppo rumore, scoppia una TEMPESTA e la nave si ferma!'}
 ];
 
+function routePoint(t, mission){
+ const paths=[
+  [[8,75],[16,59],[24,77],[34,67],[45,55],[56,68],[66,78],[76,58],[86,38],[92,24]],
+  [[11,84],[20,70],[25,54],[36,48],[48,60],[58,52],[68,39],[78,27],[88,22]],
+  [[8,76],[16,65],[20,47],[29,51],[39,70],[47,62],[54,43],[63,49],[76,69],[90,65]],
+  [[6,65],[15,47],[24,70],[34,54],[46,39],[56,56],[68,72],[80,62],[90,55]]
+ ];
+ const pts=paths[mission],x=t*(pts.length-1),i=Math.min(pts.length-2,Math.floor(x)),f=x-i;
+ const a=pts[i],b=pts[i+1]; return {x:a[0]+(b[0]-a[0])*f,y:a[1]+(b[1]-a[1])*f,rot:Math.atan2(b[1]-a[1],b[0]-a[0])*180/Math.PI};
+}
 function render(){
- pct.textContent=Math.round(progress);
- fill.style.width=progress+'%';
- if(currentMission===0)ninja.style.left=(7+Math.min(82,progress*.82))+'%';
- if(currentMission===1)rocket.style.bottom=(8+Math.min(82,progress*.82))+'%';
- if(currentMission===2){fox.style.left=(7+Math.min(82,progress*.82))+'%';fox.style.transform='rotate('+(Math.sin(progress/100*Math.PI*4)*7)+'deg)'}
- if(currentMission===3){ship.style.left=(6+Math.min(80,progress*.80))+'%';ship.style.transform='rotate('+(Math.sin(progress/100*Math.PI*5)*3)+'deg)'}
+ pct.textContent=Math.round(progress); fill.style.width=progress+'%';
+ const p=routePoint(Math.min(1,progress/100),currentMission);
+ if(currentMission===0){ninja.style.left=p.x+'%';ninja.style.top=p.y+'%';ninja.style.transform='translate(-50%,-50%) rotate('+(p.rot*.18)+'deg)'}
+ if(currentMission===1){rocket.style.left=p.x+'%';rocket.style.top=p.y+'%';rocket.style.transform='translate(-50%,-50%) rotate('+(p.rot+45)+'deg)'}
+ if(currentMission===2){fox.style.left=p.x+'%';fox.style.top=p.y+'%';fox.style.transform='translate(-50%,-50%) rotate('+(p.rot*.12)+'deg)'}
+ if(currentMission===3){ship.style.left=p.x+'%';ship.style.top=p.y+'%';ship.style.transform='translate(-50%,-50%) rotate('+(p.rot*.12)+'deg)'}
  if(progress>=100){
    message.textContent='🎉 MISSIONE COMPLETATA!';
    status.className='notice ok';
