@@ -5,62 +5,105 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Gym4School – SHHH! Missioni</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#f5f7fb;color:#172033}.wrap{max-width:1100px;margin:auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:16px}.brand{display:flex;align-items:center;gap:12px}.logo{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;background:#172033;color:white;font-size:30px}h1{font-size:clamp(27px,5vw,44px);margin:0;letter-spacing:-1px}.sub{color:#64748b;margin-top:2px}button{border:0;border-radius:15px;padding:12px 18px;font-weight:800;font-size:16px;cursor:pointer;background:#172033;color:white}button.secondary{background:#e9eef5;color:#172033}.activities{display:flex;gap:10px;overflow:auto;padding:4px 0 14px}.activity{min-width:170px;border:2px solid transparent;border-radius:18px;padding:12px;background:white;color:#172033;cursor:pointer;text-align:left;box-shadow:0 3px 12px #0001;appearance:none;-webkit-appearance:none}.activity.active{border-color:#172033}.activity .ico{font-size:30px}.activity b{display:block;margin-top:4px}.activity small{color:#64748b}.card{background:white;border:1px solid #dfe6ef;border-radius:24px;padding:17px;box-shadow:0 5px 20px #0001}.hud{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.stat{font-size:13px;color:#64748b;font-weight:700}.big{font-size:29px;font-weight:900}.bar{height:24px;background:#e7edf4;border-radius:99px;overflow:hidden}.fill{height:100%;width:0;background:#59a66d;transition:width .12s}.sound{height:15px;background:#e7edf4;border-radius:99px;overflow:hidden;margin-top:7px}.soundfill{height:100%;width:0;transition:width .06s}.stage{position:relative;overflow:hidden;border-radius:22px;min-height:400px;background:linear-gradient(#d9f1ff 0 56%,#8fcf7d 56%);border:1px solid #d7e0e8}.moon{position:absolute;right:9%;top:7%;font-size:62px}.star{position:absolute;font-size:18px;opacity:.8}.s1{left:12%;top:14%}.s2{left:38%;top:8%}.s3{left:65%;top:20%}.tree{position:absolute;bottom:22%;font-size:65px}.t1{left:5%}.t2{left:28%}.t3{right:22%}.t4{right:4%}.path{position:absolute;left:0;right:0;bottom:17%;height:78px;background:#d7bf95}.ninja{position:absolute;left:7%;bottom:20%;font-size:66px;transition:left .16s linear;z-index:2;filter:drop-shadow(0 5px 2px #0002)}.goal{position:absolute;right:7%;bottom:17%;font-size:65px;z-index:2}.bigstatus{text-align:center;font-size:25px;font-weight:900;margin:12px 0 6px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.notice{padding:13px 15px;border-radius:15px;background:#f1f5f9;color:#475569;line-height:1.45}.ok{background:#e9f8ef;color:#17633a}.warn{background:#fff7df;color:#7a5b00}.controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}@media(max-width:760px){.grid{grid-template-columns:1fr}.stage{min-height:320px}.hud{flex-wrap:wrap}.top{align-items:flex-start}}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#f5f7fb;color:#172033}.wrap{max-width:1100px;margin:auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:16px}.brand{display:flex;align-items:center;gap:12px}.logo{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;background:#172033;color:white;font-size:30px}h1{font-size:clamp(27px,5vw,44px);margin:0;letter-spacing:-1px}.sub{color:#64748b;margin-top:2px}button{border:0;border-radius:15px;padding:12px 18px;font-weight:800;font-size:16px;cursor:pointer;background:#172033;color:white}button.secondary{background:#e9eef5;color:#172033}.activities{display:flex;gap:10px;overflow:auto;padding:4px 0 14px}.activity{min-width:170px;border:2px solid transparent;border-radius:18px;padding:12px;background:white;color:#172033;cursor:pointer;text-align:left;box-shadow:0 3px 12px #0001;appearance:none;-webkit-appearance:none}.activity.active{border-color:#172033}.activity .ico{font-size:30px}.activity b{display:block;margin-top:4px}.activity small{color:#64748b}.card{background:white;border:1px solid #dfe6ef;border-radius:24px;padding:17px;box-shadow:0 5px 20px #0001}.hud{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.stat{font-size:13px;color:#64748b;font-weight:700}.big{font-size:29px;font-weight:900}.bar{height:24px;background:#e7edf4;border-radius:99px;overflow:hidden}.fill{height:100%;width:0;background:#59a66d;transition:width .12s}.sound{height:15px;background:#e7edf4;border-radius:99px;overflow:hidden;margin-top:7px}.soundfill{height:100%;width:0;transition:width .06s}.stage{position:relative;overflow:hidden;border-radius:22px;min-height:440px;border:1px solid #d7e0e8}.scene{position:absolute;inset:0;overflow:hidden}.scene.hidden{display:none}
+
+/* NINJA */
+.ninjaScene{background:linear-gradient(#10182f 0 55%,#173d2a 55%)}.moon{position:absolute;right:8%;top:7%;font-size:62px}.star{position:absolute;color:#fff;font-size:18px;opacity:.85}.s1{left:12%;top:14%}.s2{left:38%;top:8%}.s3{left:65%;top:20%}.tree{position:absolute;bottom:22%;font-size:65px}.t1{left:5%}.t2{left:28%}.t3{right:22%}.t4{right:4%}.path{position:absolute;left:0;right:0;bottom:17%;height:78px;background:#d7bf95}.ninjaChar{position:absolute;left:7%;bottom:20%;font-size:66px;transition:left .16s linear;z-index:2;filter:drop-shadow(0 5px 2px #0002)}.goal{position:absolute;right:7%;bottom:17%;font-size:65px;z-index:2}
+
+/* SPAZIO */
+.spaceScene{background:radial-gradient(circle at 75% 20%,#293f92 0,#10183e 35%,#060a20 80%)}.planet{position:absolute;right:7%;top:6%;font-size:76px}.stars{position:absolute;color:#fff;font-size:22px}.ss1{left:10%;top:12%}.ss2{left:45%;top:20%}.ss3{right:22%;top:45%}.ss4{left:25%;top:65%}.rocket{position:absolute;left:13%;bottom:8%;font-size:62px;transition:bottom .16s linear,transform .16s linear;z-index:3;filter:drop-shadow(0 5px 3px #0005)}.orbit{position:absolute;right:3%;top:2%;width:160px;height:160px;border:2px dashed #ffffff55;border-radius:50%}.spaceTrail{position:absolute;left:17%;bottom:0;width:5px;height:92%;background:linear-gradient(transparent,#7bd3ff88);border-radius:99px}
+
+/* FORESTA */
+.forestScene{background:linear-gradient(#9ed8f2 0 48%,#4d8c50 48%)}.sun{position:absolute;right:9%;top:7%;font-size:64px}.hill{position:absolute;bottom:20%;width:70%;height:150px;background:#356c3b;border-radius:50% 50% 0 0}.hill.h1{left:-20%}.hill.h2{right:-25%;background:#2f6135}.forestTree{position:absolute;font-size:62px;bottom:21%}.ft1{left:4%}.ft2{left:23%}.ft3{right:24%}.ft4{right:5%}.forestPath{position:absolute;left:7%;right:7%;bottom:12%;height:105px;background:#cbb078;clip-path:polygon(0 55%,18% 20%,36% 65%,55% 28%,74% 68%,100% 35%,100% 100%,0 100%);opacity:.95}.fox{position:absolute;left:7%;bottom:20%;font-size:60px;z-index:3;transition:left .16s linear,transform .16s linear}.home{position:absolute;right:5%;bottom:19%;font-size:70px;z-index:3}.rock{position:absolute;font-size:38px;bottom:29%}.r1{left:35%}.r2{left:63%}
+
+/* PIRATI */
+.pirateScene{background:linear-gradient(#70cce4 0 57%,#177ca5 57%)}.cloud{position:absolute;font-size:54px;opacity:.8}.c1{left:8%;top:10%}.c2{right:25%;top:18%}.island{position:absolute;right:3%;bottom:17%;font-size:100px;z-index:2}.treasure{position:absolute;right:7%;bottom:25%;font-size:46px;z-index:3}.wave{position:absolute;left:-5%;right:-5%;bottom:20%;height:100px;background:repeating-radial-gradient(ellipse at 50% 100%,#58c2df 0 12px,#1d91b8 13px 25px);opacity:.8}.ship{position:absolute;left:6%;bottom:24%;font-size:68px;z-index:3;transition:left .16s linear,transform .16s linear}.pirateFlag{position:absolute;left:47%;top:18%;font-size:42px}
+
+.bigstatus{text-align:center;font-size:25px;font-weight:900;margin:12px 0 6px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.notice{padding:13px 15px;border-radius:15px;background:#f1f5f9;color:#475569;line-height:1.45}.ok{background:#e9f8ef;color:#17633a}.warn{background:#fff7df;color:#7a5b00}.controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.stage{min-height:360px}.hud{flex-wrap:wrap}.top{align-items:flex-start}.rocket{font-size:54px}.planet{font-size:62px}.ninjaChar,.fox,.ship{font-size:54px}}
 </style>
 </head>
 <body><main class="wrap">
 <div class="top"><div class="brand"><div class="logo">🎮</div><div><h1>SHHH! Missioni</h1><div class="sub">Giochi di movimento controllati dal silenzio.</div></div></div><button id="start">🎙️ Avvia microfono</button></div>
+
 <div class="activities">
-<button type="button" class="activity active" onclick="setMission(0)"><div class="ico">🥷</div><b>Missione Ninja</b><small>Attraversa la foresta</small></button>
-<button type="button" class="activity" onclick="setMission(1)"><div class="ico">🚀</div><b>Missione Spazio</b><small>Raggiungi il pianeta</small></button>
-<button type="button" class="activity" onclick="setMission(2)"><div class="ico">🦊</div><b>Missione Foresta</b><small>Porta la volpe a casa</small></button>
-<button type="button" class="activity" onclick="setMission(3)"><div class="ico">🏴‍☠️</div><b>Missione Pirati</b><small>Trova il tesoro</small></button>
+<button type="button" class="activity active" onclick="setMission(0)"><div class="ico">🥷</div><b>Missione Ninja</b><small>Operazione Silenzio</small></button>
+<button type="button" class="activity" onclick="setMission(1)"><div class="ico">🚀</div><b>Missione Spazio</b><small>Gravità Zero</small></button>
+<button type="button" class="activity" onclick="setMission(2)"><div class="ico">🦊</div><b>Missione Foresta</b><small>Salva la volpe</small></button>
+<button type="button" class="activity" onclick="setMission(3)"><div class="ico">🏴‍☠️</div><b>Missione Pirati</b><small>Caccia al tesoro</small></button>
 </div>
+
 <section class="card">
 <div class="hud">
-<div><div class="stat">AVANZAMENTO</div><div class="big"><span id="pct">0</span>%</div></div>
+<div><div class="stat">MISSIONE</div><div class="big"><span id="pct">0</span>%</div></div>
 <div style="flex:1"><div class="stat">LIVELLO DI RUMORE</div><div class="sound"><div class="soundfill" id="soundfill"></div></div></div>
-<div><div class="stat">OBIETTIVO</div><div class="big">100% 🏁</div></div>
+<div><div class="stat">OBIETTIVO</div><div class="big" id="objective">🏁</div></div>
 </div>
+
 <div class="stage">
-<div class="moon">🌙</div><div class="star s1">✦</div><div class="star s2">✦</div><div class="star s3">✦</div><div class="tree t1">🌲</div><div class="tree t2">🌳</div><div class="tree t3">🌲</div><div class="tree t4">🌳</div>
-<div class="path"></div><div class="goal">🏁</div><div class="ninja" id="ninja">🥷</div>
+<div class="scene ninjaScene" id="scene0">
+ <div class="moon">🌙</div><div class="star s1">✦</div><div class="star s2">✦</div><div class="star s3">✦</div>
+ <div class="tree t1">🌲</div><div class="tree t2">🌳</div><div class="tree t3">🌲</div><div class="tree t4">🌳</div>
+ <div class="path"></div><div class="goal">🏁</div><div class="ninjaChar" id="ninja">🥷</div>
 </div>
+
+<div class="scene spaceScene hidden" id="scene1">
+ <div class="planet">🪐</div><div class="orbit"></div><div class="spaceTrail"></div>
+ <div class="stars ss1">✦</div><div class="stars ss2">✦</div><div class="stars ss3">✦</div><div class="stars ss4">✦</div>
+ <div class="rocket" id="rocket">🚀</div>
+</div>
+
+<div class="scene forestScene hidden" id="scene2">
+ <div class="sun">☀️</div><div class="hill h1"></div><div class="hill h2"></div>
+ <div class="forestTree ft1">🌳</div><div class="forestTree ft2">🌲</div><div class="forestTree ft3">🌲</div><div class="forestTree ft4">🌳</div>
+ <div class="forestPath"></div><div class="rock r1">🪨</div><div class="rock r2">🪨</div>
+ <div class="home">🏠</div><div class="fox" id="fox">🦊</div>
+</div>
+
+<div class="scene pirateScene hidden" id="scene3">
+ <div class="cloud c1">☁️</div><div class="cloud c2">☁️</div><div class="pirateFlag">🏴‍☠️</div>
+ <div class="wave"></div><div class="island">🏝️</div><div class="treasure">💰</div>
+ <div class="ship" id="ship">⛵</div>
+</div>
+</div>
+
 <div class="bigstatus" id="message">🤫 Pronti...</div>
 <div class="bar"><div class="fill" id="fill"></div></div>
 </section>
 
 <section class="grid">
 <div class="card"><h2 style="margin-top:0">Come si gioca</h2>
-<div class="notice">Quando il rumore resta basso, il ninja avanza. Se la palestra diventa rumorosa, il ninja si ferma. L'obiettivo è arrivare al traguardo senza fare troppo rumore.</div>
+<div class="notice" id="instructions">🥷 Il gruppo è una squadra di ninja. Superate il percorso con passi controllati e silenziosi: equilibrio, slalom, cerchi e ostacoli. Quando arriva un rumore, il ninja si blocca!</div>
 <div class="controls"><button id="stop" class="secondary">Ferma</button><button id="reset" class="secondary">Ricomincia</button></div>
 <p id="status" class="notice" style="margin-top:12px">Tocca «Avvia microfono» e consenti l'accesso al microfono.</p>
 </div>
 <div class="card"><h2 style="margin-top:0">🔒 Privacy</h2>
-<div class="notice ok">Il gioco misura soltanto il livello sonoro. Non registra, riconosce o identifica le persone.</div>
-<p class="stat" style="margin-top:14px">Il microfono serve esclusivamente per reagire al volume dell'ambiente. Nessun audio viene salvato dal gioco.</p>
+<div class="notice ok">Il microfono viene usato esclusivamente per rilevare il livello sonoro. L'audio non viene registrato, salvato o inviato dal gioco.</div>
+<p class="stat" style="margin-top:14px">Nessun riconoscimento vocale, nessuna identificazione e nessuna telecamera.</p>
 </div>
 </section>
 </main>
 
 <script>
 const $=id=>document.getElementById(id);
-const ninja=$('ninja'),fill=$('fill'),pct=$('pct'),soundfill=$('soundfill'),message=$('message'),status=$('status');
+const ninja=$('ninja'),rocket=$('rocket'),fox=$('fox'),ship=$('ship'),fill=$('fill'),pct=$('pct'),soundfill=$('soundfill'),message=$('message'),status=$('status'),objective=$('objective'),instructions=$('instructions');
 let audioContext=null,analyser=null,data=null,source=null,stream=null,active=false,progress=0,raf=null,last=0;
-let baseline=0,calibrating=false,calibSamples=[],calibStart=0,quietThreshold=0;
+let baseline=0,calibrating=false,calibSamples=[],calibStart=0,quietThreshold=0,currentMission=0;
 
 const missionData=[
- {hero:'🥷',goal:'🏁',title:'🤫 SILENZIO — il ninja avanza!',desc:'Resta in silenzio e attraversa la foresta.',bg:'linear-gradient(#111936 0 56%,#183b2b 56%)',sky:'🌙'},
- {hero:'👩‍🚀',goal:'🪐',title:'🤫 SILENZIO — il razzo vola!',desc:'Fai avanzare l’astronauta fino al pianeta.',bg:'linear-gradient(#080d29 0 56%,#18254b 56%)',sky:'🌌'},
- {hero:'🦊',goal:'🏠',title:'🤫 SILENZIO — la volpe cammina!',desc:'Accompagna la volpe fino alla sua casa.',bg:'linear-gradient(#bde7ff 0 56%,#4f8d50 56%)',sky:'☀️'},
- {hero:'🏴‍☠️',goal:'💰',title:'🤫 SILENZIO — verso il tesoro!',desc:'Porta il pirata fino al tesoro.',bg:'linear-gradient(#69c9e4 0 56%,#c59b62 56%)',sky:'☀️'}
+ {title:'🤫 SILENZIO — il ninja avanza!',objective:'🏁',desc:'🥷 Il gruppo è una squadra di ninja. Superate il percorso con passi controllati e silenziosi: equilibrio, slalom, cerchi e ostacoli. Quando arriva un rumore, il ninja si blocca!'},
+ {title:'🚀 GRAVITÀ ZERO — porta l’astronauta al pianeta!',objective:'🪐',desc:'🚀 Siete astronauti. Fate il circuito: 5 saltelli, spostamenti laterali tra i coni, salti nei cerchi, equilibrio e passaggio nella “stazione spaziale”. In silenzio l’astronauta sale!'},
+ {title:'🦊 SALVA LA VOLPE — riportala alla tana!',objective:'🏠',desc:'🦊 Attraversate la foresta: slalom, passaggio sotto un ostacolo, salti nei cerchi, cambio di direzione ed equilibrio. Aggiungete una “sfida volpe” a ogni albero magico.'},
+ {title:'🏴‍☠️ CACCIA AL TESORO — attraversa il mare!',objective:'💰',desc:'🏴‍☠️ La classe è un equipaggio. Superate le prove motorie per conquistare le monete. Se arriva troppo rumore, scoppia una TEMPESTA e la nave si ferma!'}
 ];
-let currentMission=0;
 
 function render(){
  pct.textContent=Math.round(progress);
  fill.style.width=progress+'%';
- ninja.style.left=(7+Math.min(82,progress*.82))+'%';
+ if(currentMission===0)ninja.style.left=(7+Math.min(82,progress*.82))+'%';
+ if(currentMission===1)rocket.style.bottom=(8+Math.min(82,progress*.82))+'%';
+ if(currentMission===2){fox.style.left=(7+Math.min(82,progress*.82))+'%';fox.style.transform='rotate('+(Math.sin(progress/100*Math.PI*4)*7)+'deg)'}
+ if(currentMission===3){ship.style.left=(6+Math.min(80,progress*.80))+'%';ship.style.transform='rotate('+(Math.sin(progress/100*Math.PI*5)*3)+'deg)'}
  if(progress>=100){
    message.textContent='🎉 MISSIONE COMPLETATA!';
    status.className='notice ok';
@@ -68,19 +111,21 @@ function render(){
    active=false;
  }
 }
-function reset(){
- progress=0; render(); message.textContent=missionData[currentMission].title;
- status.className='notice';
- status.textContent=active?'Microfono attivo.':'Tocca «Avvia microfono» e consenti l’accesso al microfono.';
- soundfill.style.width='0%';
+function setMission(i){
+ currentMission=i;
+ document.querySelectorAll('.activity').forEach((x,n)=>x.classList.toggle('active',n===i));
+ document.querySelectorAll('.scene').forEach((x,n)=>x.classList.toggle('hidden',n!==i));
+ const d=missionData[i];
+ objective.textContent=d.objective;instructions.textContent=d.desc;
+ progress=0;render();message.textContent=d.title;
+ status.className='notice';status.textContent=active?'Missione cambiata! Il microfono continua a funzionare.':'Tocca «Avvia microfono» per iniziare.';
 }
 function measure(){
  if(!active)return;
  analyser.getByteTimeDomainData(data);
  let sum=0,maxDev=0;
  for(let i=0;i<data.length;i++){const d=Math.abs(data[i]-128);sum+=d*d;if(d>maxDev)maxDev=d}
- const rms=Math.sqrt(sum/data.length), now=performance.now();
-
+ const rms=Math.sqrt(sum/data.length),now=performance.now();
  if(calibrating){
    calibSamples.push(rms);
    const elapsed=now-calibStart;
@@ -90,68 +135,31 @@ function measure(){
      calibSamples.sort((a,b)=>a-b);
      baseline=calibSamples[Math.floor(calibSamples.length*.7)]||.001;
      quietThreshold=Math.max(.006,baseline*1.35);
-     calibrating=false;
-     status.className='notice ok';
-     status.textContent='Pronto! Ora il gioco reagisce ai rumori.';
-     last=now;
+     calibrating=false;status.className='notice ok';status.textContent='Pronto! Ora il gioco reagisce ai rumori.';last=now;
    }
-   raf=requestAnimationFrame(measure); return;
+   raf=requestAnimationFrame(measure);return;
  }
- const detected=rms>quietThreshold || maxDev>=8;
+ const detected=rms>quietThreshold||maxDev>=8;
  soundfill.style.width=Math.min(100,Math.max(maxDev*4,rms*1800))+'%';
- if(detected){
-   soundfill.style.background='#d75a5a';
-   message.textContent='🔊 RUMORE — STOP!';
- }else{
-   soundfill.style.background='#55a66b';
-   message.textContent=missionData[currentMission].title;
-   if(now-last>100){progress=Math.min(100,progress+0.22);last=now;render()}
-   baseline=baseline*.9995+rms*.0005;
-   quietThreshold=Math.max(.006,baseline*1.35);
+ if(detected){soundfill.style.background='#d75a5a';message.textContent='🔊 RUMORE — STOP!'}
+ else{
+   soundfill.style.background='#55a66b';message.textContent=missionData[currentMission].title;
+   if(now-last>100){progress=Math.min(100,progress+.22);last=now;render()}
+   baseline=baseline*.9995+rms*.0005;quietThreshold=Math.max(.006,baseline*1.35);
  }
  raf=requestAnimationFrame(measure);
 }
-
-function setMission(i){
-   currentMission=i;
-   document.querySelectorAll('.activity').forEach((x,n)=>x.classList.toggle('active',n===i));
-   const d=missionData[i];
-   ninja.textContent=d.hero;
-   document.querySelector('.goal').textContent=d.goal;
-   document.querySelector('.stage').style.background=d.bg;
-   document.querySelector('.moon').textContent=d.sky;
-   document.querySelector('.grid .card .notice').textContent=d.desc;
-   progress=0; render();
-   message.textContent=d.title;
-   status.className='notice';
-   status.textContent=active?'Missione cambiata! Il microfono continua a funzionare.':'Tocca «Avvia microfono» per iniziare.';
-}
-
 $('reset').onclick=()=>{progress=0;render();message.textContent=missionData[currentMission].title;status.className='notice';status.textContent='Tocca «Avvia microfono» per iniziare.';soundfill.style.width='0%'};
-
 $('start').onclick=async()=>{
  if(active)return;
  try{
   stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false,channelCount:1},video:false});
-  audioContext=new (window.AudioContext||window.webkitAudioContext)();
-  source=audioContext.createMediaStreamSource(stream);
-  analyser=audioContext.createAnalyser(); analyser.fftSize=1024;
-  data=new Uint8Array(analyser.fftSize); source.connect(analyser);
-  active=true; calibrating=true; calibSamples=[]; calibStart=performance.now();
-  status.className='notice'; status.textContent='Resta in silenzio per 3 secondi: sto calibrando.';
-  measure();
- }catch(e){
-  status.className='notice warn';
-  status.textContent='Non è stato possibile usare il microfono. Controlla il permesso del browser e riprova.';
- }
+  audioContext=new(window.AudioContext||window.webkitAudioContext)();source=audioContext.createMediaStreamSource(stream);
+  analyser=audioContext.createAnalyser();analyser.fftSize=1024;data=new Uint8Array(analyser.fftSize);source.connect(analyser);
+  active=true;calibrating=true;calibSamples=[];calibStart=performance.now();status.className='notice';status.textContent='Resta in silenzio per 3 secondi: sto calibrando.';measure();
+ }catch(e){status.className='notice warn';status.textContent='Non è stato possibile usare il microfono. Controlla il permesso del browser e riprova.'}
 };
-$('stop').onclick=()=>{
- active=false;if(raf)cancelAnimationFrame(raf);
- if(source)source.disconnect();if(audioContext)audioContext.close();
- if(stream)stream.getTracks().forEach(t=>t.stop());
- stream=null;source=null;audioContext=null;analyser=null;
- status.className='notice';status.textContent='Fermato. Puoi riavviare il microfono.';
-};
+$('stop').onclick=()=>{active=false;if(raf)cancelAnimationFrame(raf);if(source)source.disconnect();if(audioContext)audioContext.close();if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;source=null;audioContext=null;analyser=null;status.className='notice';status.textContent='Fermato. Puoi riavviare il microfono.'};
 render();
 </script>
 </body></html>
