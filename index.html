@@ -6,6 +6,19 @@
 <title>Gym4School – SHHH! Missioni</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#f5f7fb;color:#172033}.wrap{max-width:1100px;margin:auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:16px}.brand{display:flex;align-items:center;gap:12px}.logo{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;background:#172033;color:white;font-size:30px}h1{font-size:clamp(27px,5vw,44px);margin:0;letter-spacing:-1px}.sub{color:#64748b;margin-top:2px}button{border:0;border-radius:15px;padding:12px 18px;font-weight:800;font-size:16px;cursor:pointer;background:#172033;color:white}button.secondary{background:#e9eef5;color:#172033}.activities{display:flex;gap:10px;overflow:auto;padding:4px 0 14px}.activity{min-width:170px;border:2px solid transparent;border-radius:18px;padding:12px;background:white;color:#172033;cursor:pointer;text-align:left;box-shadow:0 3px 12px #0001;appearance:none;-webkit-appearance:none}.activity.active{border-color:#172033}.activity .ico{font-size:30px}.activity b{display:block;margin-top:4px}.activity small{color:#64748b}.card{background:white;border:1px solid #dfe6ef;border-radius:24px;padding:17px;box-shadow:0 5px 20px #0001}.hud{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.stat{font-size:13px;color:#64748b;font-weight:700}.big{font-size:29px;font-weight:900}.bar{height:24px;background:#e7edf4;border-radius:99px;overflow:hidden}.fill{height:100%;width:0;background:#59a66d;transition:width .12s}.sound{height:15px;background:#e7edf4;border-radius:99px;overflow:hidden;margin-top:7px}.soundfill{height:100%;width:0;transition:width .06s}.stage{position:relative;overflow:hidden;border-radius:22px;min-height:440px;border:1px solid #d7e0e8}.scene{position:absolute;inset:0;overflow:hidden}.scene.hidden{display:none}
+.warmupScene{background:linear-gradient(#dff4ff 0 54%,#7fcf83 54%);position:relative}
+.warmupTitle{position:absolute;left:5%;top:5%;font-size:clamp(22px,4vw,34px);font-weight:950;color:#17324d}
+.warmupSub{position:absolute;left:5%;top:14%;font-size:16px;font-weight:800;color:#496579}
+.wuCloud{position:absolute;font-size:48px;opacity:.8}.wuc1{left:12%;top:22%}.wuc2{right:16%;top:11%}
+.wuTrack{position:absolute;left:5%;right:5%;bottom:13%;height:34%;border-radius:50%;border:7px dashed #fff;background:#6eb574;box-shadow:inset 0 -12px 0 #5ca463}
+.student{position:absolute;left:12%;top:57%;font-size:64px;z-index:4;filter:drop-shadow(0 5px 2px #0002);transition:left .3s linear,top .3s linear,transform .3s linear}
+.student.running{animation:studentRun .42s infinite alternate ease-in-out}
+.student.jumping{animation:studentJump .65s infinite ease-in-out}
+@keyframes studentRun{from{margin-top:0}to{margin-top:-7px}}
+@keyframes studentJump{0%,100%{margin-top:0}50%{margin-top:-48px}}
+.wuObstacle{position:absolute;font-size:42px;bottom:22%;z-index:3}.wu1{left:29%}.wu2{left:55%}.wu3{left:77%}
+.warmupPanel{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0 4px}
+.durationSelect{padding:11px 14px;border:2px solid #d7e0e8;border-radius:13px;background:white;font-size:16px;font-weight:800;color:#172033}
 
 /* NINJA */
 .ninjaScene{background:linear-gradient(#10182f 0 55%,#173d2a 55%)}.moon{position:absolute;right:8%;top:7%;font-size:62px}.star{position:absolute;color:#fff;font-size:18px;opacity:.85}.s1{left:12%;top:14%}.s2{left:38%;top:8%}.s3{left:65%;top:20%}.tree{position:absolute;bottom:22%;font-size:65px}.t1{left:5%}.t2{left:28%}.t3{right:22%}.t4{right:4%}.routeSvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.routeLine{fill:none;stroke:#d7bf95;stroke-width:58;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 5px 2px #0002)}.routeEdge{fill:none;stroke:#a98b5f;stroke-width:4;stroke-dasharray:10 12;opacity:.8}.ninjaChar{position:absolute;left:7%;top:72%;font-size:66px;transition:left .16s linear,top .16s linear,transform .16s linear;z-index:3;filter:drop-shadow(0 5px 2px #0002)}.goal{position:absolute;right:5%;top:10%;font-size:65px;z-index:3}
@@ -27,10 +40,11 @@
 <div class="top"><div class="brand"><div class="logo">🎮</div><div><h1>SHHH! Missioni</h1><div class="sub">Giochi di movimento controllati dal silenzio.</div></div></div><button id="start">🎙️ Avvia microfono</button></div>
 
 <div class="activities">
-<button type="button" class="activity active" onclick="setMission(0)"><div class="ico">🥷</div><b>Missione Ninja</b><small>Operazione Silenzio</small></button>
-<button type="button" class="activity" onclick="setMission(1)"><div class="ico">🚀</div><b>Missione Spazio</b><small>Gravità Zero</small></button>
-<button type="button" class="activity" onclick="setMission(2)"><div class="ico">🦊</div><b>Missione Foresta</b><small>Salva la volpe</small></button>
-<button type="button" class="activity" onclick="setMission(3)"><div class="ico">🏴‍☠️</div><b>Missione Pirati</b><small>Caccia al tesoro</small></button>
+<button type="button" class="activity active" onclick="setMission(0)"><div class="ico">🏃</div><b>Warm Up</b><small>Riscaldamento motorio</small></button>
+<button type="button" class="activity" onclick="setMission(1)"><div class="ico">🥷</div><b>Missione Ninja</b><small>Operazione Silenzio</small></button>
+<button type="button" class="activity" onclick="setMission(2)"><div class="ico">🚀</div><b>Missione Spazio</b><small>Gravità Zero</small></button>
+<button type="button" class="activity" onclick="setMission(3)"><div class="ico">🦊</div><b>Missione Foresta</b><small>Salva la volpe</small></button>
+<button type="button" class="activity" onclick="setMission(4)"><div class="ico">🏴‍☠️</div><b>Missione Pirati</b><small>Caccia al tesoro</small></button>
 </div>
 
 <section class="card">
@@ -41,32 +55,45 @@
 </div>
 
 <div class="stage">
-<div class="scene ninjaScene" id="scene0">
+<div class="scene warmupScene" id="scene0">
+ <div class="warmupTitle">🏃 WARM UP</div><div class="warmupSub" id="warmupMoveLabel">CORSA LEGGERA</div>
+ <div class="wuCloud wuc1">☁️</div><div class="wuCloud wuc2">☁️</div>
+ <div class="wuTrack"></div><div class="wuObstacle wu1">🔺</div><div class="wuObstacle wu2">⭕</div><div class="wuObstacle wu3">🟦</div>
+ <div class="student" id="student">🧑‍🎓</div>
+</div>
+<div class="scene ninjaScene hidden" id="scene1">
  <div class="moon">🌙</div><div class="star s1">✦</div><div class="star s2">✦</div><div class="star s3">✦</div>
  <div class="tree t1">🌲</div><div class="tree t2">🌳</div><div class="tree t3">🌲</div><div class="tree t4">🌳</div>
  <svg class="routeSvg" viewBox="0 0 1000 440" preserveAspectRatio="none"><path class="routeLine" d="M80 330 C150 260 190 390 270 315 S390 235 455 305 S570 385 650 285 S770 165 920 105"/><path class="routeEdge" d="M80 330 C150 260 190 390 270 315 S390 235 455 305 S570 385 650 285 S770 165 920 105"/></svg><div class="goal">🏁</div><div class="ninjaChar" id="ninja">🥷</div>
 </div>
 
-<div class="scene spaceScene hidden" id="scene1">
+<div class="scene spaceScene hidden" id="scene2">
  <div class="planet">🪐</div><div class="orbit"></div><svg class="routeSvg" viewBox="0 0 1000 440" preserveAspectRatio="none"><path class="routeEdge" d="M110 390 C220 330 170 220 330 250 S510 350 590 235 S700 95 900 95"/></svg>
  <div class="stars ss1">✦</div><div class="stars ss2">✦</div><div class="stars ss3">✦</div><div class="stars ss4">✦</div>
  <div class="rocket" id="rocket">🚀</div>
 </div>
 
-<div class="scene forestScene hidden" id="scene2">
+<div class="scene forestScene hidden" id="scene3">
  <div class="sun">☀️</div><div class="hill h1"></div><div class="hill h2"></div>
  <div class="forestTree ft1">🌳</div><div class="forestTree ft2">🌲</div><div class="forestTree ft3">🌲</div><div class="forestTree ft4">🌳</div>
  <div class="forestPath"><svg class="routeSvg" viewBox="0 0 1000 440" preserveAspectRatio="none"><path class="routeLine" d="M85 335 C165 285 135 185 245 215 S350 360 445 300 S520 150 630 205 S760 350 900 285"/><path class="routeEdge" d="M85 335 C165 285 135 185 245 215 S350 360 445 300 S520 150 630 205 S760 350 900 285"/></svg></div><div class="rock r1">🪨</div><div class="rock r2">🪨</div>
  <div class="home">🏠</div><div class="fox" id="fox">🦊</div>
 </div>
 
-<div class="scene pirateScene hidden" id="scene3">
+<div class="scene pirateScene hidden" id="scene4">
  <div class="cloud c1">☁️</div><div class="cloud c2">☁️</div><div class="pirateFlag">🏴‍☠️</div>
  <div class="wave"></div><svg class="pirateRoute" viewBox="0 0 1000 440" preserveAspectRatio="none"><path class="routeLine" d="M65 285 C150 180 235 330 320 245 S475 145 555 245 S720 355 900 250"/><path class="routeEdge" d="M65 285 C150 180 235 330 320 245 S475 145 555 245 S720 355 900 250"/></svg><div class="island">🏝️</div><div class="treasure">💰</div>
  <div class="ship" id="ship">⛵</div>
 </div>
 </div>
 
+<div id="warmupControls" class="warmupPanel">
+ <label><strong>Durata:</strong></label>
+ <select id="warmupDuration" class="durationSelect">
+  <option value="1">1 minuto</option><option value="2">2 minuti</option><option value="3" selected>3 minuti</option><option value="4">4 minuti</option><option value="5">5 minuti</option>
+ </select>
+ <span class="stat">L'animazione guida corsa, salti e cambi di movimento.</span>
+</div>
 <div class="timer" id="timer">⏱️ 00:00.0</div><div class="bigstatus" id="message">🤫 Pronti...</div><div class="result" id="result"></div><div class="resultsBox"><h3>🏆 Ultimi 5 risultati</h3><div id="resultsList"><div class="stat">Nessun risultato ancora.</div></div></div>
 <div class="bar"><div class="fill" id="fill"></div></div>
 </section>
@@ -86,15 +113,17 @@
 
 <script>
 const $=id=>document.getElementById(id);
-const ninja=$('ninja'),rocket=$('rocket'),fox=$('fox'),ship=$('ship'),fill=$('fill'),pct=$('pct'),soundfill=$('soundfill'),message=$('message'),status=$('status'),objective=$('objective'),instructions=$('instructions'),timer=$('timer'),result=$('result');
+const student=$('student'),ninja=$('ninja'),rocket=$('rocket'),fox=$('fox'),ship=$('ship'),fill=$('fill'),pct=$('pct'),soundfill=$('soundfill'),message=$('message'),status=$('status'),objective=$('objective'),instructions=$('instructions'),timer=$('timer'),result=$('result'),warmupControls=$('warmupControls'),warmupDuration=$('warmupDuration'),warmupMoveLabel=$('warmupMoveLabel');
 let audioContext=null,analyser=null,data=null,source=null,stream=null,active=false,progress=0,raf=null,last=0,gameStart=0,elapsed=0,timerId=null;
 let baseline=0,calibrating=false,calibSamples=[],calibStart=0,quietThreshold=0,currentMission=0;let pendingTime=null;let finishSoundPlayed=false;
+let warmupActive=false,warmupStart=0,warmupDurationMs=180000,warmupRaf=null;
 
 const resultsList=$('resultsList');
 function loadResults(){let a=[];try{a=JSON.parse(localStorage.getItem('shhhResults')||'[]')}catch(e){};resultsList.innerHTML=a.length?a.slice(0,5).map((r,i)=>'<div class="resultRow"><span class="resultTeam">'+(i+1)+'. '+r.team+'</span><span>'+r.time+'</span><button class="deleteResult" title="Cancella risultato" aria-label="Cancella risultato" onclick="deleteResult('+i+')">🗑️</button></div>').join(''):'<div class="stat">Nessun risultato ancora.</div>'}
 function deleteResult(i){let a=[];try{a=JSON.parse(localStorage.getItem('shhhResults')||'[]')}catch(e){};if(!a[i])return;if(confirm('Cancellare questo risultato?')){a.splice(i,1);try{localStorage.setItem('shhhResults',JSON.stringify(a))}catch(e){};loadResults()}}
 function saveResult(){if(pendingTime==null)return;const team=(prompt('Nome della squadra:')||'Squadra').trim()||'Squadra';let a=[];try{a=JSON.parse(localStorage.getItem('shhhResults')||'[]')}catch(e){};a.unshift({team,time:formatTime(pendingTime).replace('⏱️ ','')});try{localStorage.setItem('shhhResults',JSON.stringify(a.slice(0,5)))}catch(e){};pendingTime=null;loadResults()}
 const missionData=[
+ {title:'🏃 WARM UP — muoviamoci!',objective:'⏱️',desc:'🏃 Il riscaldamento parte con un omino-alunno animato: corsa leggera, ginocchia alte, salti, spostamenti laterali e cambi di ritmo. Scegli la durata da 1 a 5 minuti e segui il ritmo dell’animazione!'},
  {title:'🤫 SILENZIO — il ninja avanza!',objective:'🏁',desc:'🥷 Il gruppo è una squadra di ninja. Seguite il percorso a zig-zag: passi controllati e silenziosi, slalom, cerchi, equilibrio e ostacoli. Quando arriva un rumore, il ninja si blocca!'},
  {title:'🚀 GRAVITÀ ZERO — porta l’astronauta al pianeta!',objective:'🪐',desc:'🚀 Siete astronauti. Fate il circuito: 5 saltelli, spostamenti laterali tra i coni, salti nei cerchi, equilibrio e passaggio nella “stazione spaziale”. In silenzio l’astronauta segue la traiettoria e arriva fino al pianeta!'},
  {title:'🦊 SALVA LA VOLPE — riportala alla tana!',objective:'🏠',desc:'🦊 Attraversate la foresta seguendo il sentiero tortuoso: slalom, passaggio sotto un ostacolo, salti nei cerchi, cambi di direzione ed equilibrio. Aggiungete una “sfida volpe” a ogni albero magico.'},
@@ -113,6 +142,50 @@ function routePoint(t, mission){
 }
 function playFinishSound(){try{const C=window.AudioContext||window.webkitAudioContext,ctx=new C();const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(660,ctx.currentTime);o.frequency.setValueAtTime(880,ctx.currentTime+.18);o.frequency.setValueAtTime(1046,ctx.currentTime+.36);o.frequency.setValueAtTime(880,ctx.currentTime+.58);o.frequency.setValueAtTime(1046,ctx.currentTime+.76);g.gain.setValueAtTime(.001,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.32,ctx.currentTime+.05);g.gain.setValueAtTime(.32,ctx.currentTime+.72);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+1.25);o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+1.3);setTimeout(()=>ctx.close(),1500)}catch(e){}}
 function formatTime(ms){const s=Math.floor(ms/1000),d=Math.floor((ms%1000)/100);return '⏱️ '+String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')+'.'+d} function tickTimer(){if(!active||!gameStart)return;elapsed=performance.now()-gameStart;timer.textContent=formatTime(elapsed);timerId=requestAnimationFrame(tickTimer)}
+function warmupFrame(now){
+ if(!warmupActive)return;
+ const left=now-warmupStart,remaining=Math.max(0,warmupDurationMs-left);
+ const progress=Math.min(1,left/warmupDurationMs);
+ progressWarmup(progress,remaining,now);
+ if(left>=warmupDurationMs){finishWarmup();return}
+ warmupRaf=requestAnimationFrame(warmupFrame);
+}
+function progressWarmup(p,remaining,now){
+ const min=remaining/60000;
+ timer.textContent='⏱️ '+String(Math.floor(min)).padStart(2,'0')+':'+String(Math.floor((remaining%60000)/1000)).padStart(2,'0');
+ pct.textContent=Math.round(p*100);fill.style.width=(p*100)+'%';
+ const phase=((now-warmupStart)%36000)/36000;
+ const x=12+76*phase,y=57+Math.sin(phase*Math.PI*4)*8;
+ student.style.left=x+'%';student.style.top=y+'%';
+ const mode=Math.floor(((now-warmupStart)/8000)%5);
+ const labels=['🏃 CORSA LEGGERA','🏃‍♂️ GINOCCHIA ALTE','⬆️ SALTI','↔️ SPOSTAMENTI LATERALI','⚡ CAMBIO DI RITMO'];
+ warmupMoveLabel.textContent=labels[mode];
+ student.classList.toggle('jumping',mode===2);student.classList.toggle('running',mode!==2);
+ student.style.transform='translate(-50%,-50%) scaleX('+(mode===3?(Math.sin(now/250)>=0?1:-1):1)+')';
+}
+function startWarmup(){
+ if(warmupActive)return;
+ if(active)stopMic();
+ warmupDurationMs=Number(warmupDuration.value)*60000;
+ warmupActive=true;warmupStart=performance.now();progress=0;elapsed=0;pendingTime=null;result.className='result';result.textContent='';
+ status.className='notice ok';status.textContent='Warm Up in corso! Segui i movimenti dell’omino.';
+ $('start').textContent='⏸️ Warm Up in corso';$('start').disabled=true;
+ warmupRaf=requestAnimationFrame(warmupFrame);
+}
+function finishWarmup(){
+ warmupActive=false;if(warmupRaf)cancelAnimationFrame(warmupRaf);
+ timer.textContent='⏱️ 00:00.0';pct.textContent='100';fill.style.width='100%';
+ student.classList.remove('running','jumping');
+ message.textContent='🎉 WARM UP COMPLETATO!';
+ result.className='result show';result.innerHTML='🔥 Ottimo lavoro! Hai completato il riscaldamento di <strong>'+warmupDuration.value+' minuti</strong>.';
+ status.className='notice ok';status.textContent='Warm Up completato. Puoi ricominciare o scegliere un’altra durata.';
+ $('start').disabled=false;$('start').textContent='▶️ Avvia Warm Up';
+}
+function stopMic(){
+ active=false;if(raf)cancelAnimationFrame(raf);if(timerId)cancelAnimationFrame(timerId);
+ if(source)source.disconnect();if(audioContext)audioContext.close();if(stream)stream.getTracks().forEach(t=>t.stop());
+ stream=null;source=null;audioContext=null;analyser=null;
+}
 function render(){
  pct.textContent=Math.round(progress); fill.style.width=progress+'%';
  const p=routePoint(Math.min(1,progress/100),currentMission);
@@ -130,12 +203,17 @@ function render(){
  }
 }
 function setMission(i){
+ if(warmupActive){warmupActive=false;if(warmupRaf)cancelAnimationFrame(warmupRaf)}
+ if(i!==0 && active)stopMic();
  currentMission=i;
  document.querySelectorAll('.activity').forEach((x,n)=>x.classList.toggle('active',n===i));
  document.querySelectorAll('.scene').forEach((x,n)=>x.classList.toggle('hidden',n!==i));
  const d=missionData[i];
  objective.textContent=d.objective;instructions.textContent=d.desc;
- progress=0;elapsed=0;finishSoundPlayed=false;timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';render();message.textContent=d.title;
+ warmupControls.style.display=i===0?'flex':'none';
+ $('start').disabled=false;$('start').textContent=i===0?'▶️ Avvia Warm Up':'🎙️ Avvia microfono';
+ progress=0;elapsed=0;finishSoundPlayed=false;timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';
+ student.style.left='12%';student.style.top='57%';student.classList.remove('running','jumping');render();message.textContent=d.title;
  status.className='notice';status.textContent=active?'Missione cambiata! Il microfono continua a funzionare.':'Tocca «Avvia microfono» per iniziare.';
 }
 function measure(){
@@ -167,9 +245,10 @@ function measure(){
  }
  raf=requestAnimationFrame(measure);
 }
-$('reset').onclick=()=>{progress=0;elapsed=0;timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';render();message.textContent=missionData[currentMission].title;status.className='notice';status.textContent='Tocca «Avvia microfono» per iniziare.';soundfill.style.width='0%';if(active){gameStart=performance.now();tickTimer()}};
+$('reset').onclick=()=>{if(warmupActive){warmupActive=false;if(warmupRaf)cancelAnimationFrame(warmupRaf);}$('start').disabled=false;$('start').textContent=currentMission===0?'▶️ Avvia Warm Up':'🎙️ Avvia microfono';progress=0;elapsed=0;timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';render();message.textContent=missionData[currentMission].title;status.className='notice';status.textContent='Tocca «Avvia microfono» per iniziare.';soundfill.style.width='0%';if(active){gameStart=performance.now();tickTimer()}};
 $('start').onclick=async()=>{
- if(active)return;
+ if(currentMission===0){startWarmup();return}
+ if(active||warmupActive)return;
  try{
   stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false,channelCount:1},video:false});
   audioContext=new(window.AudioContext||window.webkitAudioContext)();source=audioContext.createMediaStreamSource(stream);
@@ -177,7 +256,7 @@ $('start').onclick=async()=>{
   active=true;finishSoundPlayed=false;calibrating=true;calibSamples=[];calibStart=performance.now();gameStart=performance.now();elapsed=0;timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';tickTimer();status.className='notice';status.textContent='Resta in silenzio per 3 secondi: sto calibrando.';measure();
  }catch(e){status.className='notice warn';status.textContent='Non è stato possibile usare il microfono. Controlla il permesso del browser e riprova.'}
 };
-$('stop').onclick=()=>{active=false;if(raf)cancelAnimationFrame(raf);if(timerId)cancelAnimationFrame(timerId);if(source)source.disconnect();if(audioContext)audioContext.close();if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;source=null;audioContext=null;analyser=null;status.className='notice';status.textContent='Fermato. Puoi riavviare il microfono.'};
-render();loadResults();
+$('stop').onclick=()=>{if(warmupActive){warmupActive=false;if(warmupRaf)cancelAnimationFrame(warmupRaf);student.classList.remove('running','jumping');$('start').disabled=false;$('start').textContent='▶️ Avvia Warm Up';status.className='notice';status.textContent='Warm Up fermato.';return}stopMic();status.className='notice';status.textContent='Fermato. Puoi riavviare il microfono.'};
+warmupControls.style.display="flex";render();loadResults();
 </script>
 </body></html>
