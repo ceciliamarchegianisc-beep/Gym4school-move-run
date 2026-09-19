@@ -67,16 +67,17 @@ function reset(){progress=0;render();message.textContent='🤫 Pronti...';status
 function measure(){
  if(!active)return;
  analyser.getByteTimeDomainData(data);
- let maxDev=0;
- for(let i=0;i<data.length;i++){maxDev=Math.max(maxDev,Math.abs(data[i]-128))}
- let level=Math.min(100,maxDev*2.2);
+ let maxDev=0, sum=0;
+ for(let i=0;i<data.length;i++){let d=Math.abs(data[i]-128);maxDev=Math.max(maxDev,d);sum+=d*d}
+ let rms=Math.sqrt(sum/data.length);
+ let level=Math.min(100,Math.max(maxDev*3.5,rms*10));
  soundfill.style.width=level+'%';
- if(maxDev<=1){
+ // Qualsiasi picco acustico evidente, come un battito di mani, blocca subito il ninja.
+ if(maxDev>=4 || rms>=1.8){
+   soundfill.style.background='#d75a5a'; message.textContent='👏🔊 RUMORE — STOP IMMEDIATO!';
+ }else{
    soundfill.style.background='#55a66b'; message.textContent='🤫 SILENZIO — il ninja avanza!';
    let now=performance.now(); if(now-last>120){progress=Math.min(100,progress+0.22);last=now;render()}
- }else{
-   soundfill.style.background='#d75a5a'; message.textContent='🔊 RUMORE — STOP!';
-   last=performance.now();
  }
  raf=requestAnimationFrame(measure);
 }
