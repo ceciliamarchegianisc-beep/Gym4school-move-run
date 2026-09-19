@@ -1,59 +1,106 @@
 <!doctype html>
 <html lang="it">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Gym4School – Move & Run</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gym4School – SHHH! Ninja</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#f4f7fb;color:#172033}
-.wrap{max-width:1100px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px}
-h1{font-size:clamp(24px,4vw,42px);margin:0}.sub{color:#64748b;margin:4px 0 18px}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#eef3f7;color:#172033}
+.wrap{max-width:1050px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+h1{font-size:clamp(26px,5vw,44px);margin:0}.sub{color:#64748b;margin:4px 0 18px}
 button{border:0;border-radius:14px;padding:12px 18px;font-weight:700;font-size:16px;cursor:pointer;background:#172033;color:white}
-button.secondary{background:#e7edf5;color:#172033}.grid{display:grid;grid-template-columns:1.35fr .65fr;gap:16px}
-.card{background:white;border:1px solid #dfe6ef;border-radius:22px;padding:16px}
-.stage{position:relative;overflow:hidden;border-radius:18px;background:linear-gradient(#dff3ff 0 65%,#bde28e 65%);min-height:360px}
-.track{position:absolute;left:5%;right:5%;bottom:24%;height:8px;background:#4b5563;border-radius:10px}
-.finish{position:absolute;right:7%;bottom:24%;transform:translateY(50%);font-size:44px}
-.runner{position:absolute;left:8%;bottom:24%;transform:translateY(50%);font-size:52px;transition:left .08s linear}
-.hud{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}
-.bar{height:22px;background:#e6edf5;border-radius:99px;overflow:hidden}.fill{height:100%;width:0;background:#25a56a;transition:width .12s}
-.stat{font-size:14px;color:#64748b}.big{font-size:30px;font-weight:800}
-video{width:100%;border-radius:14px;background:#111;transform:scaleX(-1);display:block;aspect-ratio:16/9;object-fit:cover}
-.notice{padding:12px 14px;border-radius:14px;background:#f1f5f9;color:#475569;font-size:14px;line-height:1.4}
-.ok{background:#e9f8ef;color:#17633a}.warn{background:#fff7df;color:#7a5b00}
-.controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-@media(max-width:760px){.grid{grid-template-columns:1fr}.stage{min-height:300px}}
-</style></head>
+button.secondary{background:#e7edf5;color:#172033}.card{background:white;border:1px solid #dfe6ef;border-radius:22px;padding:16px}
+.hud{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.stat{font-size:14px;color:#64748b}.big{font-size:30px;font-weight:800}
+.stage{position:relative;overflow:hidden;border-radius:20px;min-height:390px;background:linear-gradient(#d9f0ff 0 58%,#8bc77a 58%);border:2px solid #dfe6ef}
+.moon{position:absolute;right:9%;top:8%;font-size:55px}.tree{position:absolute;bottom:23%;font-size:60px}.t1{left:6%}.t2{left:28%}.t3{right:22%}.t4{right:5%}
+.path{position:absolute;left:0;right:0;bottom:19%;height:70px;background:#d8c29c}.ninja{position:absolute;left:7%;bottom:21%;font-size:62px;transition:left .18s linear;z-index:2}
+.goal{position:absolute;right:7%;bottom:19%;font-size:60px}
+.bar{height:25px;background:#e6edf5;border-radius:99px;overflow:hidden}.fill{height:100%;width:0;background:#55a66b;transition:width .12s}
+.sound{height:16px;background:#e6edf5;border-radius:99px;overflow:hidden;margin-top:7px}.soundfill{height:100%;width:0;transition:width .08s}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.notice{padding:13px 15px;border-radius:14px;background:#f1f5f9;color:#475569;line-height:1.45}.ok{background:#e9f8ef;color:#17633a}.warn{background:#fff7df;color:#7a5b00}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.bigstatus{text-align:center;font-size:26px;font-weight:800;margin:12px 0 4px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.stage{min-height:320px}}
+</style>
+</head>
 <body><main class="wrap">
-<div class="top"><div><h1>🏃 Move & Run</h1><div class="sub">Corri sul posto. Porta il personaggio al traguardo.</div></div><button id="start">Avvia fotocamera</button></div>
-<section class="card" style="margin-bottom:16px"><div class="hud">
-<div><div class="stat">DISTANZA</div><div class="big"><span id="meters">0</span> m</div></div>
-<div style="flex:1"><div class="stat">ENERGY</div><div class="bar"><div class="fill" id="fill"></div></div></div>
-<div><div class="stat">OBIETTIVO</div><div class="big">50 m 🏁</div></div></div>
-<div class="stage"><div class="track"></div><div class="finish">🏁</div><div class="runner" id="runner">🏃</div></div></section>
-<section class="grid"><div class="card"><h2 style="margin-top:0">📷 Movimento</h2><video id="video" playsinline muted></video>
+<div class="top"><div><h1>🥷 SHHH! Ninja</h1><div class="sub">Muoviti in silenzio e porta il ninja alla missione.</div></div><button id="start">🎙️ Avvia microfono</button></div>
+
+<section class="card">
+<div class="hud">
+<div><div class="stat">AVANZAMENTO</div><div class="big"><span id="pct">0</span>%</div></div>
+<div style="flex:1"><div class="stat">LIVELLO DI RUMORE</div><div class="sound"><div class="soundfill" id="soundfill"></div></div></div>
+<div><div class="stat">OBIETTIVO</div><div class="big">100% 🏁</div></div>
+</div>
+<div class="stage">
+<div class="moon">🌙</div><div class="tree t1">🌲</div><div class="tree t2">🌳</div><div class="tree t3">🌲</div><div class="tree t4">🌳</div>
+<div class="path"></div><div class="goal">🏁</div><div class="ninja" id="ninja">🥷</div>
+</div>
+<div class="bigstatus" id="message">🤫 Pronti...</div>
+<div class="bar"><div class="fill" id="fill"></div></div>
+</section>
+
+<section class="grid">
+<div class="card"><h2 style="margin-top:0">Come si gioca</h2>
+<div class="notice">Quando il rumore resta basso, il ninja avanza. Se la palestra diventa rumorosa, il ninja si ferma. L'obiettivo è arrivare al traguardo senza fare troppo rumore.</div>
 <div class="controls"><button id="stop" class="secondary">Ferma</button><button id="reset" class="secondary">Ricomincia</button></div>
-<p id="status" class="notice">Posiziona il tablet per inquadrare soprattutto gambe e piedi. Tocca «Avvia fotocamera» e corri sul posto.</p></div>
-<div class="card"><h2 style="margin-top:0">Come funziona</h2><div class="notice ok">Il personaggio avanza quando il sistema rileva il movimento delle gambe.</div>
-<p class="stat" style="margin-top:14px">Per il primo test è previsto un solo alunno alla volta. Nessun nome, volto o identità viene richiesto dal gioco.</p>
-<p class="stat">Il prototipo non valuta la qualità della corsa: prova solo il meccanismo movimento → gioco.</p></div></section>
+<p id="status" class="notice" style="margin-top:12px">Tocca «Avvia microfono» e consenti l'accesso al microfono.</p>
+</div>
+<div class="card"><h2 style="margin-top:0">🔒 Privacy</h2>
+<div class="notice ok">Il gioco misura soltanto il livello sonoro. Non registra, riconosce o identifica le persone.</div>
+<p class="stat" style="margin-top:14px">Il microfono serve esclusivamente per reagire al volume dell'ambiente. Nessun audio viene salvato dal gioco.</p>
+</div>
+</section>
 </main>
-<script type="module">
+
+<script>
 const $=id=>document.getElementById(id);
-const runner=$('runner'),fill=$('fill'),metersEl=$('meters'),status=$('status'),video=$('video');
-let distance=0,running=false,lastY=null,lastStep=0,stream=null,landmarker=null,raf=null;
-function render(){const pct=Math.min(100,distance*2);fill.style.width=pct+'%';metersEl.textContent=distance.toFixed(1);runner.style.left=(8+Math.min(82,pct*.82))+'%';if(pct>=100){status.className='notice ok';status.textContent='🎉 TRAGUARDO RAGGIUNTO! Missione completata.'}}
-function advance(a=.8){if(distance>=50)return;distance=Math.min(50,distance+a);render()}
-function reset(){distance=0;lastY=null;lastStep=0;render();status.className='notice';status.textContent='Pronto. Tocca «Avvia fotocamera» e corri sul posto.'}
-$('reset').addEventListener('click',reset);
-async function initPose(){try{
-const mod=await import('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/vision_bundle.mjs');
-const {PoseLandmarker,FilesetResolver}=mod;
-const vision=await FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/wasm');
-landmarker=await PoseLandmarker.createFromOptions(vision,{baseOptions:{modelAssetPath:'https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task'},runningMode:'VIDEO',numPoses:1,minPoseDetectionConfidence:.55,minPosePresenceConfidence:.55,minTrackingConfidence:.55});
-status.className='notice ok';status.textContent='Fotocamera attiva. Posizionati davanti alla camera e corri sul posto.';running=true;detect();
-}catch(e){console.error(e);status.className='notice warn';status.textContent='Il rilevatore non è riuscito a caricarsi. Riprova dalla pagina HTTPS.'}}
-async function detect(){if(!running||!landmarker||!video.videoWidth){raf=requestAnimationFrame(detect);return}const now=performance.now();const res=landmarker.detectForVideo(video,now);if(res?.landmarks?.length){const p=res.landmarks[0],ly=p[27],ry=p[28];if(ly&&ry){const y=(ly.y+ry.y)/2;if(lastY!==null){const d=lastY-y;if(Math.abs(d)>.018&&now-lastStep>120){advance(Math.min(1.5,Math.abs(d)*18));lastStep=now}}lastY=y}}raf=requestAnimationFrame(detect)}
-$('start').addEventListener('click',async()=>{if(stream)return;try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:1280},height:{ideal:720}},audio:false});video.srcObject=stream;await video.play();await initPose()}catch(e){status.className='notice warn';status.textContent='Permesso fotocamera non concesso o non disponibile.'}});
-$('stop').addEventListener('click',()=>{running=false;if(raf)cancelAnimationFrame(raf);if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}video.srcObject=null;status.className='notice';status.textContent='Fermato. Puoi riavviare la fotocamera.'});
+const ninja=$('ninja'),fill=$('fill'),pct=$('pct'),soundfill=$('soundfill'),message=$('message'),status=$('status');
+let audioContext=null,analyser=null,data=null,source=null,stream=null,active=false,progress=0,raf=null,last=0;
+
+function render(){
+ pct.textContent=Math.round(progress); fill.style.width=progress+'%';
+ ninja.style.left=(7+Math.min(82,progress*.82))+'%';
+ if(progress>=100){message.textContent='🎉 MISSIONE COMPLETATA!';status.className='notice ok';status.textContent='Il ninja è arrivato! Tocca «Ricomincia» per una nuova missione.';active=false}
+}
+function reset(){progress=0;render();message.textContent='🤫 Pronti...';status.className='notice';status.textContent='Tocca «Avvia microfono» e consenti l’accesso al microfono.';soundfill.style.width='0%'}
+function measure(){
+ if(!active)return;
+ analyser.getByteTimeDomainData(data);
+ let sum=0; for(let i=0;i<data.length;i++){let v=(data[i]-128)/128;sum+=v*v}
+ let rms=Math.sqrt(sum/data.length);
+ let level=Math.min(100,Math.max(0,(rms-.008)*520));
+ soundfill.style.width=level+'%';
+ if(level<24){
+   soundfill.style.background='#55a66b'; message.textContent='🤫 SILENZIO — il ninja avanza!';
+   let now=performance.now(); if(now-last>90){progress=Math.min(100,progress+0.16);last=now;render()}
+ }else if(level<48){
+   soundfill.style.background='#e4b84b'; message.textContent='🙂 Piano...';
+ }else{
+   soundfill.style.background='#d75a5a'; message.textContent='🔊 TROPPO RUMORE — FERMO!';
+ }
+ raf=requestAnimationFrame(measure);
+}
+$('reset').onclick=reset;
+$('start').onclick=async()=>{
+ if(active)return;
+ try{
+  stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:false},video:false});
+  audioContext=new (window.AudioContext||window.webkitAudioContext)();
+  source=audioContext.createMediaStreamSource(stream); analyser=audioContext.createAnalyser();
+  analyser.fftSize=1024; data=new Uint8Array(analyser.fftSize); source.connect(analyser);
+  active=true; last=performance.now();
+  status.className='notice ok';status.textContent='Microfono attivo. Ora prova a muoverti facendo meno rumore possibile.';
+  measure();
+ }catch(e){status.className='notice warn';status.textContent='Non è stato possibile usare il microfono. Controlla il permesso del browser e riprova.'}
+};
+$('stop').onclick=()=>{
+ active=false;if(raf)cancelAnimationFrame(raf);
+ if(source)source.disconnect();if(audioContext)audioContext.close();
+ if(stream)stream.getTracks().forEach(t=>t.stop());
+ stream=null;source=null;audioContext=null;analyser=null;
+ status.className='notice';status.textContent='Fermato. Puoi riavviare il microfono.';
+};
 render();
-</script></body></html>
+</script>
+</body></html>
