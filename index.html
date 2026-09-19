@@ -201,5 +201,35 @@ $('stop').onclick=()=>{
  status.className='notice';status.textContent='Fermato. Puoi riavviare il microfono.';
 };
 render();
+
+// --- Mission themes ---
+const missionCards=document.querySelectorAll('.activity');
+const missionData=[
+ {name:'Missione Ninja',sub:'Attraversa la foresta',hero:'🥷',goal:'🏁',title:'🤫 SILENZIO — il ninja avanza!',desc:'Resta in silenzio e attraversa la foresta.'},
+ {name:'Missione Spazio',sub:'Raggiungi il pianeta',hero:'👩‍🚀',goal:'🪐',title:'🤫 SILENZIO — il razzo vola!',desc:'Silenzio nello spazio: raggiungi il pianeta.'},
+ {name:'Missione Foresta',sub:'Porta la volpe a casa',hero:'🦊',goal:'🏠',title:'🤫 SILENZIO — la volpe cammina!',desc:'Attraversa il bosco senza fare rumore.'},
+ {name:'Missione Pirati',sub:'Trova il tesoro',hero:'🏴‍☠️',goal:'💰',title:'🤫 SILENZIO — verso il tesoro!',desc:'Supera il percorso e raggiungi il tesoro.'}
+];
+let currentMission=0;
+function setMission(i){
+ currentMission=i;
+ missionCards.forEach((el,n)=>el.classList.toggle('active',n===i));
+ const d=missionData[i];
+ const n=document.getElementById('ninja'), g=document.querySelector('.goal'), stage=document.querySelector('.stage');
+ n.textContent=d.hero; g.textContent=d.goal;
+ document.querySelector('.sub').textContent='Giochi di movimento controllati dal silenzio.';
+ document.querySelector('.bigstatus').textContent=d.title;
+ const info=document.querySelector('.grid .card .notice');
+ if(info) info.textContent=d.desc;
+ progress=0; render();
+ message.textContent=d.title;
+ status.className='notice';
+ status.textContent=active?'Missione cambiata. Il microfono continua a funzionare.':'Tocca «Avvia microfono» per iniziare la missione.';
+ if(i===0){stage.style.background='linear-gradient(#d9f1ff 0 56%,#8fcf7d 56%)';stage.querySelector('.moon').textContent='🌙';}
+ if(i===1){stage.style.background='linear-gradient(#101a3b 0 56%,#28375e 56%)';stage.querySelector('.moon').textContent='🌍';}
+ if(i===2){stage.style.background='linear-gradient(#c9edff 0 56%,#5e9e62 56%)';stage.querySelector('.moon').textContent='☀️';}
+ if(i===3){stage.style.background='linear-gradient(#7bd2e8 0 56%,#cda66b 56%)';stage.querySelector('.moon').textContent='☀️';}
+}
+missionCards.forEach((el,i)=>el.addEventListener('click',()=>setMission(i)));
 </script>
 </body></html>
