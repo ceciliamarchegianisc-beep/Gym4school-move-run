@@ -69,15 +69,14 @@ function measure(){
  analyser.getByteTimeDomainData(data);
  let sum=0; for(let i=0;i<data.length;i++){let v=(data[i]-128)/128;sum+=v*v}
  let rms=Math.sqrt(sum/data.length);
- let level=Math.min(100,Math.max(0,(rms-.008)*520));
+ let level=Math.min(100,Math.max(0,(rms-.004)*850));
  soundfill.style.width=level+'%';
- if(level<24){
+ if(level<10){
    soundfill.style.background='#55a66b'; message.textContent='🤫 SILENZIO — il ninja avanza!';
-   let now=performance.now(); if(now-last>90){progress=Math.min(100,progress+0.16);last=now;render()}
- }else if(level<48){
-   soundfill.style.background='#e4b84b'; message.textContent='🙂 Piano...';
+   let now=performance.now(); if(now-last>120){progress=Math.min(100,progress+0.22);last=now;render()}
  }else{
-   soundfill.style.background='#d75a5a'; message.textContent='🔊 TROPPO RUMORE — FERMO!';
+   soundfill.style.background='#d75a5a'; message.textContent='🔊 RUMORE — STOP!';
+   last=performance.now();
  }
  raf=requestAnimationFrame(measure);
 }
