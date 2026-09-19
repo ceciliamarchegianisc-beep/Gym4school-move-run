@@ -67,17 +67,28 @@ function reset(){progress=0;render();message.textContent='🤫 Pronti...';status
 function measure(){
  if(!active)return;
  analyser.getByteTimeDomainData(data);
- let maxDev=0, sum=0;
- for(let i=0;i<data.length;i++){let d=Math.abs(data[i]-128);maxDev=Math.max(maxDev,d);sum+=d*d}
- let rms=Math.sqrt(sum/data.length);
- let level=Math.min(100,Math.max(maxDev*3.5,rms*10));
+ let maxDev=0,sum=0;
+ for(let i=0;i<data.length;i++){
+   const d=Math.abs(data[i]-128);
+   if(d>maxDev)maxDev=d;
+   sum+=d*d;
+ }
+ const rms=Math.sqrt(sum/data.length);
+ const level=Math.min(100,Math.max(maxDev*4,rms*12));
  soundfill.style.width=level+'%';
- // Qualsiasi picco acustico evidente, come un battito di mani, blocca subito il ninja.
- if(maxDev>=4 || rms>=1.8){
-   soundfill.style.background='#d75a5a'; message.textContent='👏🔊 RUMORE — STOP IMMEDIATO!';
+
+ // Soglia volutamente molto bassa: un battito di mani deve generare un picco netto.
+ // Non aspettiamo un rumore "forte": basta un piccolo picco acustico.
+ const clapDetected = maxDev >= 2 || rms >= 0.65;
+
+ if(clapDetected){
+   soundfill.style.background='#d75a5a';
+   message.textContent='👏 RUMORE! STOP IMMEDIATO';
  }else{
-   soundfill.style.background='#55a66b'; message.textContent='🤫 SILENZIO — il ninja avanza!';
-   let now=performance.now(); if(now-last>120){progress=Math.min(100,progress+0.22);last=now;render()}
+   soundfill.style.background='#55a66b';
+   message.textContent='🤫 SILENZIO — il ninja avanza!';
+   const now=performance.now();
+   if(now-last>120){progress=Math.min(100,progress+0.22);last=now;render()}
  }
  raf=requestAnimationFrame(measure);
 }
@@ -85,7 +96,7 @@ $('reset').onclick=reset;
 $('start').onclick=async()=>{
  if(active)return;
  try{
-  stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:false},video:false});
+  stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false,channelCount:1},video:false});
   audioContext=new (window.AudioContext||window.webkitAudioContext)();
   source=audioContext.createMediaStreamSource(stream); analyser=audioContext.createAnalyser();
   analyser.fftSize=1024; data=new Uint8Array(analyser.fftSize); source.connect(analyser);
