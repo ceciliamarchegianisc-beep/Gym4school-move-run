@@ -102,6 +102,13 @@ const missionData=[
 ];
 
 function routePoint(t, mission){
+ if(mission===0){
+  const path=document.querySelector('#scene0 .routeLine');
+  if(path&&path.getTotalLength){
+   const L=path.getTotalLength(),d=Math.max(0,Math.min(1,t))*L,p=path.getPointAtLength(d),p2=path.getPointAtLength(Math.min(L,d+1));
+   return {x:p.x/10,y:p.y/4.4,rot:Math.atan2(p2.y-p.y,p2.x-p.x)*180/Math.PI};
+  }
+ }
  const paths=[
   [[8,75],[16,59],[24,77],[34,67],[45,55],[56,68],[66,78],[76,58],[86,38],[92,24]],
   [[11,84],[20,70],[25,54],[36,48],[48,60],[58,52],[68,39],[78,27],[88,22]],
@@ -159,7 +166,7 @@ function measure(){
  if(detected){soundfill.style.background='#d75a5a';message.textContent='🔊 RUMORE — NINJA FERMO!';if(currentMission===0&&ninjaRunning&&now-last>120){ninjaStops++;$('ninjaStops').textContent=ninjaStops}}
  else{
    soundfill.style.background='#55a66b';message.textContent=missionData[currentMission].title;
-   if(now-last>100){progress=Math.min(100,progress+.22);ninjaDistance+=.22;last=now;render();if(currentMission===0&&progress>=100){finishNinja(false);return}}
+   if(now-last>100){const step=10000/(ninjaDurationMs);progress=Math.min(100,progress+step);ninjaDistance+=step;last=now;render();if(currentMission===0&&progress>=100){finishNinja(false);return}}
    baseline=baseline*.9995+rms*.0005;quietThreshold=Math.max(.006,baseline*1.35);
  }
  raf=requestAnimationFrame(measure);
