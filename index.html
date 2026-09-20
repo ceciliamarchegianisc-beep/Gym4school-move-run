@@ -8,7 +8,7 @@
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#f5f7fb;color:#172033}.wrap{max-width:1100px;margin:auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:16px}.brand{display:flex;align-items:center;gap:12px}.logo{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;background:#172033;color:white;font-size:30px}h1{font-size:clamp(27px,5vw,44px);margin:0;letter-spacing:-1px}.sub{color:#64748b;margin-top:2px}button{border:0;border-radius:15px;padding:12px 18px;font-weight:800;font-size:16px;cursor:pointer;background:#172033;color:white}button.secondary{background:#e9eef5;color:#172033}.activities{display:flex;gap:10px;overflow:auto;padding:4px 0 14px}.activity{min-width:170px;border:2px solid transparent;border-radius:18px;padding:12px;background:white;color:#172033;cursor:pointer;text-align:left;box-shadow:0 3px 12px #0001;appearance:none;-webkit-appearance:none}.activity.active{border-color:#172033}.activity .ico{font-size:30px}.activity b{display:block;margin-top:4px}.activity small{color:#64748b}.card{background:white;border:1px solid #dfe6ef;border-radius:24px;padding:17px;box-shadow:0 5px 20px #0001}.hud{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.stat{font-size:13px;color:#64748b;font-weight:700}.big{font-size:29px;font-weight:900}.bar{height:24px;background:#e7edf4;border-radius:99px;overflow:hidden}.fill{height:100%;width:0;background:#59a66d;transition:width .12s}.sound{height:15px;background:#e7edf4;border-radius:99px;overflow:hidden;margin-top:7px}.soundfill{height:100%;width:0;transition:width .06s}.stage{position:relative;overflow:hidden;border-radius:22px;min-height:440px;border:1px solid #d7e0e8}.scene{position:absolute;inset:0;overflow:hidden}.scene.hidden{display:none}
 
 /* NINJA */
-.ninjaScene{background:linear-gradient(#10182f 0 55%,#173d2a 55%)}.moon{position:absolute;right:8%;top:7%;font-size:62px}.star{position:absolute;color:#fff;font-size:18px;opacity:.85}.s1{left:12%;top:14%}.s2{left:38%;top:8%}.s3{left:65%;top:20%}.tree{position:absolute;bottom:22%;font-size:65px}.t1{left:5%}.t2{left:28%}.t3{right:22%}.t4{right:4%}.routeSvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.routeLine{fill:none;stroke:#d7bf95;stroke-width:58;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 5px 2px #0002)}.routeEdge{fill:none;stroke:#a98b5f;stroke-width:4;stroke-dasharray:10 12;opacity:.8}.ninjaChar{position:absolute;left:7%;top:72%;font-size:66px;transition:left .16s linear,top .16s linear,transform .16s linear;z-index:3;filter:drop-shadow(0 5px 2px #0002)}.goal{position:absolute;right:5%;top:10%;font-size:65px;z-index:3}
+.ninjaScene{background:linear-gradient(#10182f 0 55%,#173d2a 55%)}.moon{position:absolute;right:8%;top:7%;font-size:62px}.star{position:absolute;color:#fff;font-size:18px;opacity:.85}.s1{left:12%;top:14%}.s2{left:38%;top:8%}.s3{left:65%;top:20%}.tree{position:absolute;bottom:22%;font-size:65px}.t1{left:5%}.t2{left:28%}.t3{right:22%}.t4{right:4%}.routeSvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.routeLine{fill:none;stroke:#d7bf95;stroke-width:58;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 5px 2px #0002)}.routeEdge{fill:none;stroke:#a98b5f;stroke-width:4;stroke-dasharray:10 12;opacity:.8}.ninjaChar{position:absolute;left:7%;top:72%;font-size:66px;transition:left .16s linear,top .16s linear,transform .16s linear;z-index:3;filter:drop-shadow(0 5px 2px #0002)}.goal{position:absolute;right:5%;top:10%;font-size:65px;z-index:3}.ninjaControls{position:absolute;left:3%;top:3%;z-index:10;display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:9px 12px;border-radius:14px;background:#ffffffee;color:#172033;font-size:14px;box-shadow:0 3px 12px #0002}.ninjaControls select{padding:7px 9px;border-radius:9px;border:1px solid #cbd5e1;font-weight:800}.ninjaControls span{font-size:12px;color:#526174}.ninjaStats{position:absolute;right:3%;bottom:3%;z-index:10;display:flex;gap:10px;padding:8px 12px;border-radius:12px;background:#10182ddd;color:#fff;font-size:14px}
 
 /* SPAZIO */
 .spaceScene{background:radial-gradient(circle at 75% 20%,#293f92 0,#10183e 35%,#060a20 80%)}.planet{position:absolute;right:6%;top:7%;font-size:76px;z-index:4}.stars{position:absolute;color:#fff;font-size:22px}.ss1{left:10%;top:12%}.ss2{left:45%;top:20%}.ss3{right:22%;top:45%}.ss4{left:25%;top:65%}.rocket{position:absolute;left:11%;top:84%;font-size:62px;transition:left .16s linear,top .16s linear,transform .16s linear;z-index:5;filter:drop-shadow(0 5px 3px #0005)}.orbit{position:absolute;right:3%;top:2%;width:160px;height:160px;border:2px dashed #ffffff55;border-radius:50%}.spaceTrail{position:absolute;left:12%;top:10%;width:76%;height:82%;border:3px dashed #7bd3ff66;border-radius:50%;transform:rotate(-20deg);pointer-events:none}
@@ -44,7 +44,7 @@
 <div class="scene ninjaScene" id="scene0">
  <div class="moon">🌙</div><div class="star s1">✦</div><div class="star s2">✦</div><div class="star s3">✦</div>
  <div class="tree t1">🌲</div><div class="tree t2">🌳</div><div class="tree t3">🌲</div><div class="tree t4">🌳</div>
- <svg class="routeSvg" viewBox="0 0 1000 440" preserveAspectRatio="none"><path class="routeLine" d="M80 330 C150 260 190 390 270 315 S390 235 455 305 S570 385 650 285 S770 165 920 105"/><path class="routeEdge" d="M80 330 C150 260 190 390 270 315 S390 235 455 305 S570 385 650 285 S770 165 920 105"/></svg><div class="goal">🏁</div><div class="ninjaChar" id="ninja">🥷</div>
+ <svg class="routeSvg" viewBox="0 0 1000 440" preserveAspectRatio="none"><path class="routeLine" d="M80 330 C150 260 190 390 270 315 S390 235 455 305 S570 385 650 285 S770 165 920 105"/><path class="routeEdge" d="M80 330 C150 260 190 390 270 315 S390 235 455 305 S570 385 650 285 S770 165 920 105"/></svg><div class="goal">🏁</div><div class="ninjaChar" id="ninja">🥷</div><div class="ninjaControls"><b>⏱️ Durata:</b><select id="ninjaDuration"><option value="1">1 min</option><option value="2" selected>2 min</option><option value="3">3 min</option><option value="4">4 min</option><option value="5">5 min</option></select><span>La classe continua a muoversi. Il Ninja si ferma solo quando rileva rumore.</span></div><div class="ninjaStats"><span>🔊 Stop: <b id="ninjaStops">0</b></span><span>🔄 Giri: <b id="ninjaLaps">0</b></span></div>
 </div>
 
 <div class="scene spaceScene hidden" id="scene1">
@@ -88,7 +88,7 @@
 const $=id=>document.getElementById(id);
 const ninja=$('ninja'),rocket=$('rocket'),fox=$('fox'),ship=$('ship'),fill=$('fill'),pct=$('pct'),soundfill=$('soundfill'),message=$('message'),status=$('status'),objective=$('objective'),instructions=$('instructions'),timer=$('timer'),result=$('result');
 let audioContext=null,analyser=null,data=null,source=null,stream=null,active=false,progress=0,raf=null,last=0,gameStart=0,elapsed=0,timerId=null;
-let baseline=0,calibrating=false,calibSamples=[],calibStart=0,quietThreshold=0,currentMission=0;let pendingTime=null;let finishSoundPlayed=false;
+let baseline=0,calibrating=false,calibSamples=[],calibStart=0,quietThreshold=0,currentMission=0;let pendingTime=null;let finishSoundPlayed=false;let ninjaDurationMs=120000,ninjaStart=0,ninjaDistance=0,ninjaStops=0,ninjaLaps=0,ninjaRunning=false;
 
 const resultsList=$('resultsList');
 function loadResults(){let a=[];try{a=JSON.parse(localStorage.getItem('shhhResults')||'[]')}catch(e){};resultsList.innerHTML=a.length?a.slice(0,5).map((r,i)=>'<div class="resultRow"><span class="resultTeam">'+(i+1)+'. '+r.team+'</span><span>'+r.time+'</span><button class="deleteResult" title="Cancella risultato" aria-label="Cancella risultato" onclick="deleteResult('+i+')">🗑️</button></div>').join(''):'<div class="stat">Nessun risultato ancora.</div>'}
@@ -112,7 +112,7 @@ function routePoint(t, mission){
  const a=pts[i],b=pts[i+1]; return {x:a[0]+(b[0]-a[0])*f,y:a[1]+(b[1]-a[1])*f,rot:Math.atan2(b[1]-a[1],b[0]-a[0])*180/Math.PI};
 }
 function playFinishSound(){try{const C=window.AudioContext||window.webkitAudioContext,ctx=new C();const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(660,ctx.currentTime);o.frequency.setValueAtTime(880,ctx.currentTime+.18);o.frequency.setValueAtTime(1046,ctx.currentTime+.36);o.frequency.setValueAtTime(880,ctx.currentTime+.58);o.frequency.setValueAtTime(1046,ctx.currentTime+.76);g.gain.setValueAtTime(.001,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.32,ctx.currentTime+.05);g.gain.setValueAtTime(.32,ctx.currentTime+.72);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+1.25);o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+1.3);setTimeout(()=>ctx.close(),1500)}catch(e){}}
-function formatTime(ms){const s=Math.floor(ms/1000),d=Math.floor((ms%1000)/100);return '⏱️ '+String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')+'.'+d} function tickTimer(){if(!active||!gameStart)return;elapsed=performance.now()-gameStart;timer.textContent=formatTime(elapsed);timerId=requestAnimationFrame(tickTimer)}
+function formatTime(ms){const s=Math.floor(ms/1000),d=Math.floor((ms%1000)/100);return '⏱️ '+String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')+'.'+d} function tickTimer(){if(!active||!gameStart)return;elapsed=performance.now()-gameStart;if(currentMission===0&&elapsed>=ninjaDurationMs){finishNinja();return}timer.textContent=formatTime(elapsed);timerId=requestAnimationFrame(tickTimer)}
 function render(){
  pct.textContent=Math.round(progress); fill.style.width=progress+'%';
  const p=routePoint(Math.min(1,progress/100),currentMission);
@@ -120,22 +120,19 @@ function render(){
  if(currentMission===1){rocket.style.left=p.x+'%';rocket.style.top=p.y+'%';rocket.style.transform='translate(-50%,-50%) rotate('+(p.rot+45)+'deg)'}
  if(currentMission===2){fox.style.left=p.x+'%';fox.style.top=p.y+'%';fox.style.transform='translate(-50%,-50%) rotate('+(p.rot*.12)+'deg)'}
  if(currentMission===3){ship.style.left=p.x+'%';ship.style.top=p.y+'%';ship.style.transform='translate(-50%,-50%) rotate('+(p.rot*.12)+'deg)'}
- if(progress>=100){
-   elapsed=performance.now()-gameStart;
-   if(!finishSoundPlayed){finishSoundPlayed=true;playFinishSound()} timer.textContent=formatTime(elapsed);
-   message.textContent='🎉 MISSIONE COMPLETATA!';
-   result.className='result show'; pendingTime=elapsed; result.innerHTML='🏆 TEMPO: <strong>'+formatTime(elapsed).replace('⏱️ ','')+'</strong><br><span style="font-size:16px;font-weight:700">Più silenziosi = percorso più veloce!</span><button class="saveResult" onclick="saveResult()">💾 Salva risultato</button>';
-   status.className='notice ok'; status.textContent='Tempo registrato. Tocca «Ricomincia» per una nuova sfida.';
-   active=false; if(timerId)cancelAnimationFrame(timerId);
+ if(currentMission!==0 && progress>=100){
+   if(currentMission===0)return;
+   progress=100;
  }
 }
+function finishNinja(){if(!active)return;active=false;ninjaRunning=false;if(timerId)cancelAnimationFrame(timerId);if(!finishSoundPlayed){finishSoundPlayed=true;playFinishSound()}timer.textContent=formatTime(ninjaDurationMs);const silentRatio=Math.max(0,Math.min(1,ninjaDistance/(ninjaDurationMs/1000*.22)));const score=Math.round(silentRatio*100);message.textContent='🏁 FINE MISSIONE!';result.className='result show';result.innerHTML='<div><b>⏱️ Tempo:</b> '+formatTime(ninjaDurationMs).replace('⏱️ ','')+'</div><div><b>🔊 Interruzioni:</b> '+ninjaStops+'</div><div><b>🔄 Giri completati:</b> '+ninjaLaps+'</div><div style="font-size:24px;margin-top:8px"><b>🏆 PUNTEGGIO: '+score+'/100</b></div>';status.className='notice ok';status.textContent='Missione terminata! Confronta il punteggio con le altre classi.'}
 function setMission(i){
  currentMission=i;
  document.querySelectorAll('.activity').forEach((x,n)=>x.classList.toggle('active',n===i));
  document.querySelectorAll('.scene').forEach((x,n)=>x.classList.toggle('hidden',n!==i));
  const d=missionData[i];
  objective.textContent=d.objective;instructions.textContent=d.desc;
- progress=0;elapsed=0;finishSoundPlayed=false;timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';render();message.textContent=d.title;
+ progress=0;elapsed=0;finishSoundPlayed=false;ninjaStops=0;ninjaLaps=0;ninjaDistance=0;ninjaRunning=false;timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';$('ninjaStops').textContent='0';$('ninjaLaps').textContent='0';render();message.textContent=d.title;
  status.className='notice';status.textContent=active?'Missione cambiata! Il microfono continua a funzionare.':'Tocca «Avvia microfono» per iniziare.';
 }
 function measure(){
@@ -159,10 +156,10 @@ function measure(){
  }
  const detected=rms>quietThreshold||maxDev>=8;
  soundfill.style.width=Math.min(100,Math.max(maxDev*4,rms*1800))+'%';
- if(detected){soundfill.style.background='#d75a5a';message.textContent='🔊 RUMORE — STOP!'}
+ if(detected){soundfill.style.background='#d75a5a';message.textContent='🔊 RUMORE — NINJA FERMO!';if(currentMission===0&&ninjaRunning&&now-last>120){ninjaStops++;$('ninjaStops').textContent=ninjaStops}}
  else{
    soundfill.style.background='#55a66b';message.textContent=missionData[currentMission].title;
-   if(now-last>100){progress=Math.min(100,progress+.22);last=now;render()}
+   if(now-last>100){progress=Math.min(100,progress+.22);ninjaDistance+=.22;last=now;if(progress>=100){ninjaLaps++;progress=0;$('ninjaLaps').textContent=ninjaLaps}render()}
    baseline=baseline*.9995+rms*.0005;quietThreshold=Math.max(.006,baseline*1.35);
  }
  raf=requestAnimationFrame(measure);
@@ -174,7 +171,7 @@ $('start').onclick=async()=>{
   stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false,channelCount:1},video:false});
   audioContext=new(window.AudioContext||window.webkitAudioContext)();source=audioContext.createMediaStreamSource(stream);
   analyser=audioContext.createAnalyser();analyser.fftSize=1024;data=new Uint8Array(analyser.fftSize);source.connect(analyser);
-  active=true;finishSoundPlayed=false;calibrating=true;calibSamples=[];calibStart=performance.now();gameStart=performance.now();elapsed=0;timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';tickTimer();status.className='notice';status.textContent='Resta in silenzio per 3 secondi: sto calibrando.';measure();
+  active=true;finishSoundPlayed=false;calibrating=true;calibSamples=[];calibStart=performance.now();gameStart=performance.now();elapsed=0;if(currentMission===0){ninjaDurationMs=Number($('ninjaDuration').value)*60000;ninjaStart=performance.now();ninjaDistance=0;ninjaStops=0;ninjaLaps=0;ninjaRunning=true;$('ninjaStops').textContent='0';$('ninjaLaps').textContent='0';}timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';tickTimer();status.className='notice';status.textContent='Resta in silenzio per 3 secondi: sto calibrando.';measure();
  }catch(e){status.className='notice warn';status.textContent='Non è stato possibile usare il microfono. Controlla il permesso del browser e riprova.'}
 };
 $('stop').onclick=()=>{active=false;if(raf)cancelAnimationFrame(raf);if(timerId)cancelAnimationFrame(timerId);if(source)source.disconnect();if(audioContext)audioContext.close();if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;source=null;audioContext=null;analyser=null;status.className='notice';status.textContent='Fermato. Puoi riavviare il microfono.'};
