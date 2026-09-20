@@ -186,11 +186,12 @@ function stopMic(){
 }
 function render(){
  pct.textContent=Math.round(progress); fill.style.width=progress+'%';
- const p=routePoint(Math.min(1,progress/100),currentMission);
- if(currentMission===0){ninja.style.left=p.x+'%';ninja.style.top=p.y+'%';ninja.style.transform='translate(-50%,-50%) rotate('+(p.rot*.18)+'deg)'}
- if(currentMission===1){rocket.style.left=p.x+'%';rocket.style.top=p.y+'%';rocket.style.transform='translate(-50%,-50%) rotate('+(p.rot+45)+'deg)'}
- if(currentMission===2){fox.style.left=p.x+'%';fox.style.top=p.y+'%';fox.style.transform='translate(-50%,-50%) rotate('+(p.rot*.12)+'deg)'}
- if(currentMission===3){ship.style.left=p.x+'%';ship.style.top=p.y+'%';ship.style.transform='translate(-50%,-50%) rotate('+(p.rot*.12)+'deg)'}
+ if(currentMission===0)return;
+ const p=routePoint(Math.min(1,progress/100),currentMission-1);
+ if(currentMission===1){ninja.style.left=p.x+'%';ninja.style.top=p.y+'%';ninja.style.transform='translate(-50%,-50%) rotate('+(p.rot*.18)+'deg)'}
+ if(currentMission===2){rocket.style.left=p.x+'%';rocket.style.top=p.y+'%';rocket.style.transform='translate(-50%,-50%) rotate('+(p.rot+45)+'deg)'}
+ if(currentMission===3){fox.style.left=p.x+'%';fox.style.top=p.y+'%';fox.style.transform='translate(-50%,-50%) rotate('+(p.rot*.12)+'deg)'}
+ if(currentMission===4){ship.style.left=p.x+'%';ship.style.top=p.y+'%';ship.style.transform='translate(-50%,-50%) rotate('+(p.rot*.12)+'deg)'}
  if(progress>=100){
    elapsed=performance.now()-gameStart;
    if(!finishSoundPlayed){finishSoundPlayed=true;playFinishSound()} timer.textContent=formatTime(elapsed);
