@@ -11,15 +11,7 @@
 .warmupSub{position:absolute;left:5%;top:14%;font-size:16px;font-weight:800;color:#496579}
 .wuCloud{position:absolute;font-size:48px;opacity:.8}.wuc1{left:12%;top:22%}.wuc2{right:16%;top:11%}
 .wuTrack{position:absolute;left:5%;right:5%;bottom:13%;height:34%;border-radius:50%;border:7px dashed #fff;background:#6eb574;box-shadow:inset 0 -12px 0 #5ca463}
-.student{position:absolute;left:12%;top:57%;width:76px;height:118px;z-index:4;filter:drop-shadow(0 6px 3px #0003);transition:left .3s linear,top .3s linear,transform .3s linear}
-.student .head{position:absolute;left:23px;top:0;width:30px;height:30px;border-radius:50%;background:#f2c6a0;border:3px solid #263238}
-.student .body{position:absolute;left:28px;top:30px;width:20px;height:43px;border-radius:10px;background:#3f78c5;border:3px solid #263238}
-.student .arm,.student .leg{position:absolute;width:10px;border-radius:8px;background:#263238;transform-origin:top center}
-.student .arm{top:35px;height:38px}.student .leg{top:69px;height:43px}
-.student .arm.left{left:20px;transform:rotate(28deg)}.student .arm.right{left:46px;transform:rotate(-28deg)}
-.student .leg.left{left:27px;transform:rotate(20deg)}.student .leg.right{left:40px;transform:rotate(-20deg)}
-.student.running{animation:studentRun .42s infinite alternate ease-in-out}
-.student.jumping{animation:studentJump .65s infinite ease-in-out}
+.student{position:absolute;left:12%;top:57%;width:80px;height:120px;z-index:4;filter:drop-shadow(0 6px 3px #0003);transition:left .3s linear,top .3s linear,transform .3s linear}.student svg{display:block;width:80px;height:120px}.student.running svg{animation:studentRun .42s infinite alternate ease-in-out}.student.jumping svg{animation:studentJump .65s infinite ease-in-out}
 @keyframes studentRun{from{margin-top:0}to{margin-top:-9px}}
 @keyframes studentJump{0%,100%{margin-top:0}50%{margin-top:-55px}}
 .wuObstacle{position:absolute;font-size:42px;bottom:22%;z-index:3}.wu1{left:29%}.wu2{left:55%}.wu3{left:77%}
@@ -65,7 +57,7 @@
  <div class="warmupTitle">🏃 WARM UP</div><div class="warmupSub" id="warmupMoveLabel">CORSA LEGGERA</div>
  <div class="wuCloud wuc1">☁️</div><div class="wuCloud wuc2">☁️</div>
  <div class="wuTrack"></div><div class="wuObstacle wu1">🔺</div><div class="wuObstacle wu2">⭕</div><div class="wuObstacle wu3">🟦</div>
- <div class="student" id="student"><span class="head"></span><span class="body"></span><span class="arm left"></span><span class="arm right"></span><span class="leg left"></span><span class="leg right"></span></div>
+ <div class="student" id="student"><svg viewBox="0 0 80 120" aria-label="omino che corre"><circle cx="40" cy="17" r="14" fill="#f2c6a0" stroke="#263238" stroke-width="3"/><path d="M27 15 Q40 0 53 15" fill="#5a3825"/><rect x="29" y="32" width="22" height="39" rx="10" fill="#3f78c5" stroke="#263238" stroke-width="3"/><path d="M29 39 L14 66" stroke="#263238" stroke-width="9" stroke-linecap="round"/><path d="M51 39 L66 62" stroke="#263238" stroke-width="9" stroke-linecap="round"/><path d="M34 69 L23 108" stroke="#263238" stroke-width="10" stroke-linecap="round"/><path d="M46 69 L58 108" stroke="#263238" stroke-width="10" stroke-linecap="round"/><path d="M18 108 L7 108" stroke="#263238" stroke-width="8" stroke-linecap="round"/><path d="M58 108 L70 108" stroke="#263238" stroke-width="8" stroke-linecap="round"/></svg></div>
 </div>
 <div class="scene ninjaScene hidden" id="scene1">
  <div class="moon">🌙</div><div class="star s1">✦</div><div class="star s2">✦</div><div class="star s3">✦</div>
