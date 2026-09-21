@@ -119,7 +119,7 @@ function routePoint(t, mission){
  const pts=paths[mission],x=t*(pts.length-1),i=Math.min(pts.length-2,Math.floor(x)),f=x-i;
  const a=pts[i],b=pts[i+1]; return {x:a[0]+(b[0]-a[0])*f,y:a[1]+(b[1]-a[1])*f,rot:Math.atan2(b[1]-a[1],b[0]-a[0])*180/Math.PI};
 }
-function playBeat(){if(!audioContext)return;try{if(audioContext.state==='suspended')audioContext.resume();const t=audioContext.currentTime+.01,o=audioContext.createOscillator(),g=audioContext.createGain();o.type='sine';o.frequency.setValueAtTime(110,t);o.frequency.exponentialRampToValueAtTime(70,t+.11);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.24,t+.008);g.gain.exponentialRampToValueAtTime(.0001,t+.18);o.connect(g);g.connect(audioContext.destination);o.start(t);o.stop(t+.19);const h=audioContext.createOscillator(),hg=audioContext.createGain();h.type='square';h.frequency.setValueAtTime(880,t);hg.gain.setValueAtTime(.0001,t);hg.gain.exponentialRampToValueAtTime(.055,t+.005);hg.gain.exponentialRampToValueAtTime(.0001,t+.055);h.connect(hg);hg.connect(audioContext.destination);h.start(t);h.stop(t+.06)}catch(e){}}
+function playBeat(){if(!audioContext)return;try{if(audioContext.state==='suspended')audioContext.resume();const t=audioContext.currentTime+.01,o=audioContext.createOscillator(),g=audioContext.createGain();o.type='sine';o.frequency.setValueAtTime(95,t);o.frequency.exponentialRampToValueAtTime(55,t+.16);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.42,t+.008);g.gain.exponentialRampToValueAtTime(.0001,t+.18);o.connect(g);g.connect(audioContext.destination);o.start(t);o.stop(t+.19);const h=audioContext.createOscillator(),hg=audioContext.createGain();h.type='square';h.frequency.setValueAtTime(660,t);hg.gain.setValueAtTime(.0001,t);hg.gain.exponentialRampToValueAtTime(.10,t+.005);hg.gain.exponentialRampToValueAtTime(.0001,t+.055);h.connect(hg);hg.connect(audioContext.destination);h.start(t);h.stop(t+.06)}catch(e){}}
 function finishSpace(){if(!active)return;active=false;if(raf)cancelAnimationFrame(raf);if(timerId)cancelAnimationFrame(timerId);const finalMs=elapsed;timer.textContent=formatTime(finalMs);message.textContent='🪐 MISSIONE COMPLETATA!';result.className='result show';pendingTime=finalMs;pendingScore=null;result.innerHTML='<div><b>🏀 Colpi a tempo:</b> '+spaceHits+'/'+spaceTarget+'</div><div><b>⏱️ Tempo:</b> '+formatTime(finalMs).replace('⏱️ ','')+'</div><div style="font-size:18px;margin-top:8px"><b>🚀 Il razzo è arrivato sul pianeta!</b></div><button class="saveResult" onclick="saveResult()">💾 Salva risultato</button>';status.className='notice ok';status.textContent='Missione completata! Prova a migliorare la precisione del ritmo.';if(audioContext){try{audioContext.suspend()}catch(e){}}}
 function spaceLowEnergy(){if(!freqData||!audioContext)return 0;analyser.getByteFrequencyData(freqData);const hz=audioContext.sampleRate/analyser.fftSize;let sum=0,n=0;for(let i=2;i<freqData.length;i++){const f=i*hz;if(f>=70&&f<=500){sum+=freqData[i];n++}}return n?sum/n:0}
 function playFinishSound(){try{const C=window.AudioContext||window.webkitAudioContext,ctx=new C();const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(660,ctx.currentTime);o.frequency.setValueAtTime(880,ctx.currentTime+.18);o.frequency.setValueAtTime(1046,ctx.currentTime+.36);o.frequency.setValueAtTime(880,ctx.currentTime+.58);o.frequency.setValueAtTime(1046,ctx.currentTime+.76);g.gain.setValueAtTime(.001,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.32,ctx.currentTime+.05);g.gain.setValueAtTime(.32,ctx.currentTime+.72);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+1.25);o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+1.3);setTimeout(()=>ctx.close(),1500)}catch(e){}}
@@ -172,7 +172,7 @@ function measure(){
        spaceLastBeat=spaceNextBeat-spaceInterval;
        spaceHits=0;spaceBeatIndex=0;spaceLastHit=0;
        $('spaceHits').textContent='0';$('spaceBeat').textContent='🎵 PRONTI...';
-       status.className='notice ok';status.textContent='Calibrato. Segui il beat e fai rimbalzare il pallone a tempo.';
+       status.className='notice ok';status.textContent='Calibrato. Segui il beat e fai rimbalzare il pallone a tempo: il razzo avanza solo sui colpi riconosciuti.';
      }else{
        status.className='notice ok';status.textContent='Pronto! Ora il gioco reagisce ai rumori.';
      }
@@ -189,13 +189,13 @@ function measure(){
      $('spaceBeat').textContent='🎵 BUM';
      setTimeout(()=>{if(active&&currentMission===1)$('spaceBeat').textContent='🏀 PALLEGGIA!'},80);
    }
-   const impactThreshold=Math.max(spaceLowBase+7,spaceLowBase*1.32);
-   const impact=lowEnergy>impactThreshold && maxDev>=7;
+   const impactThreshold=Math.max(spaceLowBase+12,spaceLowBase*1.55);
+   const impact=lowEnergy>impactThreshold && maxDev>=10;
    soundfill.style.width=Math.min(100,Math.max(maxDev*4,(lowEnergy-spaceLowBase)*3))+'%';
    soundfill.style.background=impact?'#59a66d':'#6f9bd4';
-   if(impact&&now-spaceLastHit>230){
+   if(impact&&now-spaceLastHit>280){
      const distance=Math.min(Math.abs(now-spaceLastBeat),Math.abs(now-(spaceNextBeat)));
-     if(distance<=190){
+     if(distance<=170){
        spaceHits++;spaceLastHit=now;progress=Math.min(100,spaceHits/spaceTarget*100);$('spaceHits').textContent=String(spaceHits);message.textContent='🏀 PERFETTO!';render();
        if(spaceHits>=spaceTarget){finishSpace();return}
      }else{
