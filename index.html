@@ -89,7 +89,7 @@
 const $=id=>document.getElementById(id);
 const ninja=$('ninja'),rocket=$('rocket'),fox=$('fox'),ship=$('ship'),fill=$('fill'),pct=$('pct'),soundfill=$('soundfill'),message=$('message'),status=$('status'),objective=$('objective'),instructions=$('instructions'),timer=$('timer'),result=$('result');
 let audioContext=null,analyser=null,data=null,freqData=null,source=null,stream=null,active=false,progress=0,raf=null,last=0,gameStart=0,elapsed=0,timerId=null;
-let baseline=0,calibrating=false,calibSamples=[],calibLowSamples=[],calibHighSamples=[],calibStart=0,quietThreshold=0,currentMission=0;let spaceInterval=600,spaceNextBeat=0,spaceLastBeat=0,spaceHits=0,spaceTarget=24,spaceLowBase=8,spaceHighBase=8,spaceLastHit=0,spaceBeatIndex=0,spaceMusicStep=0;let pendingTime=null,pendingScore=null;let finishSoundPlayed=false;let ninjaDurationMs=120000,ninjaStart=0,ninjaDistance=0,ninjaStops=0,ninjaRunning=false;
+let baseline=0,calibrating=false,calibSamples=[],calibLowSamples=[],calibStart=0,quietThreshold=0,currentMission=0;let spaceInterval=600,spaceNextBeat=0,spaceLastBeat=0,spaceHits=0,spaceTarget=24,spaceLowBase=8,spaceLastHit=0,spaceBeatIndex=0;let pendingTime=null,pendingScore=null;let finishSoundPlayed=false;let ninjaDurationMs=120000,ninjaStart=0,ninjaDistance=0,ninjaStops=0,ninjaRunning=false;
 
 const resultsList=$('resultsList');
 function resultMs(r){if(Number.isFinite(r.ms))return r.ms;const m=String(r.time||'').match(/^(?:(\d+):)?(\d+)(?:\.(\d))?$/);if(!m)return 999999999;return ((Number(m[1]||0)*60)+Number(m[2]))*1000+Number(m[3]||0)*100}function loadResults(){let a=[];try{a=JSON.parse(localStorage.getItem('shhhResults')||'[]')}catch(e){};a.forEach(r=>{r.ms=resultMs(r);if(r.mission==null)r.mission=0});a=a.filter(r=>r.mission===currentMission);a.sort((x,y)=>x.ms-y.ms);resultsList.innerHTML=a.length?a.slice(0,10).map((r,i)=>'<div class="resultRow"><span class="resultTeam"><b>'+(i===0?'🥇 1°':i===1?'🥈 2°':i===2?'🥉 3°':(i+1)+'°')+'</b> '+r.team+'</span><span>⏱️ '+r.time+'</span><button class="deleteResult" title="Cancella risultato" aria-label="Cancella risultato" onclick="deleteResult('+i+')">🗑️</button></div>').join(''):'<div class="stat">Nessun risultato ancora per questa missione.</div>';document.querySelector('.resultsBox h3').textContent='🏆 Classifica — '+['NINJA','SPACE','FOREST','PIRATES'][currentMission]+' (10 risultati)'}
@@ -119,11 +119,9 @@ function routePoint(t, mission){
  const pts=paths[mission],x=t*(pts.length-1),i=Math.min(pts.length-2,Math.floor(x)),f=x-i;
  const a=pts[i],b=pts[i+1]; return {x:a[0]+(b[0]-a[0])*f,y:a[1]+(b[1]-a[1])*f,rot:Math.atan2(b[1]-a[1],b[0]-a[0])*180/Math.PI};
 }
-function playSpaceTone(freq,dur,gain,type='sine',when=.01){if(!audioContext)return;const t=audioContext.currentTime+when,o=audioContext.createOscillator(),g=audioContext.createGain();o.type=type;o.frequency.setValueAtTime(freq,t);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(gain,t+.008);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g);g.connect(audioContext.destination);o.start(t);o.stop(t+dur+.02)}
-function playBeat(){if(!audioContext)return;try{if(audioContext.state==='suspended')audioContext.resume();playSpaceTone(82,.22,.34,'sine');playSpaceTone(164,.10,.13,'triangle',.01);playSpaceTone(110,.08,.11,'square',.12);playSpaceTone(880,.045,.08,'square',.01)}catch(e){}}
-function playSpaceMusic(step){if(!audioContext)return;try{const bass=[82.4,98,110,98][step%4];const chord=[[220,277,330],[196,247,294],[174,220,262],[196,247,294]][step%4];playSpaceTone(bass,.34,.12,'triangle');chord.forEach((f,i)=>playSpaceTone(f,.28,.035,'sine',.03+i*.012));if(step%2===0)playSpaceTone(659,.035,.045,'square',.18)}catch(e){}}
+function playBeat(){if(!audioContext)return;try{if(audioContext.state==='suspended')audioContext.resume();const t=audioContext.currentTime+.01,o=audioContext.createOscillator(),g=audioContext.createGain();o.type='sine';o.frequency.setValueAtTime(110,t);o.frequency.exponentialRampToValueAtTime(70,t+.11);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.24,t+.008);g.gain.exponentialRampToValueAtTime(.0001,t+.18);o.connect(g);g.connect(audioContext.destination);o.start(t);o.stop(t+.19);const h=audioContext.createOscillator(),hg=audioContext.createGain();h.type='square';h.frequency.setValueAtTime(880,t);hg.gain.setValueAtTime(.0001,t);hg.gain.exponentialRampToValueAtTime(.055,t+.005);hg.gain.exponentialRampToValueAtTime(.0001,t+.055);h.connect(hg);hg.connect(audioContext.destination);h.start(t);h.stop(t+.06)}catch(e){}}
 function finishSpace(){if(!active)return;active=false;if(raf)cancelAnimationFrame(raf);if(timerId)cancelAnimationFrame(timerId);const finalMs=elapsed;timer.textContent=formatTime(finalMs);message.textContent='🪐 MISSIONE COMPLETATA!';result.className='result show';pendingTime=finalMs;pendingScore=null;result.innerHTML='<div><b>🏀 Colpi a tempo:</b> '+spaceHits+'/'+spaceTarget+'</div><div><b>⏱️ Tempo:</b> '+formatTime(finalMs).replace('⏱️ ','')+'</div><div style="font-size:18px;margin-top:8px"><b>🚀 Il razzo è arrivato sul pianeta!</b></div><button class="saveResult" onclick="saveResult()">💾 Salva risultato</button>';status.className='notice ok';status.textContent='Missione completata! Prova a migliorare la precisione del ritmo.';if(audioContext){try{audioContext.suspend()}catch(e){}}}
-function spaceBands(){if(!freqData||!audioContext)return {low:0,high:0};analyser.getByteFrequencyData(freqData);const hz=audioContext.sampleRate/analyser.fftSize;let low=0,high=0,nl=0,nh=0;for(let i=1;i<freqData.length;i++){const f=i*hz;if(f>=70&&f<=350){low+=freqData[i];nl++}else if(f>=900&&f<=5000){high+=freqData[i];nh++}}return {low:nl?low/nl:0,high:nh?high/nh:0}}
+function spaceLowEnergy(){if(!freqData||!audioContext)return 0;analyser.getByteFrequencyData(freqData);const hz=audioContext.sampleRate/analyser.fftSize;let sum=0,n=0;for(let i=2;i<freqData.length;i++){const f=i*hz;if(f>=70&&f<=500){sum+=freqData[i];n++}}return n?sum/n:0}
 function playFinishSound(){try{const C=window.AudioContext||window.webkitAudioContext,ctx=new C();const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(660,ctx.currentTime);o.frequency.setValueAtTime(880,ctx.currentTime+.18);o.frequency.setValueAtTime(1046,ctx.currentTime+.36);o.frequency.setValueAtTime(880,ctx.currentTime+.58);o.frequency.setValueAtTime(1046,ctx.currentTime+.76);g.gain.setValueAtTime(.001,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.32,ctx.currentTime+.05);g.gain.setValueAtTime(.32,ctx.currentTime+.72);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+1.25);o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+1.3);setTimeout(()=>ctx.close(),1500)}catch(e){}}
 function formatTime(ms){const s=Math.floor(ms/1000),d=Math.floor((ms%1000)/100);return '⏱️ '+String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')+'.'+d} function tickTimer(){if(!active||!gameStart)return;elapsed=performance.now()-gameStart;timer.textContent=formatTime(elapsed);timerId=requestAnimationFrame(tickTimer)}
 function render(){
@@ -158,7 +156,7 @@ function measure(){
  const rms=Math.sqrt(sum/data.length);
  if(calibrating){
    calibSamples.push(rms);
-   if(currentMission===1){const bands=spaceBands();calibLowSamples.push(bands.low);calibHighSamples.push(bands.high);}
+   if(currentMission===1)calibLowSamples.push(lowEnergy);
    const ce=now-calibStart;
    soundfill.style.width=Math.min(100,ce/30)+'%';
    message.textContent='🤫 Ascolto l’ambiente...';
@@ -169,8 +167,6 @@ function measure(){
      if(currentMission===1){
        calibLowSamples.sort((a,b)=>a-b);
        spaceLowBase=calibLowSamples[Math.floor(calibLowSamples.length*.7)]||8;
-       calibHighSamples.sort((a,b)=>a-b);
-       spaceHighBase=calibHighSamples[Math.floor(calibHighSamples.length*.7)]||8;
        spaceInterval=600;
        spaceNextBeat=now+900;
        spaceLastBeat=spaceNextBeat-spaceInterval;
@@ -189,35 +185,23 @@ function measure(){
      spaceLastBeat=spaceNextBeat;
      spaceNextBeat+=spaceInterval;
      spaceBeatIndex++;
-     playSpaceMusic(spaceMusicStep++);
      playBeat();
-     $('spaceBeat').textContent='🎵 BUM!';
-     setTimeout(()=>{if(active&&currentMission===1)$('spaceBeat').textContent='🏀 PALLEGGIA A TEMPO'},120);
+     $('spaceBeat').textContent='🎵 BUM';
+     setTimeout(()=>{if(active&&currentMission===1)$('spaceBeat').textContent='🏀 PALLEGGIA!'},80);
    }
-   const bands=spaceBands();
-   const low= bands.low, high=bands.high;
-   const impactLow=Math.max(spaceLowBase+10,spaceLowBase*1.45);
-   const impactHigh=Math.max(spaceHighBase+8,spaceHighBase*1.55);
-   const strongTransient=maxDev>=16 && rms>Math.max(.012,baseline*1.8);
-   const ballSignature=low>impactLow && high>impactHigh && strongTransient;
-   soundfill.style.width=Math.min(100,Math.max(maxDev*3,(high-spaceHighBase)*2.2))+'%';
-   soundfill.style.background=ballSignature?'#59a66d':'#6f9bd4';
-   if(ballSignature&&now-spaceLastHit>300){
-     const distance=Math.min(Math.abs(now-spaceLastBeat),Math.abs(now-spaceNextBeat));
-     if(distance<=150){
-       spaceHits++;spaceLastHit=now;progress=Math.min(100,spaceHits/spaceTarget*100);
-       $('spaceHits').textContent=String(spaceHits);message.textContent='🏀 PERFETTO!';
-       render();
+   const impactThreshold=Math.max(spaceLowBase+7,spaceLowBase*1.32);
+   const impact=lowEnergy>impactThreshold && maxDev>=7;
+   soundfill.style.width=Math.min(100,Math.max(maxDev*4,(lowEnergy-spaceLowBase)*3))+'%';
+   soundfill.style.background=impact?'#59a66d':'#6f9bd4';
+   if(impact&&now-spaceLastHit>230){
+     const distance=Math.min(Math.abs(now-spaceLastBeat),Math.abs(now-(spaceNextBeat)));
+     if(distance<=190){
+       spaceHits++;spaceLastHit=now;progress=Math.min(100,spaceHits/spaceTarget*100);$('spaceHits').textContent=String(spaceHits);message.textContent='🏀 PERFETTO!';render();
        if(spaceHits>=spaceTarget){finishSpace();return}
      }else{
-       message.textContent='⚠️ COLPO FUORI TEMPO';
-       spaceLastHit=now;
+       spaceLastHit=now;message.textContent='⚠️ FUORI TEMPO';
      }
-   }else if(!ballSignature){
-     message.textContent='🎵 Segui il beat e palleggia...';
-   }
-   baseline=baseline*.9997+rms*.0003;
-   quietThreshold=Math.max(.006,baseline*1.35);
+   }else if(!impact){message.textContent='🎵 Segui il ritmo...'}
    raf=requestAnimationFrame(measure);return;
  }
  const detected=rms>quietThreshold||maxDev>=8;
@@ -237,7 +221,7 @@ $('start').onclick=async()=>{
   stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false,channelCount:1},video:false});
   audioContext=new(window.AudioContext||window.webkitAudioContext)();await audioContext.resume();source=audioContext.createMediaStreamSource(stream);
   analyser=audioContext.createAnalyser();analyser.fftSize=1024;data=new Uint8Array(analyser.fftSize);freqData=new Uint8Array(analyser.frequencyBinCount);source.connect(analyser);
-  active=true;finishSoundPlayed=false;calibrating=true;calibSamples=[];calibLowSamples=[];calibHighSamples=[];calibStart=performance.now();gameStart=performance.now();elapsed=0;if(currentMission===0){ninjaDurationMs=Number($('ninjaDuration').value)*60000;ninjaStart=performance.now();ninjaDistance=0;ninjaStops=0;ninjaRunning=true;$('ninjaStops').textContent='0';}if(currentMission===1){spaceHits=0;spaceBeatIndex=0;spaceLastHit=0;$('spaceHits').textContent='0';$('spaceBeat').textContent='PREPARA...';}timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';tickTimer();status.className='notice';status.textContent=currentMission===1?'Fai un primo palleggio di prova durante i 3 secondi di calibrazione.':'Resta in silenzio per 3 secondi: sto calibrando.';measure();
+  active=true;finishSoundPlayed=false;calibrating=true;calibSamples=[];calibLowSamples=[];calibStart=performance.now();gameStart=performance.now();elapsed=0;if(currentMission===0){ninjaDurationMs=Number($('ninjaDuration').value)*60000;ninjaStart=performance.now();ninjaDistance=0;ninjaStops=0;ninjaRunning=true;$('ninjaStops').textContent='0';}if(currentMission===1){spaceHits=0;spaceBeatIndex=0;spaceLastHit=0;$('spaceHits').textContent='0';$('spaceBeat').textContent='PREPARA...';}timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';tickTimer();status.className='notice';status.textContent='Resta in silenzio per 3 secondi: sto calibrando.';measure();
  }catch(e){status.className='notice warn';status.textContent='Non è stato possibile usare il microfono. Controlla il permesso del browser e riprova.'}
 };
 $('stop').onclick=()=>{active=false;if(raf)cancelAnimationFrame(raf);if(timerId)cancelAnimationFrame(timerId);if(source)source.disconnect();if(audioContext)audioContext.close();if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;source=null;audioContext=null;analyser=null;freqData=null;status.className='notice';status.textContent='Fermato. Puoi riavviare il microfono.'};
