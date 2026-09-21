@@ -89,7 +89,7 @@
 const $=id=>document.getElementById(id);
 const ninja=$('ninja'),rocket=$('rocket'),fox=$('fox'),ship=$('ship'),fill=$('fill'),pct=$('pct'),soundfill=$('soundfill'),message=$('message'),status=$('status'),objective=$('objective'),instructions=$('instructions'),timer=$('timer'),result=$('result');
 let audioContext=null,analyser=null,data=null,freqData=null,source=null,stream=null,active=false,progress=0,raf=null,last=0,gameStart=0,elapsed=0,timerId=null;
-let baseline=0,calibrating=false,calibSamples=[],calibLowSamples=[],calibStart=0,quietThreshold=0,currentMission=0;let spaceInterval=1000,spaceNextBeat=0,spaceLastBeat=0,spaceHits=0,spaceTarget=120,spaceLowBase=8,spaceLastHit=0,spacePrevRms=0,spacePrevLow=0,spaceBeatIndex=0;let pendingTime=null,pendingScore=null;let finishSoundPlayed=false;let ninjaDurationMs=120000,ninjaStart=0,ninjaDistance=0,ninjaStops=0,ninjaRunning=false;
+let baseline=0,calibrating=false,calibSamples=[],calibLowSamples=[],calibStart=0,quietThreshold=0,currentMission=0;let spaceInterval=1000,spaceNextBeat=0,spaceLastBeat=0,spaceHits=0,spaceTarget=120,spaceLowBase=8,spaceLastHit=0,spacePrevRms=0,spacePrevLow=0,spacePrevMax=0,spaceBeatIndex=0;let pendingTime=null,pendingScore=null;let finishSoundPlayed=false;let ninjaDurationMs=120000,ninjaStart=0,ninjaDistance=0,ninjaStops=0,ninjaRunning=false;
 
 const resultsList=$('resultsList');
 function resultMs(r){if(Number.isFinite(r.ms))return r.ms;const m=String(r.time||'').match(/^(?:(\d+):)?(\d+)(?:\.(\d))?$/);if(!m)return 999999999;return ((Number(m[1]||0)*60)+Number(m[2]))*1000+Number(m[3]||0)*100}function loadResults(){let a=[];try{a=JSON.parse(localStorage.getItem('shhhResults')||'[]')}catch(e){};a.forEach(r=>{r.ms=resultMs(r);if(r.mission==null)r.mission=0});a=a.filter(r=>r.mission===currentMission);a.sort((x,y)=>x.ms-y.ms);resultsList.innerHTML=a.length?a.slice(0,10).map((r,i)=>'<div class="resultRow"><span class="resultTeam"><b>'+(i===0?'🥇 1°':i===1?'🥈 2°':i===2?'🥉 3°':(i+1)+'°')+'</b> '+r.team+'</span><span>⏱️ '+r.time+'</span><button class="deleteResult" title="Cancella risultato" aria-label="Cancella risultato" onclick="deleteResult('+i+')">🗑️</button></div>').join(''):'<div class="stat">Nessun risultato ancora per questa missione.</div>';document.querySelector('.resultsBox h3').textContent='🏆 Classifica — '+['NINJA','SPACE','FOREST','PIRATES'][currentMission]+' (10 risultati)'}
@@ -143,7 +143,7 @@ function setMission(i){
  document.querySelectorAll('.scene').forEach((x,n)=>x.classList.toggle('hidden',n!==i));
  const d=missionData[i];
  objective.textContent=d.objective;instructions.textContent=d.desc;
- progress=0;elapsed=0;finishSoundPlayed=false;ninjaStops=0;ninjaDistance=0;ninjaRunning=false;spaceHits=0;spaceBeatIndex=0;spaceLastHit=0;spacePrevRms=baseline;spacePrevLow=spaceLowBase;timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';$('ninjaStops').textContent='0';$('spaceHits').textContent='0';spaceTarget=Number($('spaceDuration').value)*60*Number($('spaceBps').value);$('spaceTarget').textContent=String(spaceTarget);$('spaceBeat').textContent='PREPARA...';render();message.textContent=d.title;loadResults();
+ progress=0;elapsed=0;finishSoundPlayed=false;ninjaStops=0;ninjaDistance=0;ninjaRunning=false;spaceHits=0;spaceBeatIndex=0;spaceLastHit=0;spacePrevRms=baseline;spacePrevLow=spaceLowBase;spacePrevMax=0;timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';$('ninjaStops').textContent='0';$('spaceHits').textContent='0';spaceTarget=Number($('spaceDuration').value)*60*Number($('spaceBps').value);$('spaceTarget').textContent=String(spaceTarget);$('spaceBeat').textContent='PREPARA...';render();message.textContent=d.title;loadResults();
  status.className='notice';status.textContent=active?'Missione cambiata! Il microfono continua a funzionare.':'Tocca «Avvia microfono» per iniziare.';
 }
 function measure(){
@@ -190,14 +190,17 @@ function measure(){
      setTimeout(()=>{if(active&&currentMission===1)$('spaceBeat').textContent='🏀 PALLEGGIA!'},80);
    }
    // SPACE: require a new, clear sound/movement impulse, not a steady background noise.
+   // Detect short, new impulses (clap, bounce, jump) instead of background level.
    const rmsJump=Math.max(0,rms-spacePrevRms);
    const lowJump=Math.max(0,lowEnergy-spacePrevLow);
-   const impact=(rmsJump>=Math.max(0.006,baseline*0.45) && rms>=Math.max(0.012,baseline*1.35))
-             || (lowJump>=Math.max(4,spaceLowBase*0.35) && maxDev>=12);
+   const peakJump=Math.max(0,maxDev-spacePrevMax);
+   const impact=(peakJump>=Math.max(5,spacePrevMax*0.22) && maxDev>=12)
+             || (rmsJump>=Math.max(0.004,baseline*0.30) && rms>=Math.max(0.010,baseline*1.25))
+             || (lowJump>=Math.max(3,spaceLowBase*0.25) && maxDev>=10);
    soundfill.style.width=Math.min(100,Math.max(maxDev*4,rms*1800,(lowEnergy-spaceLowBase)*2))+'%';
    soundfill.style.background=impact?'#59a66d':'#6f9bd4';
-   const beatWindow=Math.max(70,Math.min(150,spaceInterval*0.25));
-   if(impact&&now-spaceLastHit>Math.max(120,spaceInterval*0.45)){
+   const beatWindow=Math.max(90,Math.min(180,spaceInterval*0.30));
+   if(impact&&now-spaceLastHit>Math.max(120,spaceInterval*0.38)){
      const distance=Math.min(Math.abs(now-spaceLastBeat),Math.abs(now-spaceNextBeat));
      if(distance<=beatWindow){
        spaceHits++;spaceLastHit=now;progress=Math.min(100,spaceHits/spaceTarget*100);$('spaceHits').textContent=String(spaceHits);message.textContent='🎯 A TEMPO!';render();
@@ -206,8 +209,9 @@ function measure(){
        message.textContent='⚠️ FUORI TEMPO';
      }
    }else if(!impact){message.textContent='🎵 Segui il ritmo...'}
-   spacePrevRms=spacePrevRms*0.55+rms*0.45;
-   spacePrevLow=spacePrevLow*0.55+lowEnergy*0.45;
+   spacePrevRms=spacePrevRms*0.70+rms*0.30;
+   spacePrevLow=spacePrevLow*0.70+lowEnergy*0.30;
+   spacePrevMax=spacePrevMax*0.70+maxDev*0.30;
    raf=requestAnimationFrame(measure);return;
  }
  const detected=rms>quietThreshold||maxDev>=8;
