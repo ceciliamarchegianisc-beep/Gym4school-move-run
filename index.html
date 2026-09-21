@@ -50,7 +50,7 @@
 <div class="scene spaceScene hidden" id="scene1">
  <div class="planet">🪐</div><div class="orbit"></div><svg class="routeSvg" viewBox="0 0 1000 440" preserveAspectRatio="none"><path class="routeEdge" d="M110 390 C220 330 170 220 330 250 S510 350 590 235 S700 95 900 95"/></svg>
  <div class="stars ss1">✦</div><div class="stars ss2">✦</div><div class="stars ss3">✦</div><div class="stars ss4">✦</div>
- <div class="spaceControls"><b>🎵 GRAVITÀ ZERO</b><div style="margin-top:6px"><b>⏱️ Durata:</b> <select id="spaceDuration" style="padding:6px 8px;border-radius:9px;border:1px solid #cbd5e1;font-weight:800"><option value="1">1 min</option><option value="2" selected>2 min</option><option value="3">3 min</option><option value="4">4 min</option><option value="5">5 min</option></select></div><div class="spaceBeat" id="spaceBeat">PREPARA...</div><div class="spaceHits">🏀 Colpi a tempo: <b id="spaceHits">0</b>/<b id="spaceTarget">120</b></div></div>
+ <div class="spaceControls"><b>🎵 GRAVITÀ ZERO</b><div style="margin-top:6px"><b>⏱️ Durata:</b> <select id="spaceDuration" style="padding:6px 8px;border-radius:9px;border:1px solid #cbd5e1;font-weight:800"><option value="1">1 min</option><option value="2" selected>2 min</option><option value="3">3 min</option><option value="4">4 min</option><option value="5">5 min</option></select></div><div style="margin-top:6px"><b>🥁 Beat:</b> <select id="spaceBps" style="padding:6px 8px;border-radius:9px;border:1px solid #cbd5e1;font-weight:800"><option value="1" selected>1 / secondo</option><option value="2">2 / secondo</option><option value="3">3 / secondo</option><option value="4">4 / secondo</option></select></div><div class="spaceBeat" id="spaceBeat">PREPARA...</div><div class="spaceHits">🏀 Colpi a tempo: <b id="spaceHits">0</b>/<b id="spaceTarget">120</b></div></div>
  <div class="rocket" id="rocket">🚀</div>
 </div>
 
@@ -168,7 +168,7 @@ function measure(){
        calibLowSamples.sort((a,b)=>a-b);
        spaceLowBase=calibLowSamples[Math.floor(calibLowSamples.length*.7)]||8;
        spaceInterval=1000;
-       spaceNextBeat=now+900;
+       spaceInterval=1000/Number($('spaceBps').value);spaceNextBeat=now+900;
        spaceLastBeat=spaceNextBeat-spaceInterval;
        spaceHits=0;spaceBeatIndex=0;spaceLastHit=0;
        $('spaceHits').textContent='0';spaceTarget=Number($('spaceDuration').value)*60;$('spaceTarget').textContent=String(spaceTarget);$('spaceBeat').textContent='🎵 PRONTI...';
