@@ -122,6 +122,16 @@ function routePoint(t, mission){
 function playBeat(){if(!audioContext)return;try{if(audioContext.state==='suspended')audioContext.resume();const t=audioContext.currentTime+.01,o=audioContext.createOscillator(),g=audioContext.createGain();o.type='sine';o.frequency.setValueAtTime(95,t);o.frequency.exponentialRampToValueAtTime(55,t+.16);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.42,t+.008);g.gain.exponentialRampToValueAtTime(.0001,t+.18);o.connect(g);g.connect(audioContext.destination);o.start(t);o.stop(t+.19);const h=audioContext.createOscillator(),hg=audioContext.createGain();h.type='square';h.frequency.setValueAtTime(660,t);hg.gain.setValueAtTime(.0001,t);hg.gain.exponentialRampToValueAtTime(.10,t+.005);hg.gain.exponentialRampToValueAtTime(.0001,t+.055);h.connect(hg);hg.connect(audioContext.destination);h.start(t);h.stop(t+.06)}catch(e){}}
 function finishSpace(){if(!active)return;active=false;if(raf)cancelAnimationFrame(raf);if(timerId)cancelAnimationFrame(timerId);const finalMs=elapsed;timer.textContent=formatTime(finalMs);if(!finishSoundPlayed){finishSoundPlayed=true;playFinishSound()}message.textContent='🪐 MISSIONE COMPLETATA!';result.className='result show';pendingTime=finalMs;pendingScore=null;result.innerHTML='<div><b>🥁 Colpi a tempo:</b> '+spaceHits+'/'+spaceTarget+'</div><div><b>⏱️ Tempo:</b> '+formatTime(finalMs).replace('⏱️ ','')+'</div><div style="font-size:18px;margin-top:8px"><b>🚀 Il razzo è arrivato sul pianeta!</b></div><button class="saveResult" onclick="saveResult()">💾 Salva risultato</button>';status.className='notice ok';status.textContent='Missione completata! Prova a migliorare la precisione del ritmo.';if(audioContext){try{audioContext.suspend()}catch(e){}}}
 function spaceLowEnergy(){if(!freqData||!audioContext)return 0;analyser.getByteFrequencyData(freqData);const hz=audioContext.sampleRate/analyser.fftSize;let sum=0,n=0;for(let i=2;i<freqData.length;i++){const f=i*hz;if(f>=70&&f<=500){sum+=freqData[i];n++}}return n?sum/n:0}
+function playStartSound(){
+ try{
+  if(!audioContext)return;
+  const t=audioContext.currentTime+.01;
+  const o=audioContext.createOscillator(),g=audioContext.createGain();
+  o.type='sine';o.frequency.setValueAtTime(520,t);o.frequency.exponentialRampToValueAtTime(820,t+.18);
+  g.gain.setValueAtTime(.001,t);g.gain.exponentialRampToValueAtTime(.28,t+.025);g.gain.exponentialRampToValueAtTime(.001,t+.24);
+  o.connect(g);g.connect(audioContext.destination);o.start(t);o.stop(t+.25);
+ }catch(e){}
+}
 function playFinishSound(){try{const C=window.AudioContext||window.webkitAudioContext,ctx=new C();const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(660,ctx.currentTime);o.frequency.setValueAtTime(880,ctx.currentTime+.18);o.frequency.setValueAtTime(1046,ctx.currentTime+.36);o.frequency.setValueAtTime(880,ctx.currentTime+.58);o.frequency.setValueAtTime(1046,ctx.currentTime+.76);g.gain.setValueAtTime(.001,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.32,ctx.currentTime+.05);g.gain.setValueAtTime(.32,ctx.currentTime+.72);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+1.25);o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+1.3);setTimeout(()=>ctx.close(),1500)}catch(e){}}
 function formatTime(ms){const s=Math.floor(ms/1000),d=Math.floor((ms%1000)/100);return '⏱️ '+String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')+'.'+d} function tickTimer(){if(!active||!gameStart)return;elapsed=performance.now()-gameStart;timer.textContent=formatTime(elapsed);timerId=requestAnimationFrame(tickTimer)}
 function render(){
@@ -160,7 +170,7 @@ function measure(){
    const ce=now-calibStart;
    soundfill.style.width=Math.min(100,ce/30)+'%';
    message.textContent='🤫 Ascolto l’ambiente...';
-   if(ce>=3000){
+   if(ce>=5000){
      calibSamples.sort((a,b)=>a-b);
      baseline=calibSamples[Math.floor(calibSamples.length*.7)]||.001;
      quietThreshold=Math.max(.006,baseline*1.35);
@@ -176,7 +186,7 @@ function measure(){
      }else{
        status.className='notice ok';status.textContent='Pronto! Ora il gioco reagisce ai rumori.';
      }
-     calibrating=false;last=now;
+     calibrating=false;gameStart=performance.now();elapsed=0;timer.textContent='⏱️ 00:00.0';playStartSound();tickTimer();status.className='notice ok';status.textContent='🚀 VIA! Segui il beat!';last=now;
    }
    raf=requestAnimationFrame(measure);return;
  }
@@ -234,7 +244,7 @@ $('start').onclick=async()=>{
   stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false,channelCount:1},video:false});
   audioContext=new(window.AudioContext||window.webkitAudioContext)();await audioContext.resume();source=audioContext.createMediaStreamSource(stream);
   analyser=audioContext.createAnalyser();analyser.fftSize=1024;data=new Uint8Array(analyser.fftSize);freqData=new Uint8Array(analyser.frequencyBinCount);source.connect(analyser);
-  active=true;finishSoundPlayed=false;calibrating=true;calibSamples=[];calibLowSamples=[];calibStart=performance.now();gameStart=performance.now();elapsed=0;if(currentMission===0){ninjaDurationMs=Number($('ninjaDuration').value)*60000;ninjaStart=performance.now();ninjaDistance=0;ninjaStops=0;ninjaRunning=true;$('ninjaStops').textContent='0';}if(currentMission===1){spaceHits=0;spaceBeatIndex=0;spaceLastHit=0;spaceTarget=Number($('spaceDuration').value)*60*Number($('spaceBps').value);$('spaceHits').textContent='0';$('spaceTarget').textContent=String(spaceTarget);$('spaceBeat').textContent='PREPARA...';}timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';tickTimer();status.className='notice';status.textContent='Resta in silenzio per 3 secondi: sto calibrando.';measure();
+  active=true;finishSoundPlayed=false;calibrating=true;calibSamples=[];calibLowSamples=[];calibStart=performance.now();gameStart=performance.now();elapsed=0;if(currentMission===0){ninjaDurationMs=Number($('ninjaDuration').value)*60000;ninjaStart=performance.now();ninjaDistance=0;ninjaStops=0;ninjaRunning=true;$('ninjaStops').textContent='0';}if(currentMission===1){spaceHits=0;spaceBeatIndex=0;spaceLastHit=0;spaceTarget=Number($('spaceDuration').value)*60*Number($('spaceBps').value);$('spaceHits').textContent='0';$('spaceTarget').textContent=String(spaceTarget);$('spaceBeat').textContent='PREPARA...';}timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';tickTimer();status.className='notice';status.textContent='⏳ Mi adatto all’ambiente per 5 secondi...';measure();
  }catch(e){status.className='notice warn';status.textContent='Non è stato possibile usare il microfono. Controlla il permesso del browser e riprova.'}
 };
 $('stop').onclick=()=>{active=false;if(raf)cancelAnimationFrame(raf);if(timerId)cancelAnimationFrame(timerId);if(source)source.disconnect();if(audioContext)audioContext.close();if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;source=null;audioContext=null;analyser=null;freqData=null;status.className='notice';status.textContent='Fermato. Puoi riavviare il microfono.'};
