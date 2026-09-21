@@ -89,7 +89,7 @@
 const $=id=>document.getElementById(id);
 const ninja=$('ninja'),rocket=$('rocket'),fox=$('fox'),ship=$('ship'),fill=$('fill'),pct=$('pct'),soundfill=$('soundfill'),message=$('message'),status=$('status'),objective=$('objective'),instructions=$('instructions'),timer=$('timer'),result=$('result');
 let audioContext=null,analyser=null,data=null,freqData=null,source=null,stream=null,active=false,progress=0,raf=null,last=0,gameStart=0,elapsed=0,timerId=null;
-let baseline=0,calibrating=false,calibSamples=[],calibLowSamples=[],calibStart=0,quietThreshold=0,currentMission=0;let spaceInterval=1000,spaceNextBeat=0,spaceLastBeat=0,spaceHits=0,spaceTarget=120,spaceLowBase=8,spaceLastHit=0,spaceBeatIndex=0;let pendingTime=null,pendingScore=null;let finishSoundPlayed=false;let ninjaDurationMs=120000,ninjaStart=0,ninjaDistance=0,ninjaStops=0,ninjaRunning=false;
+let baseline=0,calibrating=false,calibSamples=[],calibLowSamples=[],calibStart=0,quietThreshold=0,currentMission=0;let spaceInterval=1000,spaceNextBeat=0,spaceLastBeat=0,spaceHits=0,spaceTarget=120,spaceLowBase=8,spaceLastHit=0,spaceMisses=0,spaceBeatIndex=0;let pendingTime=null,pendingScore=null;let finishSoundPlayed=false;let ninjaDurationMs=120000,ninjaStart=0,ninjaDistance=0,ninjaStops=0,ninjaRunning=false;
 
 const resultsList=$('resultsList');
 function resultMs(r){if(Number.isFinite(r.ms))return r.ms;const m=String(r.time||'').match(/^(?:(\d+):)?(\d+)(?:\.(\d))?$/);if(!m)return 999999999;return ((Number(m[1]||0)*60)+Number(m[2]))*1000+Number(m[3]||0)*100}function loadResults(){let a=[];try{a=JSON.parse(localStorage.getItem('shhhResults')||'[]')}catch(e){};a.forEach(r=>{r.ms=resultMs(r);if(r.mission==null)r.mission=0});a=a.filter(r=>r.mission===currentMission);a.sort((x,y)=>x.ms-y.ms);resultsList.innerHTML=a.length?a.slice(0,10).map((r,i)=>'<div class="resultRow"><span class="resultTeam"><b>'+(i===0?'🥇 1°':i===1?'🥈 2°':i===2?'🥉 3°':(i+1)+'°')+'</b> '+r.team+'</span><span>⏱️ '+r.time+'</span><button class="deleteResult" title="Cancella risultato" aria-label="Cancella risultato" onclick="deleteResult('+i+')">🗑️</button></div>').join(''):'<div class="stat">Nessun risultato ancora per questa missione.</div>';document.querySelector('.resultsBox h3').textContent='🏆 Classifica — '+['NINJA','SPACE','FOREST','PIRATES'][currentMission]+' (10 risultati)'}
@@ -143,7 +143,7 @@ function setMission(i){
  document.querySelectorAll('.scene').forEach((x,n)=>x.classList.toggle('hidden',n!==i));
  const d=missionData[i];
  objective.textContent=d.objective;instructions.textContent=d.desc;
- progress=0;elapsed=0;finishSoundPlayed=false;ninjaStops=0;ninjaDistance=0;ninjaRunning=false;spaceHits=0;spaceBeatIndex=0;spaceLastHit=0;timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';$('ninjaStops').textContent='0';$('spaceHits').textContent='0';spaceTarget=Number($('spaceDuration').value)*60*Number($('spaceBps').value);$('spaceTarget').textContent=String(spaceTarget);$('spaceBeat').textContent='PREPARA...';render();message.textContent=d.title;loadResults();
+ progress=0;elapsed=0;finishSoundPlayed=false;ninjaStops=0;ninjaDistance=0;ninjaRunning=false;spaceHits=0;spaceMisses=0;spaceBeatIndex=0;spaceLastHit=0;timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';$('ninjaStops').textContent='0';$('spaceHits').textContent='0';$('spaceMisses').textContent='0';spaceTarget=Number($('spaceDuration').value)*60*Number($('spaceBps').value);$('spaceTarget').textContent=String(spaceTarget);$('spaceBeat').textContent='PREPARA...';render();message.textContent=d.title;loadResults();
  status.className='notice';status.textContent=active?'Missione cambiata! Il microfono continua a funzionare.':'Tocca «Avvia microfono» per iniziare.';
 }
 function measure(){
@@ -202,7 +202,7 @@ function measure(){
        spaceHits++;spaceLastHit=now;progress=Math.min(100,spaceHits/spaceTarget*100);$('spaceHits').textContent=String(spaceHits);message.textContent='🎯 A TEMPO!';render();
        if(spaceHits>=spaceTarget){finishSpace();return}
      }else{
-       message.textContent='⚠️ FUORI TEMPO';
+       spaceMisses++;$('spaceMisses').textContent=String(spaceMisses);message.textContent='⚠️ FUORI TEMPO';
      }
    }else if(!impact){message.textContent='🎵 Segui il ritmo...'}
    raf=requestAnimationFrame(measure);return;
