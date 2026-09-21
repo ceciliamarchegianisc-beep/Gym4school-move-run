@@ -143,7 +143,7 @@ function setMission(i){
  document.querySelectorAll('.scene').forEach((x,n)=>x.classList.toggle('hidden',n!==i));
  const d=missionData[i];
  objective.textContent=d.objective;instructions.textContent=d.desc;
- progress=0;elapsed=0;finishSoundPlayed=false;ninjaStops=0;ninjaDistance=0;ninjaRunning=false;spaceHits=0;spaceBeatIndex=0;spaceLastHit=0;timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';$('ninjaStops').textContent='0';$('spaceHits').textContent='0';spaceTarget=Number($('spaceDuration').value)*60;$('spaceTarget').textContent=String(spaceTarget);$('spaceBeat').textContent='PREPARA...';render();message.textContent=d.title;loadResults();
+ progress=0;elapsed=0;finishSoundPlayed=false;ninjaStops=0;ninjaDistance=0;ninjaRunning=false;spaceHits=0;spaceBeatIndex=0;spaceLastHit=0;timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';$('ninjaStops').textContent='0';$('spaceHits').textContent='0';spaceTarget=Number($('spaceDuration').value)*60*Number($('spaceBps').value);$('spaceTarget').textContent=String(spaceTarget);$('spaceBeat').textContent='PREPARA...';render();message.textContent=d.title;loadResults();
  status.className='notice';status.textContent=active?'Missione cambiata! Il microfono continua a funzionare.':'Tocca «Avvia microfono» per iniziare.';
 }
 function measure(){
@@ -171,8 +171,8 @@ function measure(){
        spaceInterval=1000/Number($('spaceBps').value);spaceNextBeat=now+900;
        spaceLastBeat=spaceNextBeat-spaceInterval;
        spaceHits=0;spaceBeatIndex=0;spaceLastHit=0;
-       $('spaceHits').textContent='0';spaceTarget=Number($('spaceDuration').value)*60;$('spaceTarget').textContent=String(spaceTarget);$('spaceBeat').textContent='🎵 PRONTI...';
-       status.className='notice ok';status.textContent='Calibrato. Segui il beat e fai rimbalzare il pallone a tempo: il razzo avanza solo sui colpi riconosciuti.';
+       $('spaceHits').textContent='0';spaceTarget=Number($('spaceDuration').value)*60*Number($('spaceBps').value);$('spaceTarget').textContent=String(spaceTarget);$('spaceBeat').textContent='🎵 PRONTI...';
+       status.className='notice ok';status.textContent='Calibrato. Segui il beat: battito delle mani, palleggio o altro movimento ritmico. Il razzo avanza sui colpi riconosciuti a tempo.';
      }else{
        status.className='notice ok';status.textContent='Pronto! Ora il gioco reagisce ai rumori.';
      }
