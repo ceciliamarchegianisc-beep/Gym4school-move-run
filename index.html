@@ -25,7 +25,7 @@
 </style>
 </head>
 <body><main class="wrap">
-<div class="top"><div class="brand"><div class="logo">🎮</div><div><h1>MOVE MISSION</h1><div class="sub">Giochi di movimento controllati dal silenzio.</div></div></div><div class="topActions"><button id="start">🎙️ Avvia microfono</button><div class="topMissionControls" id="topMissionControls"><button id="stopTop" type="button">⏹️ Ferma</button><button id="resetTop" type="button">🔄 Ricomincia</button></div></div></div>
+<div class="top"><div class="brand"><div class="logo">🎮</div><div><h1>MOVE MISSION</h1><div class="sub">Giochi di movimento controllati dal silenzio.</div></div></div><div class="topActions"><button id="start">🎙️ Avvia microfono</button><button id="fullscreen" class="secondary" type="button">⛶ Schermo intero</button><div class="topMissionControls" id="topMissionControls"><button id="stopTop" type="button">⏹️ Ferma</button><button id="resetTop" type="button">🔄 Ricomincia</button></div></div></div>
 
 <div class="activities">
 <button type="button" class="activity active" onclick="setMission(0)"><div class="ico">🥷</div><b>NINJA</b><small>Operazione Silenzio</small></button>
@@ -89,6 +89,7 @@
 
 <script>
 const $=id=>document.getElementById(id);
+function toggleFullscreen(){const el=document.documentElement;if(!document.fullscreenElement){(el.requestFullscreen||el.webkitRequestFullscreen||el.msRequestFullscreen)?.call(el)}else{(document.exitFullscreen||document.webkitExitFullscreen||document.msExitFullscreen)?.call(document)}}
 const ninja=$('ninja'),rocket=$('rocket'),fox=$('fox'),ship=$('ship'),fill=$('fill'),pct=$('pct'),soundfill=$('soundfill'),message=$('message'),status=$('status'),objective=$('objective'),instructions=$('instructions'),timer=$('timer'),result=$('result');
 let audioContext=null,analyser=null,data=null,freqData=null,source=null,stream=null,active=false,progress=0,raf=null,last=0,gameStart=0,elapsed=0,timerId=null;
 let baseline=0,calibrating=false,calibSamples=[],calibLowSamples=[],calibStart=0,quietThreshold=0,currentMission=0;let spaceInterval=600,spaceNextBeat=0,spaceLastBeat=0,spaceHits=0,spaceTarget=24,spaceLowBase=8,spaceLastHit=0,spaceBeatIndex=0;let pendingTime=null,pendingScore=null;let finishSoundPlayed=false;let ninjaDurationMs=120000,ninjaStart=0,ninjaDistance=0,ninjaStops=0,ninjaRunning=false;
@@ -239,7 +240,7 @@ function measure(){
  }
  raf=requestAnimationFrame(measure);
 }
-$('stopTop').onclick=()=>{$('stop').click()};$('resetTop').onclick=()=>{$('reset').click()};$('reset').onclick=()=>{progress=0;elapsed=0;timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';render();message.textContent=missionData[currentMission].title;status.className='notice';status.textContent='Tocca «Avvia microfono» per iniziare.';soundfill.style.width='0%';$('start').style.display='block';$('start').style.visibility='visible';document.querySelector('.top').style.display='flex';window.scrollTo({top:0,behavior:'instant'});if(active){gameStart=performance.now();tickTimer()}};
+$('fullscreen').onclick=toggleFullscreen;$('stopTop').onclick=()=>{$('stop').click()};$('resetTop').onclick=()=>{$('reset').click()};$('reset').onclick=()=>{progress=0;elapsed=0;timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';render();message.textContent=missionData[currentMission].title;status.className='notice';status.textContent='Tocca «Avvia microfono» per iniziare.';soundfill.style.width='0%';$('start').style.display='block';$('start').style.visibility='visible';document.querySelector('.top').style.display='flex';window.scrollTo({top:0,behavior:'instant'});if(active){gameStart=performance.now();tickTimer()}};
 $('start').onclick=async()=>{
  if(active)return;
  try{
