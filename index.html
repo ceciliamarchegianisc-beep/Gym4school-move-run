@@ -227,10 +227,10 @@ function measure(){
    }else if(!impact){message.textContent='🎵 Segui il ritmo...'}
    raf=requestAnimationFrame(measure);return;
  }
- const noiseFloor=Math.max(.004,baseline);
- const peakThreshold=isIPad ? Math.max(4,noiseFloor*900) : 8;
- const rmsThreshold=isIPad ? Math.max(.009,quietThreshold*.72) : quietThreshold;
- const detected=isIPad ? (maxDev>=peakThreshold || rms>rmsThreshold) : (rms>quietThreshold||maxDev>=8);
+ const noiseFloor=Math.max(.003,baseline);
+ const peakThreshold=isIPad ? 3 : 8;
+ const rmsThreshold=isIPad ? Math.max(.007,quietThreshold*.65) : quietThreshold;
+ const detected=isIPad ? (maxDev>=peakThreshold || rms>rmsThreshold || (maxDev>=2 && rms>noiseFloor*.9)) : (rms>quietThreshold||maxDev>=8);
  soundfill.style.width=Math.min(100,Math.max(maxDev*4,rms*1800))+'%';
  if(detected){
    soundfill.style.background='#d75a5a';message.textContent='🔊 RUMORE — NINJA FERMO!';
