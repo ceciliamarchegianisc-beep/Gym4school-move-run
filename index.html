@@ -205,10 +205,10 @@ function measure(){
    const lowJump=Math.max(0,lowEnergy-spacePrevLow);
    const peakJump=Math.max(0,maxDev-spacePrevMax);
    // Clap: prioritize a sharp transient; background must change substantially to count.
-   const clapPeak=peakJump>=Math.max(4,spacePrevMax*0.18) && maxDev>=11 && rmsJump>=Math.max(0.003,baseline*0.22);
-   // Adaptive detection: keeps tablet behavior while accepting weaker PC microphone impulses.
-   const movement=(rmsJump>=Math.max(0.0025,baseline*0.18) && rms>=Math.max(0.007,baseline*1.12))
-             || (lowJump>=Math.max(2,spaceLowBase*0.18) && maxDev>=7);
+   const clapPeak=peakJump>=Math.max(3,spacePrevMax*0.14) && maxDev>=9 && rmsJump>=Math.max(0.0025,baseline*0.18);
+   // Detect short impulses from both tablet and PC microphones.
+   const movement=(rmsJump>=Math.max(0.002,baseline*0.15) && rms>=Math.max(0.006,baseline*1.08))
+             || (lowJump>=Math.max(1.5,spaceLowBase*0.15) && maxDev>=6);
    const impact=clapPeak||movement;
    soundfill.style.width=Math.min(100,Math.max(maxDev*4,rms*1800,(lowEnergy-spaceLowBase)*2))+'%';
    soundfill.style.background=impact?'#59a66d':'#6f9bd4';
