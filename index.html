@@ -205,10 +205,10 @@ function measure(){
    const lowJump=Math.max(0,lowEnergy-spacePrevLow);
    const peakJump=Math.max(0,maxDev-spacePrevMax);
    // Clap: prioritize a sharp transient; background must change substantially to count.
-   const clapPeak=peakJump>=Math.max(6,spacePrevMax*0.25) && maxDev>=15 && rmsJump>=Math.max(0.005,baseline*0.35);
-   // Keep ball/jump detection at the current behavior.
-   const movement=(rmsJump>=Math.max(0.004,baseline*0.30) && rms>=Math.max(0.010,baseline*1.25))
-             || (lowJump>=Math.max(3,spaceLowBase*0.25) && maxDev>=10);
+   const clapPeak=peakJump>=Math.max(4,spacePrevMax*0.18) && maxDev>=11 && rmsJump>=Math.max(0.003,baseline*0.22);
+   // Adaptive detection: keeps tablet behavior while accepting weaker PC microphone impulses.
+   const movement=(rmsJump>=Math.max(0.0025,baseline*0.18) && rms>=Math.max(0.007,baseline*1.12))
+             || (lowJump>=Math.max(2,spaceLowBase*0.18) && maxDev>=7);
    const impact=clapPeak||movement;
    soundfill.style.width=Math.min(100,Math.max(maxDev*4,rms*1800,(lowEnergy-spaceLowBase)*2))+'%';
    soundfill.style.background=impact?'#59a66d':'#6f9bd4';
