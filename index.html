@@ -227,10 +227,15 @@ function measure(){
    }else if(!impact){message.textContent='🎵 Segui il ritmo...'}
    raf=requestAnimationFrame(measure);return;
  }
- const detected=isIPad ? (maxDev>=2 || rms>quietThreshold*.55) : (rms>quietThreshold||maxDev>=8);
+ const noiseFloor=Math.max(.004,baseline);
+ const peakThreshold=isIPad ? Math.max(4,noiseFloor*900) : 8;
+ const rmsThreshold=isIPad ? Math.max(.009,quietThreshold*.72) : quietThreshold;
+ const detected=isIPad ? (maxDev>=peakThreshold || rms>rmsThreshold) : (rms>quietThreshold||maxDev>=8);
  soundfill.style.width=Math.min(100,Math.max(maxDev*4,rms*1800))+'%';
- if(detected){soundfill.style.background='#d75a5a';message.textContent='🔊 RUMORE — NINJA FERMO!';if(currentMission===0&&ninjaRunning&&now-last>120){ninjaStops++;$('ninjaStops').textContent=ninjaStops}}
- else{
+ if(detected){
+   soundfill.style.background='#d75a5a';message.textContent='🔊 RUMORE — NINJA FERMO!';
+   if(currentMission===0&&ninjaRunning){ninjaStops++;$('ninjaStops').textContent=ninjaStops;last=now;}
+ }else{
    soundfill.style.background='#55a66b';message.textContent=missionData[currentMission].title;
    if(now-last>100){const step=10000/(ninjaDurationMs);progress=Math.min(100,progress+step);ninjaDistance+=step;last=now;render();if(currentMission===0&&progress>=100){finishNinja(false);return}}
    baseline=baseline*.9995+rms*.0005;quietThreshold=Math.max(.006,baseline*1.35);
