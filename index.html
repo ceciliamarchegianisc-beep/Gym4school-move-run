@@ -239,7 +239,7 @@ function measure(){
  }
  raf=requestAnimationFrame(measure);
 }
-$('stopTop').onclick=()=>{$('stop').click()};$('resetTop').onclick=()=>{$('reset').click()};$('reset').onclick=()=>{progress=0;elapsed=0;timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';render();message.textContent=missionData[currentMission].title;status.className='notice';status.textContent='Tocca «Avvia microfono» per iniziare.';soundfill.style.width='0%';if(active){gameStart=performance.now();tickTimer()}};
+$('stopTop').onclick=()=>{$('stop').click()};$('resetTop').onclick=()=>{$('reset').click()};$('reset').onclick=()=>{progress=0;elapsed=0;timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';render();message.textContent=missionData[currentMission].title;status.className='notice';status.textContent='Tocca «Avvia microfono» per iniziare.';soundfill.style.width='0%';$('start').style.display='block';$('start').style.visibility='visible';document.querySelector('.top').style.display='flex';window.scrollTo({top:0,behavior:'instant'});if(active){gameStart=performance.now();tickTimer()}};
 $('start').onclick=async()=>{
  if(active)return;
  try{
@@ -260,5 +260,5 @@ function updateSpaceTarget(){
 $('spaceDuration').addEventListener('change',updateSpaceTarget);
 $('spaceBps').addEventListener('change',updateSpaceTarget);
 updateSpaceTarget();
-<div class="space-challenges"><strong>🎯 Scegli la sfida:</strong><br>1 beat al secondo → palleggi con la palla a terra<br>2 beat al secondo → jumping jack<br>3 beat al secondo → battiti di mani<br>4 beat al secondo → corsa veloce sul posto</div></script>
+<div class="space-challenges" style="margin-top:8px"><strong>🎯 Scegli la sfida:</strong><br>1 beat al secondo → palleggi con la palla a terra<br>2 beat al secondo → jumping jack<br>3 beat al secondo → battiti di mani<br>4 beat al secondo → corsa veloce sul posto</div></script>
 </body></html>
