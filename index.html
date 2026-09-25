@@ -24,6 +24,21 @@
 @media (min-width:761px) and (max-width:1180px) and (orientation:portrait){
 .wrap{padding:10px 14px}.top{margin-bottom:7px;gap:9px}.logo{width:42px;height:42px;font-size:23px;border-radius:13px}h1{font-size:29px}.sub{font-size:12px}.topActions{min-width:200px}.topActions>#start{padding:9px 13px;font-size:14px}.topActions>#fullscreen{padding:8px 13px;font-size:13px}.topMissionControls{display:flex;gap:5px}.topMissionControls button{padding:7px 9px;font-size:12px}.topActions>#fullscreen{padding:7px 10px;font-size:12px}.activities{padding:1px 0 7px;gap:6px}.activity{min-width:140px;padding:8px}.activity .ico{font-size:24px}.card{padding:11px;border-radius:19px}.stage{min-height:360px}.grid{margin-top:9px;gap:9px}
 }
+/* iPad fullscreen: keep the game layout compact and keep AVVIA visible */
+@media (min-width:761px) and (max-width:1180px){
+  :fullscreen .wrap,.fullscreen .wrap{padding:8px 14px;max-width:1100px}
+  :fullscreen .top,.fullscreen .top{margin-bottom:6px;gap:8px}
+  :fullscreen .activities,.fullscreen .activities{padding-bottom:5px;gap:6px}
+  :fullscreen .activity,.fullscreen .activity{min-width:135px;padding:7px}
+  :fullscreen .activity .ico,.fullscreen .activity .ico{font-size:23px}
+  :fullscreen .card,.fullscreen .card{padding:10px}
+  :fullscreen .stage,.fullscreen .stage{min-height:300px}
+  :fullscreen .grid,.fullscreen .grid{margin-top:7px;gap:7px}
+  :fullscreen .topActions,.fullscreen .topActions{min-width:185px}
+  :fullscreen .topActions>#start,.fullscreen .topActions>#start{padding:8px 11px;font-size:13px}
+  :fullscreen .topActions>#fullscreen,.fullscreen .topActions>#fullscreen{padding:7px 10px;font-size:12px}
+}
+
 @media (min-width:761px) and (max-width:1180px) and (orientation:landscape){
 .wrap{padding:8px 14px}.top{margin-bottom:6px}.topMissionControls{display:flex;gap:5px}.topMissionControls button{padding:7px 9px;font-size:12px}.activities{padding-bottom:6px;gap:7px}.card{padding:11px}.stage{min-height:310px}
 }</style>
