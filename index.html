@@ -228,9 +228,9 @@ function measure(){
    raf=requestAnimationFrame(measure);return;
  }
  const noiseFloor=Math.max(.003,baseline);
- const peakThreshold=isIPad ? 3 : 8;
- const rmsThreshold=isIPad ? Math.max(.007,quietThreshold*.65) : quietThreshold;
- const detected=isIPad ? (maxDev>=peakThreshold || rms>rmsThreshold || (maxDev>=2 && rms>noiseFloor*.9)) : (rms>quietThreshold||maxDev>=8);
+ const impulse=isIPad && maxDev>=4 && rms>noiseFloor*1.15;
+ const voice=isIPad && rms>Math.max(.008,quietThreshold*.70);
+ const detected=isIPad ? (impulse || voice) : (rms>quietThreshold||maxDev>=8);
  soundfill.style.width=Math.min(100,Math.max(maxDev*4,rms*1800))+'%';
  if(detected){
    soundfill.style.background='#d75a5a';message.textContent='🔊 RUMORE — NINJA FERMO!';
@@ -248,7 +248,7 @@ $('start').onclick=async()=>{
  try{
   stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false,channelCount:1},video:false});
   audioContext=new(window.AudioContext||window.webkitAudioContext)();await audioContext.resume();source=audioContext.createMediaStreamSource(stream);
-  analyser=audioContext.createAnalyser();analyser.fftSize=1024;data=new Uint8Array(analyser.fftSize);freqData=new Uint8Array(analyser.frequencyBinCount);source.connect(analyser);
+  analyser=audioContext.createAnalyser();analyser.fftSize=512;analyser.smoothingTimeConstant=.05;data=new Uint8Array(analyser.fftSize);freqData=new Uint8Array(analyser.frequencyBinCount);source.connect(analyser);
   active=true;finishSoundPlayed=false;calibrating=true;calibSamples=[];calibLowSamples=[];calibStart=performance.now();gameStart=performance.now();elapsed=0;if(currentMission===0){ninjaDurationMs=Number($('ninjaDuration').value)*60000;ninjaStart=performance.now();ninjaDistance=0;ninjaStops=0;ninjaRunning=true;$('ninjaStops').textContent='0';}if(currentMission===1){spaceHits=0;spaceBeatIndex=0;spaceLastHit=0;$('spaceHits').textContent='0';$('spaceBeat').textContent='PREPARA...';}timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';tickTimer();status.className='notice';status.textContent='Resta in silenzio per 3 secondi: sto calibrando.';measure();
  }catch(e){status.className='notice warn';status.textContent='Non è stato possibile usare il microfono. Controlla il permesso del browser e riprova.'}
 };
