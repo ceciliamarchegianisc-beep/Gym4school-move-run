@@ -261,9 +261,9 @@ function measure(){
    spacePrevMax=spacePrevMax*0.88+maxDev*0.12;
    raf=requestAnimationFrame(measure);return;
  }
- const detected=rms>quietThreshold||maxDev>=8;
+ const ninjaNoiseFloor=Math.max(.003,baseline); const ninjaRmsThreshold=Math.max(.008,quietThreshold*1.12,ninjaNoiseFloor*1.65); const ninjaPeakThreshold=Math.max(10,ninjaNoiseFloor*2200); const detected=(rms>=ninjaRmsThreshold||maxDev>=ninjaPeakThreshold);
  soundfill.style.width=Math.min(100,Math.max(maxDev*4,rms*1800))+'%';
- if(detected){soundfill.style.background='#d75a5a';message.textContent='🔊 RUMORE — NINJA FERMO!';if(currentMission===0&&ninjaRunning&&now-last>120){ninjaStops++;$('ninjaStops').textContent=ninjaStops}}
+ if(detected){soundfill.style.background='#d75a5a';message.textContent='🔊 RUMORE — NINJA FERMO!';if(currentMission===0&&ninjaRunning&&now-last>120){ninjaStops++;$('ninjaStops').textContent=ninjaStops;last=now}}
  else{
    soundfill.style.background='#55a66b';message.textContent=missionData[currentMission].title;
    if(now-last>100){const step=10000/(ninjaDurationMs);progress=Math.min(100,progress+step);ninjaDistance+=step;last=now;render();if(currentMission===0&&progress>=100){finishNinja(false);return}}
