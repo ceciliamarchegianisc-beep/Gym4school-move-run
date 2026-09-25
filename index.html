@@ -21,42 +21,10 @@
 
 .timer{text-align:center;font-size:30px;font-weight:950;letter-spacing:1px;margin:8px 0;color:#172033}.result{display:none;text-align:center;padding:16px;border-radius:18px;background:#e9f8ef;color:#17633a;font-size:22px;font-weight:900;margin-top:10px}.result.show{display:block}.resultsBox{margin-top:12px;padding:14px;border-radius:18px;background:#f7f9fc;border:1px solid #dfe6ef}.resultsBox #resultsList{display:block;max-height:none;overflow:visible}.resultsBox h3{margin:0 0 8px}.resultRow{display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px solid #e5eaf0;font-weight:750}.resultRow:last-child{border-bottom:0}.resultTeam{flex:1}.deleteResult{width:38px;height:38px;padding:0;border-radius:11px;background:#eef1f5;color:#64748b;font-size:18px;display:grid;place-items:center}.deleteResult:hover{background:#ffe9e9;color:#c43f3f}.teamInput{width:100%;padding:11px 12px;border:1px solid #cfd8e3;border-radius:12px;font-size:16px;margin-top:8px}.saveResult{margin-top:8px;width:100%}.bigstatus{text-align:center;font-size:25px;font-weight:900;margin:12px 0 6px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.notice{padding:13px 15px;border-radius:15px;background:#f1f5f9;color:#475569;line-height:1.45}.ok{background:#e9f8ef;color:#17633a}.warn{background:#fff7df;color:#7a5b00}.controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.topMissionControls{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 10px}.topMissionControls button{padding:10px 14px;border-radius:12px;border:0;background:#172033;color:#fff;font-weight:800;cursor:pointer}.topMissionControls button:hover{opacity:.9}
 @media(max-width:760px){.grid{grid-template-columns:1fr}.stage{min-height:360px}.hud{flex-wrap:wrap}.top{align-items:flex-start}.rocket{font-size:50px}.planet{font-size:58px}.ninjaChar,.fox,.ship{font-size:50px}}
-
-@media(max-width:900px){
-.wrap{padding:10px}
-.top{gap:8px;margin-bottom:10px}
-.brand{gap:8px}.logo{width:46px;height:46px;font-size:25px}
-h1{font-size:clamp(25px,5vw,34px)}
-.topActions{width:100%;gap:5px}
-.topActions>#start,.topActions>#fullscreen{width:100%;padding:10px 14px}
-.topMissionControls{width:100%;display:flex;gap:6px;margin:0}
-.topMissionControls button{flex:1;padding:9px 10px}
-.activities{gap:7px;padding-bottom:9px}
-.activity{min-width:145px;padding:9px}
-.activity .ico{font-size:25px}
-.card{padding:12px;border-radius:18px}
-.stage{min-height:360px;border-radius:18px}
-.spaceControls,.ninjaControls{left:2%;top:2%;right:2%;font-size:13px;padding:8px 10px}
-.spaceControls select,.ninjaControls select{max-width:100%}
-.timer{font-size:27px;margin:6px 0}
-.bigstatus{font-size:21px;margin:8px 0 5px}
-.grid{gap:10px;margin-top:10px}
-}
-@media(max-width:900px) and (orientation:landscape){
-.stage{min-height:300px}
-.top{flex-direction:row;align-items:center}
-.topActions{width:250px}
-.topActions>#start,.topActions>#fullscreen{width:100%}
-}
-@media(max-width:600px){
-.stage{min-height:320px}
-.spaceControls{max-width:96%}
-.ninjaControls{max-width:96%}
-}
 </style>
 </head>
 <body><main class="wrap">
-<div class="top"><div class="brand"><div class="logo">🎮</div><div><h1>MOVE MISSION</h1><div class="sub">Giochi di movimento controllati dal silenzio.</div></div></div><div class="topActions"><button id="start">🎙️ Avvia microfono</button><button id="fullscreen" class="secondary" type="button">⛶ Schermo intero</button><div class="topMissionControls" id="topMissionControls"><button id="stopTop" type="button">⏹️ Ferma</button><button id="resetTop" type="button">🔄 Ricomincia</button></div></div></div>
+<div class="top"><div class="brand"><div class="logo">🎮</div><div><h1>MOVE MISSION</h1><div class="sub">Giochi di movimento controllati dal silenzio.</div></div></div><div class="topActions"><button id="start">🎙️ Avvia microfono</button><div class="topMissionControls" id="topMissionControls"><button id="stopTop" type="button">⏹️ Ferma</button><button id="resetTop" type="button">🔄 Ricomincia</button></div></div></div>
 
 <div class="activities">
 <button type="button" class="activity active" onclick="setMission(0)"><div class="ico">🥷</div><b>NINJA</b><small>Operazione Silenzio</small></button>
@@ -82,7 +50,7 @@ h1{font-size:clamp(25px,5vw,34px)}
 <div class="scene spaceScene hidden" id="scene1">
  <div class="planet">🪐</div><div class="orbit"></div><svg class="routeSvg" viewBox="0 0 1000 440" preserveAspectRatio="none"><path class="routeEdge" d="M110 390 C220 330 170 220 330 250 S510 350 590 235 S700 95 900 95"/></svg>
  <div class="stars ss1">✦</div><div class="stars ss2">✦</div><div class="stars ss3">✦</div><div class="stars ss4">✦</div>
- <div class="spaceControls"><b>🎵 GRAVITÀ ZERO</b><div style="margin-top:6px"><b>⏱️ Durata:</b> <select id="spaceDuration" style="padding:6px 8px;border-radius:9px;border:1px solid #cbd5e1;font-weight:800"><option value="1">1 min</option><option value="2" selected>2 min</option><option value="3">3 min</option><option value="4">4 min</option><option value="5">5 min</option></select></div><div style="margin-top:6px"><b>🥁 Beat:</b> <select id="spaceBps" style="padding:6px 8px;border-radius:9px;border:1px solid #cbd5e1;font-weight:800"><option value="1" selected>1 / secondo</option><option value="2">2 / secondo</option><option value="3">3 / secondo</option><option value="4">4 / secondo</option></select></div><div class="spaceBeat" id="spaceBeat">PREPARA...</div><div class="spaceHits">🥁 Colpi a tempo: <b id="spaceHits">0</b>/<b id="spaceTarget">120</b></div><div style="margin-top:7px;font-size:12px;line-height:1.35"><strong>🎯 Scegli la sfida:</strong><br>1 beat/sec → palleggi con palla a terra<br>2 beat/sec → jumping jack<br>3 beat/sec → battiti di mani<br>4 beat/sec → corsa veloce sul posto</div></div>
+ <div class="spaceControls"><b>🎵 GRAVITÀ ZERO</b><div style="margin-top:6px"><b>⏱️ Durata:</b> <select id="spaceDuration" style="padding:6px 8px;border-radius:9px;border:1px solid #cbd5e1;font-weight:800"><option value="1">1 min</option><option value="2" selected>2 min</option><option value="3">3 min</option><option value="4">4 min</option><option value="5">5 min</option></select></div><div style="margin-top:6px"><b>🥁 Beat:</b> <select id="spaceBps" style="padding:6px 8px;border-radius:9px;border:1px solid #cbd5e1;font-weight:800"><option value="1" selected>1 / secondo</option><option value="2">2 / secondo</option><option value="3">3 / secondo</option><option value="4">4 / secondo</option></select></div><div class="spaceBeat" id="spaceBeat">PREPARA...</div><div class="spaceHits">🥁 Colpi a tempo: <b id="spaceHits">0</b>/<b id="spaceTarget">120</b></div></div>
  <div class="rocket" id="rocket">🚀</div>
 </div>
 
@@ -107,7 +75,6 @@ h1{font-size:clamp(25px,5vw,34px)}
 <section class="grid">
 <div class="card"><h2 style="margin-top:0">Come si gioca</h2>
 <div class="notice" id="instructions">🥷 Il gruppo è una squadra di ninja. Superate il percorso con passi controllati e silenziosi: equilibrio, slalom, cerchi e ostacoli. Quando arriva un rumore, il ninja si blocca!</div>
-<div class="notice" style="margin-top:10px;background:#fff7df;color:#6b5200;border:1px solid #f1d78a"><span style="font-size:30px;vertical-align:middle;margin-right:8px">🧙‍♂️</span><b>Attenzione allo Gnomo del Silenzio!</b><br>Ogni tanto si diverte a fare qualche piccolo scherzetto e può far fermare il Ninja anche quando non sembra esserci rumore. 🤫<br>Fa parte della missione: riuscirai a non farti ingannare?</div>
 <div class="controls"><button id="stop" class="secondary">Ferma</button><button id="reset" class="secondary">Ricomincia</button></div>
 <p id="status" class="notice" style="margin-top:12px">Tocca «Avvia microfono» e consenti l'accesso al microfono.</p>
 </div>
@@ -120,7 +87,6 @@ h1{font-size:clamp(25px,5vw,34px)}
 
 <script>
 const $=id=>document.getElementById(id);
-function toggleFullscreen(){const el=document.documentElement;if(!document.fullscreenElement){(el.requestFullscreen||el.webkitRequestFullscreen||el.msRequestFullscreen)?.call(el)}else{(document.exitFullscreen||document.webkitExitFullscreen||document.msExitFullscreen)?.call(document)}}
 const ninja=$('ninja'),rocket=$('rocket'),fox=$('fox'),ship=$('ship'),fill=$('fill'),pct=$('pct'),soundfill=$('soundfill'),message=$('message'),status=$('status'),objective=$('objective'),instructions=$('instructions'),timer=$('timer'),result=$('result');
 let audioContext=null,analyser=null,data=null,freqData=null,source=null,stream=null,active=false,progress=0,raf=null,last=0,gameStart=0,elapsed=0,timerId=null;
 let baseline=0,calibrating=false,calibSamples=[],calibLowSamples=[],calibStart=0,quietThreshold=0,currentMission=0;let spaceInterval=600,spaceNextBeat=0,spaceLastBeat=0,spaceHits=0,spaceTarget=24,spaceLowBase=8,spaceLastHit=0,spaceBeatIndex=0;let pendingTime=null,pendingScore=null;let finishSoundPlayed=false;let ninjaDurationMs=120000,ninjaStart=0,ninjaDistance=0,ninjaStops=0,ninjaRunning=false;
@@ -261,9 +227,9 @@ function measure(){
    spacePrevMax=spacePrevMax*0.88+maxDev*0.12;
    raf=requestAnimationFrame(measure);return;
  }
- const ninjaNoiseFloor=Math.max(.003,baseline); const ninjaRmsThreshold=Math.max(.008,quietThreshold*1.12,ninjaNoiseFloor*1.65); const ninjaPeakThreshold=Math.max(10,ninjaNoiseFloor*2200); const detected=(rms>=ninjaRmsThreshold||maxDev>=ninjaPeakThreshold);
+ const detected=rms>quietThreshold||maxDev>=8;
  soundfill.style.width=Math.min(100,Math.max(maxDev*4,rms*1800))+'%';
- if(detected){soundfill.style.background='#d75a5a';message.textContent='🔊 RUMORE — NINJA FERMO!';if(currentMission===0&&ninjaRunning&&now-last>120){ninjaStops++;$('ninjaStops').textContent=ninjaStops;last=now}}
+ if(detected){soundfill.style.background='#d75a5a';message.textContent='🔊 RUMORE — NINJA FERMO!';if(currentMission===0&&ninjaRunning&&now-last>120){ninjaStops++;$('ninjaStops').textContent=ninjaStops}}
  else{
    soundfill.style.background='#55a66b';message.textContent=missionData[currentMission].title;
    if(now-last>100){const step=10000/(ninjaDurationMs);progress=Math.min(100,progress+step);ninjaDistance+=step;last=now;render();if(currentMission===0&&progress>=100){finishNinja(false);return}}
@@ -271,7 +237,7 @@ function measure(){
  }
  raf=requestAnimationFrame(measure);
 }
-$('fullscreen').onclick=toggleFullscreen;$('stopTop').onclick=()=>{$('stop').click()};$('resetTop').onclick=()=>{$('reset').click()};$('reset').onclick=()=>{progress=0;elapsed=0;timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';render();message.textContent=missionData[currentMission].title;status.className='notice';status.textContent='Tocca «Avvia microfono» per iniziare.';soundfill.style.width='0%';$('start').style.display='block';$('start').style.visibility='visible';document.querySelector('.top').style.display='flex';window.scrollTo({top:0,behavior:'instant'});if(active){gameStart=performance.now();tickTimer()}};
+$('stopTop').onclick=()=>{$('stop').click()};$('resetTop').onclick=()=>{$('reset').click()};$('reset').onclick=()=>{progress=0;elapsed=0;timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';render();message.textContent=missionData[currentMission].title;status.className='notice';status.textContent='Tocca «Avvia microfono» per iniziare.';soundfill.style.width='0%';if(active){gameStart=performance.now();tickTimer()}};
 $('start').onclick=async()=>{
  if(active)return;
  try{
@@ -281,7 +247,7 @@ $('start').onclick=async()=>{
   active=true;finishSoundPlayed=false;calibrating=true;calibSamples=[];calibLowSamples=[];calibStart=performance.now();gameStart=performance.now();elapsed=0;if(currentMission===0){ninjaDurationMs=Number($('ninjaDuration').value)*60000;ninjaStart=performance.now();ninjaDistance=0;ninjaStops=0;ninjaRunning=true;$('ninjaStops').textContent='0';}if(currentMission===1){spaceHits=0;spaceBeatIndex=0;spaceLastHit=0;spaceTarget=Number($('spaceDuration').value)*60*Number($('spaceBps').value);$('spaceHits').textContent='0';$('spaceTarget').textContent=String(spaceTarget);$('spaceBeat').textContent='PREPARA...';}timer.textContent='⏱️ 00:00.0';result.className='result';result.textContent='';tickTimer();status.className='notice';status.textContent='⏳ Mi adatto all’ambiente per 5 secondi...';measure();
  }catch(e){status.className='notice warn';status.textContent='Non è stato possibile usare il microfono. Controlla il permesso del browser e riprova.'}
 };
-$('stop').onclick=()=>{active=false;if(raf)cancelAnimationFrame(raf);if(timerId)cancelAnimationFrame(timerId);if(source)source.disconnect();if(audioContext)audioContext.close();if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;source=null;audioContext=null;analyser=null;freqData=null;status.className='notice';status.textContent='Fermato. Puoi riavviare il microfono.';$('start').style.display='block';$('start').style.visibility='visible';$('fullscreen').style.display='block';window.scrollTo({top:0,behavior:'instant'})};
+$('stop').onclick=()=>{active=false;if(raf)cancelAnimationFrame(raf);if(timerId)cancelAnimationFrame(timerId);if(source)source.disconnect();if(audioContext)audioContext.close();if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;source=null;audioContext=null;analyser=null;freqData=null;status.className='notice';status.textContent='Fermato. Puoi riavviare il microfono.'};
 render();loadResults();
 function updateSpaceTarget(){
   const d=Number($('spaceDuration').value)||1;
@@ -292,5 +258,5 @@ function updateSpaceTarget(){
 $('spaceDuration').addEventListener('change',updateSpaceTarget);
 $('spaceBps').addEventListener('change',updateSpaceTarget);
 updateSpaceTarget();
-</script>
+<div class="space-challenges"><strong>🎯 Scegli la sfida:</strong><br>1 beat al secondo → palleggi con la palla a terra<br>2 beat al secondo → jumping jack<br>3 beat al secondo → battiti di mani<br>4 beat al secondo → corsa veloce sul posto</div></script>
 </body></html>
