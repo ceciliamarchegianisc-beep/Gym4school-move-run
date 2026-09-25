@@ -182,7 +182,7 @@ function measure(){
        spaceLastBeat=spaceNextBeat-spaceInterval;
        spaceHits=0;spaceBeatIndex=0;spaceLastHit=0;
        $('spaceHits').textContent='0';spaceTarget=Number($('spaceDuration').value)*60*Number($('spaceBps').value);$('spaceTarget').textContent=String(spaceTarget);$('spaceBeat').textContent='🎵 PRONTI...';
-       status.className='notice ok';status.textContent='Calibrato. Segui il beat: battito delle mani, palleggio o altro movimento ritmico. Il razzo avanza sui colpi riconosciuti a tempo.';
+       status.className='notice ok';status.textContent='Calibrato. Palleggia senza fermarti! Il razzo avanza ad ogni palleggio rilevato. Completa la missione nel minor tempo possibile.';
      }else{
        status.className='notice ok';status.textContent='Pronto! Ora il gioco reagisce ai rumori.';
      }
@@ -216,12 +216,12 @@ function measure(){
    if(impact&&now-spaceLastHit>Math.max(120,spaceInterval*0.38)){
      const distance=Math.min(Math.abs(now-spaceLastBeat),Math.abs(now-spaceNextBeat));
      if(distance<=beatWindow){
-       spaceHits++;spaceLastHit=now;progress=Math.min(100,spaceHits/spaceTarget*100);$('spaceHits').textContent=String(spaceHits);message.textContent='🎯 A TEMPO!';render();
+       spaceHits++;spaceLastHit=now;progress=Math.min(100,spaceHits/spaceTarget*100);$('spaceHits').textContent=String(spaceHits);message.textContent='🚀 PALLEGGIO RILEVATO!';render();
        if(spaceHits>=spaceTarget){finishSpace();return}
      }else{
-       message.textContent='⚠️ FUORI TEMPO';
+       message.textContent='';
      }
-   }else if(!impact){message.textContent='🎵 Segui il ritmo...'}
+   }else if(!impact){message.textContent='🏀 PALLEGGIA!'}
    spacePrevRms=spacePrevRms*0.88+rms*0.12;
    spacePrevLow=spacePrevLow*0.88+lowEnergy*0.12;
    spacePrevMax=spacePrevMax*0.88+maxDev*0.12;
