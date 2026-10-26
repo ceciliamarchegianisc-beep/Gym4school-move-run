@@ -133,6 +133,26 @@ img{max-width:100%}
  .gridnums .ball{font-size:clamp(.62rem,1.5vw,.85rem);border-width:1px}
 }
 
+
+/* Schermata Cartelle: griglia e selettori sempre dentro lo schermo */
+#cards{width:100%;max-width:100%;min-width:0;box-sizing:border-box}
+#cards .panel,#cardsGrid,.cards{min-width:0;max-width:100%;box-sizing:border-box}
+#activeCardsGrid{grid-template-columns:repeat(auto-fit,minmax(min(100%,44px),1fr))!important;gap:clamp(4px,1vw,8px)!important}
+#activeCardsGrid .ball{min-width:0;width:100%;aspect-ratio:1;padding:0;font-size:clamp(.72rem,2vw,1rem)}
+#cardsGrid{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:clamp(6px,1vw,12px)}
+#cardsGrid .bcard{min-width:0;width:100%;box-sizing:border-box}
+#cards .actions{flex-wrap:wrap}
+#cards select{max-width:100%;min-width:0}
+@media (max-width:760px){
+ #activeCardsGrid{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+ #cardsGrid{grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:7px}
+ #cards .panel{padding:clamp(8px,2.5vw,12px)}
+}
+@media (orientation:landscape) and (min-width:600px){
+ #activeCardsGrid{grid-template-columns:repeat(10,minmax(0,1fr))!important}
+ #cardsGrid{grid-template-columns:repeat(auto-fit,minmax(min(100%,205px),1fr))}
+}
+
 </style></head><body>
 <header><h1>BINGO MOTORIO</h1><p>Tabellone elettronico · Gym4School</p></header>
 <div id="winAlert" class="hidden"></div>\n<nav class="nav"><button class="active" data-view="draw">🎲 Estrazione</button><button data-view="cards">🗂️ Cartelle</button><button data-view="board">🔢 Tabellone</button><button data-view="wins">🏆 Vittorie</button></nav>
