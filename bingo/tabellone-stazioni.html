@@ -8,16 +8,16 @@ button{font-size:16px;font-weight:bold;padding:10px 18px;border:0;border-radius:
 main{background:white;max-width:1100px;margin:18px auto;padding:12px}
 h1{text-align:center;font-size:22px;margin:0 0 4px;letter-spacing:.04em}
 .subtitle{text-align:center;font-size:11px;margin:0 0 10px;color:#45677f}
-#board{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px}
-.station{position:relative;border:1px solid #9ebbd0;border-radius:5px;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:3px;background:#fff;overflow:hidden}
+#board{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:5px}
+.station{border:1px solid #9ebbd0;border-radius:5px;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:3px;background:#fff;overflow:hidden}
 .station img{display:block;width:100%;height:100%;min-height:0;object-fit:contain}
 .number{font-weight:900;font-size:16px;line-height:1.1;border-radius:50%;background:#e8f5ff;border:1px solid #9fc8e5;width:25px;height:25px;display:grid;place-items:center;flex-shrink:0;margin-bottom:2px}
-@page{size:A4 landscape;margin:7mm}
-@media print{body{background:white}.toolbar{display:none}main{max-width:none;margin:0;padding:0;width:100%;height:100%}h1{font-size:17pt;margin-bottom:2mm}.subtitle{font-size:8pt;margin-bottom:2mm}#board{height:calc(100vh - 24mm);grid-template-rows:repeat(6,minmax(0,1fr));gap:2mm}.station{border-radius:2mm;padding:1mm}.number{font-size:11pt;width:7mm;height:7mm;margin-bottom:0}.station img{flex:1}}
+@page{size:A4 landscape;margin:6mm}
+@media print{body{background:white}.toolbar{display:none}main{max-width:none;margin:0;padding:0;width:100%;height:100%}h1{font-size:16pt;margin-bottom:1mm}.subtitle{font-size:8pt;margin-bottom:2mm}#board{height:calc(100vh - 22mm);grid-template-rows:repeat(5,minmax(0,1fr));gap:1.5mm}.station{border-radius:1mm;padding:1mm}.number{font-size:10pt;width:6mm;height:6mm;margin-bottom:0}.station img{flex:1}}
 </style></head><body>
-<div class="toolbar"><strong>Tabellone cartaceo · 36 stazioni</strong><button onclick="window.print()">🖨️ Stampa / Salva PDF</button></div>
+<div class="toolbar"><strong>Tabellone cartaceo · 40 stazioni</strong><button onclick="window.print()">🖨️ Stampa / Salva PDF</button></div>
 <main><h1>TABELLONE DELLE STAZIONI · BINGO MOTORIO</h1><p class="subtitle">Gym4School · Cerca il numero estratto e riconosci la stazione illustrata</p><section id="board"></section></main>
 <script>
 const board=document.getElementById('board');
-board.innerHTML=Array.from({length:36},(_,i)=>{const n=i+1;return '<div class="station"><div class="number">'+n+'</div><img src="missione-'+String(n).padStart(2,'0')+'.jpg" alt="Stazione '+n+'" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src=this.src.replace(/missione-\\d+\\.jpg$/,"missione-"+String('+n+').padStart(2,"0")+".svg")}"></div>'}).join('');
+board.innerHTML=Array.from({length:40},(_,i)=>{const n=i+1;return '<div class="station"><div class="number">'+n+'</div><img src="missione-'+String(n).padStart(2,'0')+'.jpg" alt="Stazione '+n+'" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src=this.src.replace(/\\.jpg$/,".svg")}"></div>'}).join('');
 </script></body></html>
