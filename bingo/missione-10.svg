@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300" role="img" aria-labelledby="title desc">
+<title id="title">La carriola: due ragazze</title><desc id="desc">Due alunne in tenuta sportiva fanno l'esercizio della carriola in palestra: una cammina sulle mani e l'altra le sostiene le caviglie.</desc>
+<rect width="500" height="300" rx="24" fill="#f3f9fe"/>
+<path d="M24 245H476" stroke="#c7e1f3" stroke-width="4" stroke-linecap="round"/>
+<path d="M35 55V238M465 55V238" stroke="#dcecf7" stroke-width="3"/>
+<!-- Ragazza davanti, in posizione di carriola -->
+<g stroke="#173f67" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+  <!-- braccia e mani a terra -->
+  <path d="M145 191 L122 222 L103 240" fill="none"/>
+  <path d="M170 194 L155 226 L142 240" fill="none"/>
+  <path d="M94 241l15 0M133 241l16 0" fill="none" stroke-width="6"/>
+  <!-- busto e maglia -->
+  <path d="M157 133 Q181 126 204 140 L228 180 Q202 197 171 188 L148 159Z" fill="#f28ab2"/>
+  <!-- pantaloncini -->
+  <path d="M202 171 L235 178 L230 197 L204 195 L190 187Z" fill="#6a9de0"/>
+  <!-- gambe sollevate, sostenute dalla compagna -->
+  <path d="M220 182 L258 151 L294 143" fill="none" stroke="#e8b08b" stroke-width="17"/>
+  <path d="M218 183 L255 162 L292 155" fill="none" stroke="#e8b08b" stroke-width="15"/>
+  <!-- calze e scarpe -->
+  <path d="M285 139l19 2M284 151l19 1" fill="none" stroke="#fff" stroke-width="12"/>
+  <path d="M297 135l14 2M296 148l14 2" fill="none" stroke="#2879ad" stroke-width="10"/>
+  <!-- collo e testa -->
+  <path d="M156 137 L151 121" fill="none" stroke="#e8b08b" stroke-width="12"/>
+  <circle cx="145" cy="106" r="25" fill="#e8b08b"/>
+  <!-- capelli lunghi e coda -->
+  <path d="M121 108 Q113 74 144 73 Q170 74 171 100 L163 119 Q161 94 143 92 Q131 94 121 108Z" fill="#5a382c"/>
+  <path d="M166 86 Q190 80 181 105 Q177 115 166 111" fill="#5a382c"/>
+  <!-- viso -->
+  <path d="M137 107h2M153 107h2" fill="none" stroke-width="4"/>
+  <path d="M140 117q7 6 13 0" fill="none" stroke-width="3"/>
+</g>
+<!-- Ragazza che sostiene le caviglie -->
+<g stroke="#173f67" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+  <!-- gambe -->
+  <path d="M361 174 L353 215 L350 239" fill="none" stroke="#e8b08b" stroke-width="17"/>
+  <path d="M390 174 L402 213 L407 239" fill="none" stroke="#e8b08b" stroke-width="17"/>
+  <path d="M338 242h22M397 242h22" fill="none" stroke="#2879ad" stroke-width="12"/>
+  <!-- corpo -->
+  <path d="M348 119 Q374 109 397 124 L403 175 Q378 191 348 175Z" fill="#75c9ad"/>
+  <!-- braccia che tengono le caviglie -->
+  <path d="M352 132 L326 151 L302 145" fill="none" stroke="#e8b08b" stroke-width="14"/>
+  <path d="M393 132 L365 150 L304 154" fill="none" stroke="#e8b08b" stroke-width="14"/>
+  <!-- collo e testa -->
+  <path d="M372 120v-12" fill="none" stroke="#e8b08b" stroke-width="12"/>
+  <circle cx="373" cy="87" r="25" fill="#e8b08b"/>
+  <!-- capelli e coda -->
+  <path d="M349 88 Q344 55 372 54 Q402 55 399 86 L391 103 Q390 76 372 75 Q357 77 349 88Z" fill="#4a3028"/>
+  <path d="M396 65 Q423 65 411 91 Q406 100 397 94" fill="#4a3028"/>
+  <!-- viso -->
+  <path d="M365 88h2M380 88h2" fill="none" stroke-width="4"/>
+  <path d="M367 98q7 5 13 0" fill="none" stroke-width="3"/>
+</g>
+<g font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#52718a">
+<text x="250" y="277" text-anchor="middle">LA CARRIOLA · IN COPPIA</text>
+</g>
+</svg>
