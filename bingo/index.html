@@ -188,6 +188,26 @@ img{max-width:100%}
   font-size:clamp(.62rem,1.1vw,.82rem);
   line-height:15px;
 }
+
+/* Cartelle digitali più grandi e leggibili: massimo due cartelle per riga */
+#cardsGrid{
+  width:100%;
+  max-width:1040px;
+  margin-inline:auto;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr))!important;
+  gap:18px!important;
+}
+#cardsGrid .bcard{padding:16px}
+#cardsGrid .bcard h3{font-size:1.15rem;margin-bottom:10px}
+#cardsGrid .bgrid{gap:6px}
+#cardsGrid .cell{aspect-ratio:1;min-height:0;border-radius:10px}
+#cardsGrid .cell img{height:calc(100% - 24px);padding:1px}
+#cardsGrid .cellnum{flex-basis:21px;line-height:19px;font-size:clamp(.8rem,1.2vw,1rem)}
+@media(max-width:600px){
+  #cardsGrid{grid-template-columns:minmax(0,1fr)!important;gap:12px!important}
+  #cardsGrid .bcard{padding:10px}
+  #cardsGrid .bgrid{gap:4px}
+}
 </style></head><body>
 <header><h1>BINGO MOTORIO</h1><p>Tabellone elettronico · Gym4School</p></header>
 <div id="winAlert" class="hidden"></div>\n<nav class="nav"><button class="active" data-view="draw">🎲 Estrazione</button><button data-view="cards">🗂️ Cartelle</button><button data-view="board">🔢 Tabellone</button><button data-view="wins">🏆 Vittorie</button></nav>
